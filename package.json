@@ -1,0 +1,21 @@
+{
+  "name": "wod-victims",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.26.2",
+  "scripts": {
+    "check": "tsc --noEmit",
+    "validate:workspace": "tsx scripts/validate-workspace.ts",
+    "ops:summary": "tsx scripts/ops-summary.ts"
+  },
+  "dependencies": {
+    "csv-parse": "^6.2.1",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.1",
+    "tsx": "^4.22.4",
+    "typescript": "^6.0.3"
+  }
+}

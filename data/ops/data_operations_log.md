@@ -7,3 +7,4 @@ Use this log for human-readable notes about setup, scraper runs, rechecks, schem
 - Created starter data workspace and operational tracker files.
 - No source data has been scraped.
 - No source records have been added to the registry yet.
+- Added pnpm TypeScript script environment with Zod schemas, workspace validation, and operations summary commands.
