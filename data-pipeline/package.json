@@ -7,9 +7,11 @@
     "check": "tsc --noEmit",
     "validate:workspace": "tsx scripts/validate-workspace.ts",
     "ops:summary": "tsx scripts/ops-summary.ts",
-    "discover:paalam": "tsx scripts/discover-paalam.ts"
+    "discover:paalam": "tsx scripts/discover-paalam.ts",
+    "scrape:paalam:sample": "tsx scripts/scrape-paalam-sample.ts"
   },
   "dependencies": {
+    "cheerio": "^1.2.0",
     "csv-parse": "^6.2.1",
     "zod": "^4.4.3"
   },

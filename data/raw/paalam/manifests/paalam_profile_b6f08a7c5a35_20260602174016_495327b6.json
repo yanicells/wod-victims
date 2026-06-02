@@ -1,0 +1,15 @@
+{
+  "snapshot_id": "paalam_profile_b6f08a7c5a35_20260602174016_495327b6",
+  "target_id": "paalam_profile_b6f08a7c5a35",
+  "source_key": "paalam",
+  "url": "https://paalam.org/homepage/victims/larry-salaman/",
+  "fetched_at": "2026-06-02T17:40:16.429Z",
+  "http_status": 200,
+  "content_hash": "495327b67c19a741c9b728dc33c94443bf2c3e532891aa64cfd5628e56cbcd34",
+  "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_b6f08a7c5a35_20260602174016_495327b6.html",
+  "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_b6f08a7c5a35_20260602174016_495327b6.txt",
+  "outgoing_source_links": [
+    "https://iorbitnews.com/drug-peddler-dies-in-zambales-shootout/",
+    "https://newsinfo.inquirer.net/1439828/drug-suspect-slain-in-shootout-with-zambales-cops-lzb-2"
+  ]
+}

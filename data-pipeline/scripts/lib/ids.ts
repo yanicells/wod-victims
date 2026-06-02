@@ -10,3 +10,8 @@ export function makeRunId(sourceKey: string, mode: string, startedAt: string): s
   const compactTime = startedAt.replaceAll(/[-:.TZ]/g, "").slice(0, 14);
   return `${sourceKey}_${mode}_${compactTime}`;
 }
+
+export function makeSnapshotId(targetId: string, fetchedAt: string, contentHash: string): string {
+  const compactTime = fetchedAt.replaceAll(/[-:.TZ]/g, "").slice(0, 14);
+  return `${targetId}_${compactTime}_${contentHash.slice(0, 8)}`;
+}

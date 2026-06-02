@@ -1,0 +1,15 @@
+{
+  "snapshot_id": "paalam_profile_664bee2a40f0_20260602173943_1b0f9975",
+  "target_id": "paalam_profile_664bee2a40f0",
+  "source_key": "paalam",
+  "url": "https://paalam.org/homepage/victims/jody-magallanes/",
+  "fetched_at": "2026-06-02T17:39:43.362Z",
+  "http_status": 200,
+  "content_hash": "1b0f9975d16daa5f91efa9b24d4566a96b4329a659cc8aefba9c6df05ba347d0",
+  "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_664bee2a40f0_20260602173943_1b0f9975.html",
+  "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_664bee2a40f0_20260602173943_1b0f9975.txt",
+  "outgoing_source_links": [
+    "https://newsinfo.inquirer.net/1433959/bfp-man-killed-in-shootout-with-southern-leyte-town-cops-during-drug-bust",
+    "https://www.sunstar.com.ph/article/1895180/Tacloban/Local-News/BFP-officer-killed-in-shootout-with-Southern-Leyte-anti-drug-operatives"
+  ]
+}

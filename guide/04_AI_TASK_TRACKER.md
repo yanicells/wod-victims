@@ -105,16 +105,16 @@ Responsibilities:
 |---|---|---|---|---|
 | P1-001 | Inspect Paalam page structure | Script Agent | Done | See `guide/06_PAALAM_SITE_INSPECTION.md`; no broad scrape run |
 | P1-002 | Seed Paalam targets | Script Agent | Done | Discovery run `paalam_discover_20260602172527` added 3,349 queued profile targets |
-| P1-003 | Build safe scraper | Script Agent | Todo | Slow rate, logs, restartable |
-| P1-004 | Save raw HTML snapshots | Script Agent | Todo | Append-only, do not overwrite old captures |
-| P1-005 | Save raw text snapshots | Script Agent | Todo | Cleaner AI input |
-| P1-006 | Save outgoing source links | Script Agent | Todo | Useful for evidence and linked-news queue |
-| P1-007 | Compute content hashes | Script Agent | Todo | Skip extraction for unchanged pages later |
-| P1-008 | Update target status after each run | Script Agent | Todo | discovered/queued/scraped/unchanged/changed/failed |
-| P1-009 | Track failed URLs and retries | Script Agent | Todo | Use `failure_count` and `next_retry_at` |
-| P1-010 | Run scraper on 20 records | Script Agent | Todo | Test batch only |
-| P1-011 | Review scrape quality | Yani + AI | Todo | Check if text is usable |
-| P1-012 | Generate first scrape status report | Operations Agent | Todo | Counts by status, changed, failed, skipped |
+| P1-003 | Build safe scraper | Script Agent | Done | Added commented Paalam sample scraper with dry-run, slow rate, logs, and tracker updates |
+| P1-004 | Save raw HTML snapshots | Script Agent | Done | Sample run saved append-only HTML snapshots |
+| P1-005 | Save raw text snapshots | Script Agent | Done | Sample run saved readable text snapshots |
+| P1-006 | Save outgoing source links | Script Agent | Done | Sample manifests include outgoing source links; one malformed source link found |
+| P1-007 | Compute content hashes | Script Agent | Done | Sample run stores raw HTML SHA-256 hashes |
+| P1-008 | Update target status after each run | Script Agent | Done | 20 targets changed from queued to scraped |
+| P1-009 | Track failed URLs and retries | Script Agent | Done | Failure path exists; sample run had 0 failures |
+| P1-010 | Run scraper on 20 records | Script Agent | Done | Run `paalam_sample_20260602173855` fetched 20 profile pages |
+| P1-011 | Review scrape quality | Yani + AI | Needs Review | Text is readable; Arthur Abdul source link is malformed/non-external and should be noted |
+| P1-012 | Generate first scrape status report | Operations Agent | Done | See `data/raw/paalam/manifests/paalam_sample_20260602173855.json` |
 
 ### Phase 1.5: Incremental operations
 

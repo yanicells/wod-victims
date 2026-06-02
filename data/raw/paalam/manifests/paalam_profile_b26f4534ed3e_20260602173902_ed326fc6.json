@@ -1,0 +1,14 @@
+{
+  "snapshot_id": "paalam_profile_b26f4534ed3e_20260602173902_ed326fc6",
+  "target_id": "paalam_profile_b26f4534ed3e",
+  "source_key": "paalam",
+  "url": "https://paalam.org/homepage/victims/romnick-garces/",
+  "fetched_at": "2026-06-02T17:39:02.533Z",
+  "http_status": 200,
+  "content_hash": "ed326fc6d5945f3abe13980a29d7de0e7eeb8fca9f5a6b28f3a44d439fd9a776",
+  "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_b26f4534ed3e_20260602173902_ed326fc6.html",
+  "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_b26f4534ed3e_20260602173902_ed326fc6.txt",
+  "outgoing_source_links": [
+    "https://newsinfo.inquirer.net/1433979/1-killed-2-held-in-drug-buy-bust-operations-in-nueva-ecija"
+  ]
+}

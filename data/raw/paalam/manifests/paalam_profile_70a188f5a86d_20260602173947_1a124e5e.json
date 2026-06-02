@@ -1,0 +1,14 @@
+{
+  "snapshot_id": "paalam_profile_70a188f5a86d_20260602173947_1a124e5e",
+  "target_id": "paalam_profile_70a188f5a86d",
+  "source_key": "paalam",
+  "url": "https://paalam.org/homepage/victims/jay-ar-quintana/",
+  "fetched_at": "2026-06-02T17:39:47.574Z",
+  "http_status": 200,
+  "content_hash": "1a124e5eee9e8886cca7a35694f84f45ebeead22e780feffef9371f5c6695775",
+  "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_70a188f5a86d_20260602173947_1a124e5e.html",
+  "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_70a188f5a86d_20260602173947_1a124e5e.txt",
+  "outgoing_source_links": [
+    "https://newsinfo.inquirer.net/1432142/1-suspect-shot-dead-1-arrested-in-sorsogon-drug-sting"
+  ]
+}

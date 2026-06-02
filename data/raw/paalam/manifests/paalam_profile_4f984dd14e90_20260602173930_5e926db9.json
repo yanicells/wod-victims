@@ -1,0 +1,15 @@
+{
+  "snapshot_id": "paalam_profile_4f984dd14e90_20260602173930_5e926db9",
+  "target_id": "paalam_profile_4f984dd14e90",
+  "source_key": "paalam",
+  "url": "https://paalam.org/homepage/victims/jesus-pelmoka/",
+  "fetched_at": "2026-06-02T17:39:30.023Z",
+  "http_status": 200,
+  "content_hash": "5e926db9607ebd80c970845b404fa04409252335531418407cc87a73a3b5bb14",
+  "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_4f984dd14e90_20260602173930_5e926db9.html",
+  "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_4f984dd14e90_20260602173930_5e926db9.txt",
+  "outgoing_source_links": [
+    "https://mb.com.ph/2021/05/04/four-suspected-drug-peddlers-killed-in-buy-bust-ops-in-nueva-ecija/",
+    "https://news.abs-cbn.com/news/05/05/21/4-umanoy-tulak-patay-sa-magkahiwalay-na-buy-bust-sa-nueva-ecija"
+  ]
+}

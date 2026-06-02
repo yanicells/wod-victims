@@ -7,6 +7,7 @@
     "check": "pnpm --filter @wod-victims/data-pipeline check",
     "validate:workspace": "pnpm --filter @wod-victims/data-pipeline validate:workspace",
     "ops:summary": "pnpm --filter @wod-victims/data-pipeline ops:summary",
-    "discover:paalam": "pnpm --filter @wod-victims/data-pipeline discover:paalam"
+    "discover:paalam": "pnpm --filter @wod-victims/data-pipeline discover:paalam",
+    "scrape:paalam:sample": "pnpm --filter @wod-victims/data-pipeline scrape:paalam:sample"
   }
 }

@@ -429,6 +429,10 @@ Read these in this order if you want to learn the project and the scraping/data 
 
    This defines the expected folder structure and CSV headers.
 
+14. `guide/07_SCRAPING_STUDY_GUIDE.md`
+
+   Read this before studying the sample scraper. It explains targets, runs, snapshots, hashes, manifests, and why scraping is separated from extraction.
+
 ### D. When scraping starts
 
 When we build the scraper, study files in this order:

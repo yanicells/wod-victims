@@ -1,0 +1,14 @@
+{
+  "snapshot_id": "paalam_profile_1c59caf77bc8_20260602174003_35128b34",
+  "target_id": "paalam_profile_1c59caf77bc8",
+  "source_key": "paalam",
+  "url": "https://paalam.org/homepage/victims/michael-divinagracia/",
+  "fetched_at": "2026-06-02T17:40:03.258Z",
+  "http_status": 200,
+  "content_hash": "35128b3430df1851de215fe4561a880c29330601debb096293c8d20bc7a7af9b",
+  "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_1c59caf77bc8_20260602174003_35128b34.html",
+  "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_1c59caf77bc8_20260602174003_35128b34.txt",
+  "outgoing_source_links": [
+    "https://www.sunstar.com.ph/article/1895401/Bacolod/Local-News/Top-Negros-Occidental-drug-lord-found-dead-in-Rizal-province"
+  ]
+}

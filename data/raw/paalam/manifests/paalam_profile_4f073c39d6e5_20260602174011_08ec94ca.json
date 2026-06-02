@@ -1,0 +1,12 @@
+{
+  "snapshot_id": "paalam_profile_4f073c39d6e5_20260602174011_08ec94ca",
+  "target_id": "paalam_profile_4f073c39d6e5",
+  "source_key": "paalam",
+  "url": "https://paalam.org/homepage/victims/arthur-abdul/",
+  "fetched_at": "2026-06-02T17:40:11.701Z",
+  "http_status": 200,
+  "content_hash": "08ec94ca3696882bde2c1c96064bd9991dbc602f7a51773ada9f9d2b87d1a8e7",
+  "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_4f073c39d6e5_20260602174011_08ec94ca.html",
+  "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_4f073c39d6e5_20260602174011_08ec94ca.txt",
+  "outgoing_source_links": []
+}

@@ -1,0 +1,14 @@
+{
+  "snapshot_id": "paalam_profile_9acc370d801b_20260602173956_8a3f2e00",
+  "target_id": "paalam_profile_9acc370d801b",
+  "source_key": "paalam",
+  "url": "https://paalam.org/homepage/victims/kareem-usop-abedin/",
+  "fetched_at": "2026-06-02T17:39:56.035Z",
+  "http_status": 200,
+  "content_hash": "8a3f2e0063fc3ded4637c411eab4a578685eba40395b144bd6978d16f99e66d9",
+  "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_9acc370d801b_20260602173956_8a3f2e00.html",
+  "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_9acc370d801b_20260602173956_8a3f2e00.txt",
+  "outgoing_source_links": [
+    "https://news.abs-cbn.com/news/05/15/21/1-patay-15-arestado-sa-magkakahiwalay-na-operasyon-sa-lanao-del-sur"
+  ]
+}

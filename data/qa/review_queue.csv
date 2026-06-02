@@ -1,1 +1,2 @@
 review_id,record_type,record_id,source_key,target_id,issue_type,issue_description,priority,assigned_to,status,review_notes,created_at,resolved_at
+rev_paalam_arthur_abdul_source,scrape_target,paalam_profile_4f073c39d6e5,paalam,paalam_profile_4f073c39d6e5,missing_source,Source section exists but no valid external URL was extracted; raw href appears malformed as Arthur Abdul,medium,Yani,queued,Check profile source section before extraction or scaling,2026-06-02T17:40:24.848Z,

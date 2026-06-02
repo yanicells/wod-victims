@@ -247,18 +247,25 @@ No victim profile pages were fetched during discovery.
 
 ## Next implementation task
 
-Build a Paalam sample profile scraper.
+Run quality review on the 20-page sample scrape before scaling.
 
-It should:
+Sample scrape result:
 
-- read active Paalam source config from `source_registry.csv`
-- select 20 queued Paalam profile targets
-- fetch one profile page at a time
-- save append-only raw HTML snapshots
-- convert visible page content to raw text
-- save append-only raw text snapshots
-- compute a content hash
-- extract outgoing source links
-- update `scrape_targets.csv`
-- write one sample scrape run to `scrape_runs.jsonl`
-- never fetch profile images or linked news articles
+```text
+run_id: paalam_sample_20260602173855
+profile pages fetched: 20
+success: 20
+failed: 0
+report: data/raw/paalam/manifests/paalam_sample_20260602173855.json
+```
+
+Quality note:
+
+- Arthur Abdul had a visible `Source(s)` section but the link was malformed/non-external (`href="Arthur Abdul "`), so the scraper recorded zero outgoing source links for that profile.
+
+Next review should check:
+
+- whether the 20 raw text files are readable enough for AI extraction
+- whether source link extraction should flag malformed source entries separately
+- whether navigation/footer text should be reduced before extraction
+- whether the sample can move to AI extraction

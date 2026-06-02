@@ -1,0 +1,278 @@
+{
+  "run_id": "paalam_sample_20260602173855",
+  "started_at": "2026-06-02T17:38:55.771Z",
+  "finished_at": "2026-06-02T17:40:24.848Z",
+  "target_count": 20,
+  "success_count": 20,
+  "failed_count": 0,
+  "results": [
+    {
+      "target_id": "paalam_profile_a9bd327daf7a",
+      "url": "https://paalam.org/homepage/victims/johndy-maglinte/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_a9bd327daf7a_20260602173857_0f61153f",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_a9bd327daf7a_20260602173857_0f61153f.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_a9bd327daf7a_20260602173857_0f61153f.txt",
+      "outgoing_source_links_count": 1,
+      "outgoing_source_links": [
+        "https://www.rappler.com/nation/cops-kill-16-year-old-boy-laguna-anti-drug-operation"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_b26f4534ed3e",
+      "url": "https://paalam.org/homepage/victims/romnick-garces/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_b26f4534ed3e_20260602173902_ed326fc6",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_b26f4534ed3e_20260602173902_ed326fc6.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_b26f4534ed3e_20260602173902_ed326fc6.txt",
+      "outgoing_source_links_count": 1,
+      "outgoing_source_links": [
+        "https://newsinfo.inquirer.net/1433979/1-killed-2-held-in-drug-buy-bust-operations-in-nueva-ecija"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_cc03fa4a29f5",
+      "url": "https://paalam.org/homepage/victims/dennis-kue/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_cc03fa4a29f5_20260602173905_d736a8e4",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_cc03fa4a29f5_20260602173905_d736a8e4.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_cc03fa4a29f5_20260602173905_d736a8e4.txt",
+      "outgoing_source_links_count": 1,
+      "outgoing_source_links": [
+        "https://newsinfo.inquirer.net/1431933/nanlaban-in-ecija-2-drug-suspects-killed-in-clash-with-police"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_ffab6d6e54ca",
+      "url": "https://paalam.org/homepage/victims/percival-miranda/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_ffab6d6e54ca_20260602173909_add0e4f8",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_ffab6d6e54ca_20260602173909_add0e4f8.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_ffab6d6e54ca_20260602173909_add0e4f8.txt",
+      "outgoing_source_links_count": 1,
+      "outgoing_source_links": [
+        "https://newsinfo.inquirer.net/1431933/nanlaban-in-ecija-2-drug-suspects-killed-in-clash-with-police"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_6a8f74e4d8bd",
+      "url": "https://paalam.org/homepage/victims/john-partric-lozano/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_6a8f74e4d8bd_20260602173914_ab74075d",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_6a8f74e4d8bd_20260602173914_ab74075d.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_6a8f74e4d8bd_20260602173914_ab74075d.txt",
+      "outgoing_source_links_count": 2,
+      "outgoing_source_links": [
+        "https://mb.com.ph/2021/05/04/four-suspected-drug-peddlers-killed-in-buy-bust-ops-in-nueva-ecija/",
+        "https://news.abs-cbn.com/news/05/05/21/4-umanoy-tulak-patay-sa-magkahiwalay-na-buy-bust-sa-nueva-ecija"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_20d48baced02",
+      "url": "https://paalam.org/homepage/victims/christian-de-jesus/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_20d48baced02_20260602173918_e3db5822",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_20d48baced02_20260602173918_e3db5822.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_20d48baced02_20260602173918_e3db5822.txt",
+      "outgoing_source_links_count": 2,
+      "outgoing_source_links": [
+        "https://mb.com.ph/2021/05/04/four-suspected-drug-peddlers-killed-in-buy-bust-ops-in-nueva-ecija/",
+        "https://news.abs-cbn.com/news/05/05/21/4-umanoy-tulak-patay-sa-magkahiwalay-na-buy-bust-sa-nueva-ecija"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_5a11662b42d1",
+      "url": "https://paalam.org/homepage/victims/dominic-yabut/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_5a11662b42d1_20260602173922_694eb64a",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_5a11662b42d1_20260602173922_694eb64a.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_5a11662b42d1_20260602173922_694eb64a.txt",
+      "outgoing_source_links_count": 2,
+      "outgoing_source_links": [
+        "https://mb.com.ph/2021/05/04/four-suspected-drug-peddlers-killed-in-buy-bust-ops-in-nueva-ecija/",
+        "https://news.abs-cbn.com/news/05/05/21/4-umanoy-tulak-patay-sa-magkahiwalay-na-buy-bust-sa-nueva-ecija"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_4f984dd14e90",
+      "url": "https://paalam.org/homepage/victims/jesus-pelmoka/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_4f984dd14e90_20260602173930_5e926db9",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_4f984dd14e90_20260602173930_5e926db9.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_4f984dd14e90_20260602173930_5e926db9.txt",
+      "outgoing_source_links_count": 2,
+      "outgoing_source_links": [
+        "https://mb.com.ph/2021/05/04/four-suspected-drug-peddlers-killed-in-buy-bust-ops-in-nueva-ecija/",
+        "https://news.abs-cbn.com/news/05/05/21/4-umanoy-tulak-patay-sa-magkahiwalay-na-buy-bust-sa-nueva-ecija"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_5589686253b4",
+      "url": "https://paalam.org/homepage/victims/girang-lipae/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_5589686253b4_20260602173934_e7e187cb",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_5589686253b4_20260602173934_e7e187cb.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_5589686253b4_20260602173934_e7e187cb.txt",
+      "outgoing_source_links_count": 2,
+      "outgoing_source_links": [
+        "https://news.abs-cbn.com/news/05/09/21/2-most-wanted-patay-sa-engkuwentro-sa-tawi-tawi",
+        "https://newsinfo.inquirer.net/1429343/father-son-one-other-shot-dead-in-tawi-tawi-pnp"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_a875573106e1",
+      "url": "https://paalam.org/homepage/victims/basil-lipae/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_a875573106e1_20260602173938_447cc587",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_a875573106e1_20260602173938_447cc587.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_a875573106e1_20260602173938_447cc587.txt",
+      "outgoing_source_links_count": 2,
+      "outgoing_source_links": [
+        "https://news.abs-cbn.com/news/05/09/21/2-most-wanted-patay-sa-engkuwentro-sa-tawi-tawi",
+        "https://newsinfo.inquirer.net/1429343/father-son-one-other-shot-dead-in-tawi-tawi-pnp"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_664bee2a40f0",
+      "url": "https://paalam.org/homepage/victims/jody-magallanes/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_664bee2a40f0_20260602173943_1b0f9975",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_664bee2a40f0_20260602173943_1b0f9975.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_664bee2a40f0_20260602173943_1b0f9975.txt",
+      "outgoing_source_links_count": 2,
+      "outgoing_source_links": [
+        "https://newsinfo.inquirer.net/1433959/bfp-man-killed-in-shootout-with-southern-leyte-town-cops-during-drug-bust",
+        "https://www.sunstar.com.ph/article/1895180/Tacloban/Local-News/BFP-officer-killed-in-shootout-with-Southern-Leyte-anti-drug-operatives"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_70a188f5a86d",
+      "url": "https://paalam.org/homepage/victims/jay-ar-quintana/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_70a188f5a86d_20260602173947_1a124e5e",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_70a188f5a86d_20260602173947_1a124e5e.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_70a188f5a86d_20260602173947_1a124e5e.txt",
+      "outgoing_source_links_count": 1,
+      "outgoing_source_links": [
+        "https://newsinfo.inquirer.net/1432142/1-suspect-shot-dead-1-arrested-in-sorsogon-drug-sting"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_12f786cd33f0",
+      "url": "https://paalam.org/homepage/victims/epifanio-alicand/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_12f786cd33f0_20260602173951_148671fa",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_12f786cd33f0_20260602173951_148671fa.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_12f786cd33f0_20260602173951_148671fa.txt",
+      "outgoing_source_links_count": 1,
+      "outgoing_source_links": [
+        "https://newsinfo.inquirer.net/1430196/drug-suspect-slain-in-masbate-town-buy-bust"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_9acc370d801b",
+      "url": "https://paalam.org/homepage/victims/kareem-usop-abedin/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_9acc370d801b_20260602173956_8a3f2e00",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_9acc370d801b_20260602173956_8a3f2e00.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_9acc370d801b_20260602173956_8a3f2e00.txt",
+      "outgoing_source_links_count": 1,
+      "outgoing_source_links": [
+        "https://news.abs-cbn.com/news/05/15/21/1-patay-15-arestado-sa-magkakahiwalay-na-operasyon-sa-lanao-del-sur"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_1c59caf77bc8",
+      "url": "https://paalam.org/homepage/victims/michael-divinagracia/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_1c59caf77bc8_20260602174003_35128b34",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_1c59caf77bc8_20260602174003_35128b34.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_1c59caf77bc8_20260602174003_35128b34.txt",
+      "outgoing_source_links_count": 1,
+      "outgoing_source_links": [
+        "https://www.sunstar.com.ph/article/1895401/Bacolod/Local-News/Top-Negros-Occidental-drug-lord-found-dead-in-Rizal-province"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_4080145ae85a",
+      "url": "https://paalam.org/homepage/victims/wang-teng-shou/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_4080145ae85a_20260602174007_12aea908",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_4080145ae85a_20260602174007_12aea908.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_4080145ae85a_20260602174007_12aea908.txt",
+      "outgoing_source_links_count": 1,
+      "outgoing_source_links": [
+        "https://news.abs-cbn.com/news/05/11/21/chinese-na-kakalaya-lang-patay-sa-pamamaril-sa-paraaque"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_4f073c39d6e5",
+      "url": "https://paalam.org/homepage/victims/arthur-abdul/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_4f073c39d6e5_20260602174011_08ec94ca",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_4f073c39d6e5_20260602174011_08ec94ca.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_4f073c39d6e5_20260602174011_08ec94ca.txt",
+      "outgoing_source_links_count": 0,
+      "outgoing_source_links": []
+    },
+    {
+      "target_id": "paalam_profile_b6f08a7c5a35",
+      "url": "https://paalam.org/homepage/victims/larry-salaman/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_b6f08a7c5a35_20260602174016_495327b6",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_b6f08a7c5a35_20260602174016_495327b6.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_b6f08a7c5a35_20260602174016_495327b6.txt",
+      "outgoing_source_links_count": 2,
+      "outgoing_source_links": [
+        "https://iorbitnews.com/drug-peddler-dies-in-zambales-shootout/",
+        "https://newsinfo.inquirer.net/1439828/drug-suspect-slain-in-shootout-with-zambales-cops-lzb-2"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_a08d13c4f33d",
+      "url": "https://paalam.org/homepage/victims/jordan-sabandal-abrigo/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_a08d13c4f33d_20260602174020_accd9a1f",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_a08d13c4f33d_20260602174020_accd9a1f.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_a08d13c4f33d_20260602174020_accd9a1f.txt",
+      "outgoing_source_links_count": 3,
+      "outgoing_source_links": [
+        "http://www.pnp.gov.ph/index.php/news-and-information/4360-p68-m-shabu-seized-in-muntinlupa-drug-sting-ops-2-suspects-dead",
+        "https://newsinfo.inquirer.net/1435753/2-shot-dead-p68-m-in-shabu-seized-in-muntinlupa-sting?utm_medium=Social&utm_source=Twitter",
+        "https://www.sunstar.com.ph/article/1895560/Manila/Local-News/2-men-killed-P68-M-drugs-seized"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_d263ee6c1e25",
+      "url": "https://paalam.org/homepage/victims/jayvee-de-guzman/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_d263ee6c1e25_20260602174024_422ee628",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_d263ee6c1e25_20260602174024_422ee628.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_d263ee6c1e25_20260602174024_422ee628.txt",
+      "outgoing_source_links_count": 1,
+      "outgoing_source_links": [
+        "https://newsinfo.inquirer.net/1435753/2-shot-dead-p68-m-in-shabu-seized-in-muntinlupa-sting?utm_medium=Social&utm_source=Twitter"
+      ]
+    }
+  ]
+}

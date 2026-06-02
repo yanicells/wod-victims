@@ -1,0 +1,15 @@
+{
+  "snapshot_id": "paalam_profile_6a8f74e4d8bd_20260602173914_ab74075d",
+  "target_id": "paalam_profile_6a8f74e4d8bd",
+  "source_key": "paalam",
+  "url": "https://paalam.org/homepage/victims/john-partric-lozano/",
+  "fetched_at": "2026-06-02T17:39:14.082Z",
+  "http_status": 200,
+  "content_hash": "ab74075d9cafa1cb6af55cfbabc043f846445750fd205987a5eca325bbef36c5",
+  "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_6a8f74e4d8bd_20260602173914_ab74075d.html",
+  "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_6a8f74e4d8bd_20260602173914_ab74075d.txt",
+  "outgoing_source_links": [
+    "https://mb.com.ph/2021/05/04/four-suspected-drug-peddlers-killed-in-buy-bust-ops-in-nueva-ecija/",
+    "https://news.abs-cbn.com/news/05/05/21/4-umanoy-tulak-patay-sa-magkahiwalay-na-buy-bust-sa-nueva-ecija"
+  ]
+}

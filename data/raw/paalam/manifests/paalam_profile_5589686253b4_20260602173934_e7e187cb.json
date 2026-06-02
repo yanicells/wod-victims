@@ -1,0 +1,15 @@
+{
+  "snapshot_id": "paalam_profile_5589686253b4_20260602173934_e7e187cb",
+  "target_id": "paalam_profile_5589686253b4",
+  "source_key": "paalam",
+  "url": "https://paalam.org/homepage/victims/girang-lipae/",
+  "fetched_at": "2026-06-02T17:39:34.223Z",
+  "http_status": 200,
+  "content_hash": "e7e187cb7509165db4575222940bee6583e566a13ae82aff347d12363155e9dc",
+  "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_5589686253b4_20260602173934_e7e187cb.html",
+  "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_5589686253b4_20260602173934_e7e187cb.txt",
+  "outgoing_source_links": [
+    "https://news.abs-cbn.com/news/05/09/21/2-most-wanted-patay-sa-engkuwentro-sa-tawi-tawi",
+    "https://newsinfo.inquirer.net/1429343/father-son-one-other-shot-dead-in-tawi-tawi-pnp"
+  ]
+}

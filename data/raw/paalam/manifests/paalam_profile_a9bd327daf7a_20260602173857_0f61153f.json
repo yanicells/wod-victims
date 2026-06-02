@@ -1,0 +1,14 @@
+{
+  "snapshot_id": "paalam_profile_a9bd327daf7a_20260602173857_0f61153f",
+  "target_id": "paalam_profile_a9bd327daf7a",
+  "source_key": "paalam",
+  "url": "https://paalam.org/homepage/victims/johndy-maglinte/",
+  "fetched_at": "2026-06-02T17:38:57.238Z",
+  "http_status": 200,
+  "content_hash": "0f61153f8bfed9cc78f25433a93992a1d02b69a615ae9943ae0e43b513679aae",
+  "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_a9bd327daf7a_20260602173857_0f61153f.html",
+  "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_a9bd327daf7a_20260602173857_0f61153f.txt",
+  "outgoing_source_links": [
+    "https://www.rappler.com/nation/cops-kill-16-year-old-boy-laguna-anti-drug-operation"
+  ]
+}

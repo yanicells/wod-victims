@@ -1,0 +1,14 @@
+{
+  "snapshot_id": "paalam_profile_ffab6d6e54ca_20260602173909_add0e4f8",
+  "target_id": "paalam_profile_ffab6d6e54ca",
+  "source_key": "paalam",
+  "url": "https://paalam.org/homepage/victims/percival-miranda/",
+  "fetched_at": "2026-06-02T17:39:09.807Z",
+  "http_status": 200,
+  "content_hash": "add0e4f830f943d4a7cbfa6815b92557f23c1dff961722497e243651649a5e5e",
+  "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_ffab6d6e54ca_20260602173909_add0e4f8.html",
+  "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_ffab6d6e54ca_20260602173909_add0e4f8.txt",
+  "outgoing_source_links": [
+    "https://newsinfo.inquirer.net/1431933/nanlaban-in-ecija-2-drug-suspects-killed-in-clash-with-police"
+  ]
+}

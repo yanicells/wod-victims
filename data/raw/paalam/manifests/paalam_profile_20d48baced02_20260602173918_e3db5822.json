@@ -1,0 +1,15 @@
+{
+  "snapshot_id": "paalam_profile_20d48baced02_20260602173918_e3db5822",
+  "target_id": "paalam_profile_20d48baced02",
+  "source_key": "paalam",
+  "url": "https://paalam.org/homepage/victims/christian-de-jesus/",
+  "fetched_at": "2026-06-02T17:39:18.274Z",
+  "http_status": 200,
+  "content_hash": "e3db58226d771b34be07ca9d257ef8529097cb00339605d0e3140470dfa31191",
+  "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_20d48baced02_20260602173918_e3db5822.html",
+  "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_20d48baced02_20260602173918_e3db5822.txt",
+  "outgoing_source_links": [
+    "https://mb.com.ph/2021/05/04/four-suspected-drug-peddlers-killed-in-buy-bust-ops-in-nueva-ecija/",
+    "https://news.abs-cbn.com/news/05/05/21/4-umanoy-tulak-patay-sa-magkahiwalay-na-buy-bust-sa-nueva-ecija"
+  ]
+}
