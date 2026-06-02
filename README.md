@@ -15,6 +15,7 @@ The data work is the hard part, so the project should prioritize:
 5. Location normalization
 6. Deduplication
 7. Transparent uncertainty
+8. Long-term source tracking and repeatable updates
 
 ## Files
 
@@ -22,7 +23,7 @@ The data work is the hard part, so the project should prioritize:
   Product requirements document and project scope.
 
 - `02_DATA_PIPELINE_PLAN.md`  
-  Main plan for scraping, extraction, cleaning, deduplication, and review.
+  Main plan for scraping, extraction, cleaning, deduplication, review, and long-term scrape tracking.
 
 - `03_DATA_SCHEMA.md`  
   Proposed tables, fields, enums, and validation rules.
@@ -36,3 +37,18 @@ The data work is the hard part, so the project should prioritize:
 ## Blunt project rule
 
 Do not treat AI-cleaned data as truth. AI should extract, structure, flag, and explain. Public-facing rows should keep source links, confidence labels, and location precision.
+
+## Long-term data operations
+
+This project should work like a small data system, not a one-time scrape.
+
+Keep durable trackers for:
+
+- sources approved for scraping or later research
+- URLs already discovered
+- URLs already scraped
+- URLs that changed since the last scrape
+- URLs that failed and need retry
+- pages needing extraction, validation, dedupe, or review
+
+Raw page captures should be append-only. If a page is scraped again later, save a new snapshot and use content hashes to decide whether extraction needs to run again. This keeps future updates cheap and lets another person or AI agent pick up the work without guessing what already happened.

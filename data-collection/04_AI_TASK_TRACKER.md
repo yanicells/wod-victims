@@ -7,7 +7,7 @@ Use this file as the shared tracker across ChatGPT, Claude, scripts, and future 
 ```text
 Current phase: Planning
 Current source: Paalam.org
-Current goal: Build names-first data pipeline and first clean public dataset
+Current goal: Build names-first data pipeline, scrape tracking system, and first clean public dataset
 ```
 
 ## Roles
@@ -67,6 +67,19 @@ Responsibilities:
 - validation
 - CSV/JSON export
 - logs
+- source registry updates
+- scrape target status updates
+- retry and recheck queues
+
+### Operations Agent
+
+Responsibilities:
+
+- keep the source backlog current
+- decide which source families are active, paused, blocked, or retired
+- review failed scrape targets
+- check whether changed pages need extraction reruns
+- produce scrape status and data quality reports
 
 ## Task board
 
@@ -76,32 +89,53 @@ Responsibilities:
 |---|---|---|---|---|
 | P0-001 | Finalize PRD | ChatGPT | Done | Initial version created |
 | P0-002 | Confirm target source order | Yani | Todo | Default: Paalam first |
-| P0-003 | Create repo folder structure | Script Agent | Todo | Use `/data/raw`, `/intermediate`, `/processed` |
+| P0-003 | Create repo folder structure | Script Agent | Todo | Use `/data/ops`, `/data/raw`, `/intermediate`, `/processed`, `/qa` |
 | P0-004 | Create schema files | Script Agent | Todo | JSON schema or Zod preferred |
 | P0-005 | Create methodology draft | ChatGPT | Todo | Needed before public launch |
+| P0-006 | Create source registry | Script Agent | Todo | Tracks source families like Paalam, linked news, Dahas, Drug Archive, ACLED |
+| P0-007 | Create scrape target tracker | Script Agent | Todo | Tracks discovered/scraped/failed/changed URLs |
+| P0-008 | Create scrape run log format | Script Agent | Todo | One row per discovery, scrape, recheck, retry, or backfill run |
+| P0-009 | Create source backlog | Operations Agent | Todo | Keep future sources and blockers visible |
 
 ### Phase 1: Scraping
 
 | ID | Task | Owner | Status | Notes |
 |---|---|---|---|---|
 | P1-001 | Inspect Paalam page structure | Script Agent | Todo | Identify list and profile links |
-| P1-002 | Build safe scraper | Script Agent | Todo | Slow rate, logs, restartable |
-| P1-003 | Save raw HTML | Script Agent | Todo | Do not skip this |
-| P1-004 | Save raw text | Script Agent | Todo | Cleaner AI input |
-| P1-005 | Save outgoing source links | Script Agent | Todo | Useful for evidence |
-| P1-006 | Run scraper on 20 records | Script Agent | Todo | Test batch only |
-| P1-007 | Review scrape quality | Yani + AI | Todo | Check if text is usable |
+| P1-002 | Seed Paalam targets | Script Agent | Todo | Add list/profile URLs to `scrape_targets.csv` |
+| P1-003 | Build safe scraper | Script Agent | Todo | Slow rate, logs, restartable |
+| P1-004 | Save raw HTML snapshots | Script Agent | Todo | Append-only, do not overwrite old captures |
+| P1-005 | Save raw text snapshots | Script Agent | Todo | Cleaner AI input |
+| P1-006 | Save outgoing source links | Script Agent | Todo | Useful for evidence and linked-news queue |
+| P1-007 | Compute content hashes | Script Agent | Todo | Skip extraction for unchanged pages later |
+| P1-008 | Update target status after each run | Script Agent | Todo | discovered/queued/scraped/unchanged/changed/failed |
+| P1-009 | Track failed URLs and retries | Script Agent | Todo | Use `failure_count` and `next_retry_at` |
+| P1-010 | Run scraper on 20 records | Script Agent | Todo | Test batch only |
+| P1-011 | Review scrape quality | Yani + AI | Todo | Check if text is usable |
+| P1-012 | Generate first scrape status report | Operations Agent | Todo | Counts by status, changed, failed, skipped |
+
+### Phase 1.5: Incremental operations
+
+| ID | Task | Owner | Status | Notes |
+|---|---|---|---|---|
+| P1O-001 | Define recheck cadence | Operations Agent | Todo | Per source, e.g. Paalam monthly or quarterly |
+| P1O-002 | Build recheck queue | Script Agent | Todo | Queue due targets without re-scraping everything |
+| P1O-003 | Build changed-page detector | Script Agent | Todo | Compare latest content hash to previous successful snapshot |
+| P1O-004 | Queue extraction reruns for changed pages | Script Agent | Todo | New/changed pages only unless schema/prompt changed |
+| P1O-005 | Build retry-failed workflow | Script Agent | Todo | Retry failed pages without touching successful pages |
+| P1O-006 | Produce monthly operations report | Operations Agent | Todo | Sources, targets, failures, changes, extraction backlog |
 
 ### Phase 2: AI extraction
 
 | ID | Task | Owner | Status | Notes |
 |---|---|---|---|---|
 | P2-001 | Create extraction prompt v1 | ChatGPT | Todo | Use strict JSON |
-| P2-002 | Run extraction on 20 records | Extractor | Todo | Small test |
+| P2-002 | Run extraction on 20 new/changed records | Extractor | Todo | Small test |
 | P2-003 | Validate 20 outputs | Validator | Todo | Look for hallucinations |
 | P2-004 | Revise prompt/schema | ChatGPT | Todo | Based on failures |
-| P2-005 | Run extraction on 100 records | Extractor | Todo | First useful batch |
+| P2-005 | Run extraction on 100 new/changed records | Extractor | Todo | First useful batch |
 | P2-006 | Generate extraction report | Script Agent | Todo | Missing fields, confidence counts |
+| P2-007 | Track extraction status per target | Script Agent | Todo | not_started/queued/extracted/validated/failed/skipped_unchanged/needs_rerun |
 
 ### Phase 3: Location normalization
 
@@ -133,6 +167,8 @@ Responsibilities:
 | P5-003 | Generate `sources_public.csv` | Script Agent | Todo | Source provenance |
 | P5-004 | Generate data quality report | Script Agent | Todo | Counts by confidence/location |
 | P5-005 | Review public CSV | Yani | Todo | Spot check before app use |
+| P5-006 | Generate scrape status report | Operations Agent | Todo | Counts by source/target status and last scrape |
+| P5-007 | Generate extraction backlog report | Operations Agent | Todo | New, changed, failed, and skipped pages |
 
 ### Phase 6: App integration
 
@@ -144,6 +180,32 @@ Responsibilities:
 | P6-004 | Build victim popup | Yani | Todo | Name, age, date, location, source |
 | P6-005 | Build methodology page | Yani + ChatGPT | Todo | Very important |
 
+## Source backlog
+
+Use this backlog to avoid losing future-source ideas before they are ready.
+
+| Source key | Source | Priority | Status | Use | Notes |
+|---|---|---|---|---|---|
+| paalam | Paalam.org | High | Active candidate | Primary names-first source | Start here |
+| paalam_linked_news | News articles linked from Paalam | High | Backlog | Source support and enrichment | Only links discovered from Paalam pages |
+| dahas | Dahas Project | Medium | Backlog | Methodology/context/comparison | Do not merge until Paalam pipeline works |
+| drug_archive | Ateneo/Drug Archive | Medium | Backlog | Possible victim/event data | Data access may require research/contact |
+| acled | ACLED | Low | Backlog | Event-level comparison | Not names-first; use carefully |
+
+## Ongoing operations checklist
+
+Run this periodically after the first pipeline exists:
+
+1. Check `source_registry.csv` for active sources due for recheck.
+2. Run discovery for active sources.
+3. Add new URLs to `scrape_targets.csv`.
+4. Recheck due targets.
+5. Retry failed targets.
+6. Compare content hashes.
+7. Queue extraction only for new or changed snapshots.
+8. Generate scrape and extraction backlog reports.
+9. Export public data only after validation/review rules pass.
+
 ## Daily working format
 
 Use this at the top of each AI conversation:
@@ -154,6 +216,8 @@ Current phase:
 Current task ID:
 Input files:
 Expected output:
+Source key:
+Run ID:
 Do not invent missing data.
 Keep source quotes.
 Return strict JSON or markdown only.
@@ -181,4 +245,7 @@ dedupe
 ethics
 app_integration
 methodology
+operations
+source_backlog
+recheck
 ```

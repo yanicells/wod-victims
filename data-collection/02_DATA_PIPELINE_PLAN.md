@@ -4,14 +4,17 @@
 
 Create a reproducible pipeline that turns public victim/name sources into a usable dataset for a map, timeline, and victim popup UI.
 
-The pipeline should prioritize speed, reproducibility, and transparent uncertainty.
+The pipeline should also work as a long-term operating system for data collection: track what has already been discovered, scraped, changed, extracted, validated, reviewed, and exported.
 
 ## 2. High-level flow
 
 ```text
-Source discovery
-→ scrape raw pages
-→ save raw HTML/text
+Source registry and backlog
+→ target discovery queue
+→ scrape or recheck run
+→ save raw HTML/text snapshot
+→ compare content hash with previous snapshot
+→ extraction queue for new or changed pages
 → AI extraction
 → structured JSON output
 → validation
@@ -27,14 +30,26 @@ Source discovery
 
 ```text
 /data
+  /ops
+    source_registry.csv
+    scrape_targets.csv
+    scrape_runs.jsonl
+    recheck_queue.csv
+    source_backlog.md
+    data_operations_log.md
+
   /raw
     /paalam
       pages/
       index_pages/
-      scrape_log.jsonl
+      snapshots/
+      manifests/
+      failed_urls.jsonl
     /news
       pages/
-      scrape_log.jsonl
+      snapshots/
+      manifests/
+      failed_urls.jsonl
 
   /intermediate
     /extractions
@@ -58,7 +73,173 @@ Source discovery
     manual_fixes.csv
 ```
 
-## 4. Source order
+## 4. Long-term tracking model
+
+The project should keep operational state outside the cleaned dataset. The cleaned dataset answers "what do we know about victims?" The trackers answer "what have we already done, what changed, and what is next?"
+
+### `source_registry.csv`
+
+One row per source family, not one row per victim.
+
+Example source families:
+
+- `paalam`
+- `paalam_linked_news`
+- `dahas`
+- `drug_archive`
+- `acled`
+
+Minimum fields:
+
+```text
+source_key
+source_name
+source_type
+base_url
+status
+priority
+owner
+robots_checked_at
+terms_notes
+scrape_strategy
+recheck_frequency_days
+last_discovery_run_id
+last_scrape_run_id
+notes
+```
+
+Suggested `status` values:
+
+```text
+backlog
+approved
+active
+paused
+blocked
+retired
+```
+
+### `scrape_targets.csv`
+
+One row per URL or durable target. This is the main "have we already scraped this?" tracker.
+
+Minimum fields:
+
+```text
+target_id
+source_key
+url
+canonical_url
+target_type
+discovered_at
+discovered_from_url
+status
+priority
+last_scraped_at
+last_success_at
+last_checked_at
+last_http_status
+last_content_hash
+latest_raw_html_path
+latest_raw_text_path
+latest_snapshot_id
+extraction_status
+review_status
+failure_count
+next_retry_at
+notes
+```
+
+Suggested `target_type` values:
+
+```text
+index_page
+profile_page
+news_article
+dataset_page
+pdf
+api_endpoint
+unknown
+```
+
+Suggested `status` values:
+
+```text
+discovered
+queued
+scraped
+unchanged
+changed
+failed
+blocked
+out_of_scope
+retired
+```
+
+### `scrape_runs.jsonl`
+
+One row per scraper run. This makes the work auditable and restartable.
+
+Minimum fields:
+
+```text
+run_id
+source_key
+started_at
+finished_at
+mode
+target_count
+success_count
+changed_count
+unchanged_count
+failed_count
+script_version
+git_commit
+operator
+notes
+```
+
+Suggested `mode` values:
+
+```text
+discover
+initial_scrape
+recheck
+retry_failed
+backfill
+sample
+```
+
+### Raw snapshots and manifests
+
+Raw data should be append-only. Do not overwrite a previous raw capture.
+
+For every successful fetch:
+
+- save raw HTML
+- save plain text
+- compute a content hash
+- write a manifest record with `snapshot_id`, `run_id`, `target_id`, paths, HTTP status, timestamps, and content hash
+- update `scrape_targets.csv` to point at the latest snapshot
+
+If the content hash has not changed, the page can be marked `unchanged` and skipped by extraction unless the extraction schema or prompt changed.
+
+## 5. Incremental update workflow
+
+Use this workflow after the first scrape is complete:
+
+1. Run discovery for active sources and add new URLs to `scrape_targets.csv`.
+2. Recheck due targets based on `recheck_frequency_days`.
+3. Save new raw snapshots for fetched pages.
+4. Compare content hashes against the previous successful snapshot.
+5. Queue extraction only for new pages, changed pages, or pages affected by a schema/prompt update.
+6. Queue validation only for changed extraction output or low-confidence records.
+7. Queue dedupe only for new/changed victim records.
+8. Export public datasets from the latest validated state.
+
+This avoids wasting time on unchanged pages while still preserving the ability to audit updates.
+
+## 6. Source order
 
 ### Phase 1: Paalam only
 
@@ -75,10 +256,14 @@ Minimum raw record:
 ```json
 {
   "source_dataset": "paalam",
+  "target_id": "",
+  "snapshot_id": "",
+  "run_id": "",
   "page_url": "",
   "scraped_at": "",
+  "content_hash": "",
   "raw_html_path": "",
-  "raw_text": "",
+  "raw_text_path": "",
   "outgoing_source_links": []
 }
 ```
@@ -104,18 +289,23 @@ Use them for:
 
 Do not immediately merge everything.
 
-## 5. Scraping rules
+## 7. Scraping rules
 
 ### Must do
 
 - Respect robots.txt and site terms.
 - Use slow request rate.
 - Save raw HTML before extraction.
-- Save scrape logs.
+- Save scrape logs and run summaries.
 - Save failed URLs.
 - Make scripts restartable.
 - Include `scraped_at`.
 - Include source URL in every record.
+- Assign a stable `target_id` to every URL.
+- Assign a unique `snapshot_id` to every successful page capture.
+- Compute content hashes so unchanged pages can be skipped later.
+- Update scrape target status after each run.
+- Keep failed URLs in retry queues with `failure_count` and `next_retry_at`.
 
 ### Avoid
 
@@ -124,8 +314,11 @@ Do not immediately merge everything.
 - scraping photos
 - scraping comments/social media
 - assuming profile page structure is stable
+- overwriting old raw snapshots
+- silently dropping URLs from the queue
+- deleting failed targets just because they are inconvenient
 
-## 6. AI extraction design
+## 8. AI extraction design
 
 AI should read raw text and output strict JSON.
 
@@ -134,6 +327,10 @@ AI should read raw text and output strict JSON.
 ```json
 {
   "record_type": "victim_profile",
+  "source_key": "paalam",
+  "target_id": "",
+  "snapshot_id": "",
+  "source_url": "",
   "name": {
     "value": "",
     "source_quote": "",
@@ -174,7 +371,7 @@ AI should read raw text and output strict JSON.
 }
 ```
 
-## 7. AI confidence rules
+## 9. AI confidence rules
 
 Use this scale:
 
@@ -194,7 +391,7 @@ Only show fields publicly if:
 
 Fields below 0.70 can remain internal.
 
-## 8. Field extraction rules
+## 10. Field extraction rules
 
 ### Name
 
@@ -253,7 +450,7 @@ unknown
 
 Blunt rule: if only city is known, plot city centroid. Do not invent barangay.
 
-## 9. Location normalization
+## 11. Location normalization
 
 Use a Philippine geographic reference dataset.
 
@@ -283,7 +480,7 @@ Example:
 }
 ```
 
-## 10. Coordinates
+## 12. Coordinates
 
 Coordinates should be generated from the normalized location precision.
 
@@ -299,7 +496,7 @@ unknown → no map point
 
 Do not geocode private homes.
 
-## 11. Deduplication
+## 13. Deduplication
 
 Deduping should be conservative.
 
@@ -337,7 +534,7 @@ merged_record
 rejected_duplicate
 ```
 
-## 12. Review strategy
+## 14. Review strategy
 
 The user prefers minimal manual review, so use review queues instead of reviewing everything.
 
@@ -364,7 +561,7 @@ Flag if:
 - sensitive details detected
 - location seems too precise
 
-## 13. Dataset layers
+## 15. Dataset layers
 
 Do not force one record to do everything.
 
@@ -402,7 +599,7 @@ Requirements:
 - city/barangay/province normalized
 - no unresolved duplicate issue
 
-## 14. Output files
+## 16. Output files
 
 Recommended exports:
 
@@ -413,9 +610,11 @@ victims_internal_review.csv
 incidents_public.csv
 sources_public.csv
 methodology.json
+scrape_status_report.json
+data_quality_report.json
 ```
 
-## 15. Public methodology notes
+## 17. Public methodology notes
 
 The project should clearly say:
 
@@ -423,16 +622,20 @@ The project should clearly say:
 This project uses public memorial and media sources to document named victims of the Philippine drug war. Data fields may be source-reported, machine-extracted, or manually reviewed. The map uses the best available public location precision and avoids exact private addresses. Counts should be interpreted as documented records, not the complete death toll.
 ```
 
-## 16. First build checklist
+## 18. First build checklist
 
-1. Build Paalam scraper.
-2. Save raw HTML and raw text.
-3. Extract name/profile/source links.
-4. Run AI extraction on 20 sample pages.
-5. Inspect results.
-6. Update extraction schema.
-7. Run on 100 records.
-8. Build normalization script.
-9. Build review queue.
-10. Export first public CSV.
-11. Only then connect to the web app.
+1. Create `source_registry.csv`.
+2. Create `scrape_targets.csv`.
+3. Inspect Paalam page structure.
+4. Add Paalam list/profile URLs to the target queue.
+5. Build Paalam scraper with run IDs, target IDs, snapshot IDs, content hashes, logs, and retry handling.
+6. Save raw HTML and raw text snapshots.
+7. Extract name/profile/source links.
+8. Run AI extraction on 20 new or changed records.
+9. Inspect results.
+10. Update extraction schema.
+11. Run on 100 records.
+12. Build normalization script.
+13. Build review queue.
+14. Export first public CSV.
+15. Only then connect to the web app.

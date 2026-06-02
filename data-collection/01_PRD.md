@@ -134,6 +134,25 @@ The project should support layers:
 
 Do not force every record into every layer.
 
+### Principle 5: The data pipeline is a long-term system
+
+The project should not depend on memory, one-off scripts, or a single AI chat knowing what happened before.
+
+The pipeline should track:
+
+- source families approved for scraping or future research
+- discovered URLs
+- scraped URLs
+- raw snapshots
+- content hashes
+- failed URLs
+- changed pages
+- extraction status
+- review status
+- recheck cadence
+
+This makes the project scalable across Paalam, linked sources, and future datasets without wasting time redoing work or losing provenance.
+
 ## 7. User experience
 
 ### Homepage
@@ -223,6 +242,9 @@ Police stations: 3
 ### Data success
 
 - Raw scraped data is preserved.
+- Source registry and scrape target trackers exist.
+- Already-scraped, changed, unchanged, and failed URLs are visible.
+- Raw snapshots are append-only and traceable to scraper runs.
 - Every cleaned field has source evidence.
 - Every record has a confidence status.
 - Duplicate handling is documented.

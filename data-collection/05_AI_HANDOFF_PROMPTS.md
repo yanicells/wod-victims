@@ -23,6 +23,10 @@ Rules:
 Required JSON shape:
 
 {
+  "source_key": "",
+  "target_id": "",
+  "snapshot_id": "",
+  "source_url": "",
   "name": {
     "value": null,
     "source_quote": "",
@@ -212,4 +216,59 @@ Tone:
 - human-centered
 - not corporate
 - not overly long
+```
+
+## 7. Source onboarding prompt
+
+Use this before adding a new source family to the active scraper backlog.
+
+```text
+Evaluate this source for a journalism-oriented Philippine drug war victim data pipeline.
+
+Rules:
+- Be practical and conservative.
+- Do not assume data access if it is not obvious.
+- Identify whether this source is names-first, event-level, methodology-only, or supporting evidence.
+- Identify scraping risks, ethics risks, and update cadence.
+- Recommend whether the source should be active, backlog, blocked, or out of scope.
+
+Return markdown with:
+1. Source summary
+2. Best use in this project
+3. Data likely available
+4. Scraping or access risks
+5. Ethical risks
+6. Suggested source registry values
+7. Recommended next task
+
+Source:
+[PASTE SOURCE URL OR DESCRIPTION]
+```
+
+## 8. Scrape/update operations prompt
+
+Use this after a scrape, recheck, retry, or backfill run.
+
+```text
+Review this scrape/update report for a long-term public-interest data pipeline.
+
+Focus on:
+- targets newly discovered
+- targets successfully scraped
+- targets unchanged and safely skipped
+- targets changed and needing extraction rerun
+- targets failed and needing retry or manual review
+- source families that should be paused or rechecked differently
+- signs that the scraper broke because the site structure changed
+
+Return:
+1. Operational summary
+2. What needs extraction
+3. What needs retry
+4. What needs manual review
+5. Recommended tracker updates
+6. Risks before public export
+
+Scrape/update report:
+[PASTE REPORT]
 ```

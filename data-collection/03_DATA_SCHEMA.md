@@ -2,11 +2,110 @@
 
 ## 1. Core tables
 
-Use separate tables for victims, incidents, sources, and extraction runs.
+Use separate tables for operational tracking, raw sources, victims, incidents, source evidence, extraction runs, and review queues.
 
 Do not put everything into one table.
 
-## 2. `victims`
+## 2. Operational tracking tables
+
+These tables track long-term scraping and updates. They are not public-facing data tables, but they prevent repeated work and make future rechecks possible.
+
+### `source_registry`
+
+One row per source family.
+
+```text
+source_key
+source_name
+source_type
+base_url
+status
+priority
+owner
+robots_checked_at
+terms_notes
+scrape_strategy
+recheck_frequency_days
+last_discovery_run_id
+last_scrape_run_id
+notes
+created_at
+updated_at
+```
+
+### `scrape_targets`
+
+One row per URL or durable scrape target.
+
+```text
+target_id
+source_key
+url
+canonical_url
+target_type
+discovered_at
+discovered_from_url
+status
+priority
+last_scraped_at
+last_success_at
+last_checked_at
+last_http_status
+last_content_hash
+latest_raw_html_path
+latest_raw_text_path
+latest_snapshot_id
+extraction_status
+review_status
+failure_count
+next_retry_at
+notes
+created_at
+updated_at
+```
+
+### `scrape_runs`
+
+One row per scraper run.
+
+```text
+run_id
+source_key
+mode
+started_at
+finished_at
+target_count
+success_count
+changed_count
+unchanged_count
+failed_count
+script_version
+git_commit
+operator
+notes
+```
+
+### `raw_snapshots`
+
+One row per successful raw capture. Raw snapshot files should be append-only.
+
+```text
+snapshot_id
+target_id
+run_id
+source_key
+url
+fetched_at
+http_status
+content_hash
+raw_html_path
+raw_text_path
+outgoing_links_json
+metadata_json
+notes
+```
+
+## 3. `victims`
 
 One row per person.
 
@@ -42,7 +141,7 @@ updated_at
 - `date_killed` can be null.
 - `incident_id` can be null if the person cannot be linked to a structured incident.
 
-## 3. `locations`
+## 4. `locations`
 
 One row per normalized place.
 
@@ -71,7 +170,7 @@ province
 unknown
 ```
 
-## 4. `incidents`
+## 5. `incidents`
 
 One row per incident/event, if identifiable.
 
@@ -102,13 +201,17 @@ other
 
 Use only when supported by the source.
 
-## 5. `sources`
+## 6. `sources`
 
 One row per source URL or source document.
 
 ```text
 source_id
+source_key
+target_id
+snapshot_id
 source_url
+canonical_url
 source_title
 source_type
 publisher
@@ -131,7 +234,7 @@ organization_report
 unknown
 ```
 
-## 6. `victim_sources`
+## 7. `victim_sources`
 
 Many-to-many table linking victims to sources.
 
@@ -154,13 +257,16 @@ conflicting_source
 duplicate_candidate_source
 ```
 
-## 7. `ai_extractions`
+## 8. `ai_extractions`
 
 One row per AI extraction attempt.
 
 ```text
 extraction_id
 source_id
+source_key
+target_id
+snapshot_id
 model_name
 prompt_version
 input_hash
@@ -172,7 +278,7 @@ warnings
 
 This makes the pipeline reproducible and debuggable.
 
-## 8. `review_queue`
+## 9. `review_queue`
 
 Rows needing human or second-AI review.
 
@@ -180,6 +286,8 @@ Rows needing human or second-AI review.
 review_id
 record_type
 record_id
+source_key
+target_id
 issue_type
 issue_description
 priority
@@ -203,9 +311,84 @@ conflicting_location
 too_precise_location
 sensitive_detail
 parser_error
+scrape_failed
+page_changed
+needs_recheck
 ```
 
-## 9. Verification statuses
+## 10. Operational status enums
+
+### `source_registry.status`
+
+```text
+backlog
+approved
+active
+paused
+blocked
+retired
+```
+
+### `scrape_targets.target_type`
+
+```text
+index_page
+profile_page
+news_article
+dataset_page
+pdf
+api_endpoint
+unknown
+```
+
+### `scrape_targets.status`
+
+```text
+discovered
+queued
+scraped
+unchanged
+changed
+failed
+blocked
+out_of_scope
+retired
+```
+
+### `scrape_runs.mode`
+
+```text
+discover
+initial_scrape
+recheck
+retry_failed
+backfill
+sample
+```
+
+### `extraction_status`
+
+```text
+not_started
+queued
+extracted
+validated
+failed
+skipped_unchanged
+needs_rerun
+```
+
+### `review_status`
+
+```text
+not_required
+queued
+in_review
+reviewed
+needs_follow_up
+```
+
+## 11. Verification statuses
 
 ```text
 raw
@@ -217,7 +400,7 @@ public_ready
 do_not_publish
 ```
 
-## 10. Confidence levels
+## 12. Confidence levels
 
 Use both numeric and readable labels.
 
@@ -228,7 +411,7 @@ low = 0.50 to 0.69
 very_low = 0.00 to 0.49
 ```
 
-## 11. Public record rules
+## 13. Public record rules
 
 A record can appear publicly if:
 
@@ -256,7 +439,7 @@ location_precision is exact_public_location, barangay, or city_municipality
 
 Province-only records should usually appear in aggregate views, not individual pins.
 
-## 12. Public wording rules
+## 14. Public wording rules
 
 Use:
 
@@ -274,7 +457,7 @@ Avoid:
 - "drug suspect" unless directly quoted and attributed
 - "exact location" unless actually exact and public
 
-## 13. Example victim JSON
+## 15. Example victim JSON
 
 ```json
 {
