@@ -91,8 +91,8 @@ Responsibilities:
 |---|---|---|---|---|
 | P0-001 | Finalize PRD | ChatGPT | Done | Initial version created |
 | P0-002 | Confirm target source order | Yani | Todo | Default: Paalam first |
-| P0-003 | Create repo folder structure | Script Agent | Done | Created `/data/ops`, `/data/raw`, `/data/intermediate`, `/data/processed`, `/data/qa`, `/scripts`, `/docs` |
-| P0-004 | Create schema files | Script Agent | Done | Added TypeScript/Zod starter schemas and workspace validation |
+| P0-003 | Create repo folder structure | Script Agent | Done | Created `/data/ops`, `/data/raw`, `/data/intermediate`, `/data/processed`, `/data/qa`, `/data-pipeline`, `/apps`, `/docs` |
+| P0-004 | Create schema files | Script Agent | Done | Added pnpm TypeScript/Zod data-pipeline package with workspace validation |
 | P0-005 | Create methodology draft | ChatGPT | Todo | Needed before public launch |
 | P0-006 | Create source registry | Script Agent | Done | Header-only starter created; no source rows yet |
 | P0-007 | Create scrape target tracker | Script Agent | Done | Header-only starter created; no targets yet |

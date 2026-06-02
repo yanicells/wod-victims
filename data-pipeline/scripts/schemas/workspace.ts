@@ -21,7 +21,11 @@ export const expectedDirectories = [
   "data/intermediate/dedupe",
   "data/processed",
   "data/qa",
-  "scripts",
+  "data-pipeline",
+  "data-pipeline/scripts",
+  "data-pipeline/scripts/lib",
+  "data-pipeline/scripts/schemas",
+  "apps",
   "docs"
 ];
 
@@ -183,4 +187,3 @@ export const expectedJsonlFiles = [
   "data/intermediate/normalized/locations_normalized.jsonl",
   "data/intermediate/dedupe/candidate_duplicates.jsonl"
 ];
-

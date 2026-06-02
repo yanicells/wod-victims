@@ -19,22 +19,22 @@ The data work is the hard part, so the project should prioritize:
 
 ## Files
 
-- `00_WORKFLOW_GUIDE.md`
+- `guide/00_WORKFLOW_GUIDE.md`
   Start-here guide for project workflow, first prompts, setup checklist, and what to double-check before scaling.
 
-- `01_PRD.md`  
+- `guide/01_PRD.md`
   Product requirements document and project scope.
 
-- `02_DATA_PIPELINE_PLAN.md`  
+- `guide/02_DATA_PIPELINE_PLAN.md`
   Main plan for scraping, extraction, cleaning, deduplication, review, and long-term scrape tracking.
 
-- `03_DATA_SCHEMA.md`  
+- `guide/03_DATA_SCHEMA.md`
   Proposed tables, fields, enums, and validation rules.
 
-- `04_AI_TASK_TRACKER.md`  
+- `guide/04_AI_TASK_TRACKER.md`
   Task list and tracker format for working across ChatGPT, Claude, scripts, and future agents.
 
-- `05_AI_HANDOFF_PROMPTS.md`  
+- `guide/05_AI_HANDOFF_PROMPTS.md`
   Reusable prompts for extraction, validation, deduplication, and QA.
 
 ## Blunt project rule
@@ -55,3 +55,15 @@ Keep durable trackers for:
 - pages needing extraction, validation, dedupe, or review
 
 Raw page captures should be append-only. If a page is scraped again later, save a new snapshot and use content hashes to decide whether extraction needs to run again. This keeps future updates cheap and lets another person or AI agent pick up the work without guessing what already happened.
+
+## Repo layout
+
+```text
+guide/             Planning docs, workflow guide, schema notes, handoff prompts
+data-pipeline/     TypeScript scripts for scraping, validation, reporting, and exports
+data/              Operational trackers, raw snapshots, intermediate files, processed exports
+apps/              Future web app workspace
+docs/              Future public methodology and implementation notes
+```
+
+Use `pnpm` from the repo root for data-pipeline commands. The web app can be added later under `apps/web` as a separate package.

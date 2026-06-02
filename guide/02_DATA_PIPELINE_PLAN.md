@@ -71,6 +71,19 @@ Source registry and backlog
     review_queue.csv
     rejected_records.csv
     manual_fixes.csv
+
+/data-pipeline
+  package.json
+  scripts/
+    validate-workspace.ts
+    ops-summary.ts
+    lib/
+    schemas/
+
+/apps
+  web/
+
+/docs
 ```
 
 ## 4. Long-term tracking model

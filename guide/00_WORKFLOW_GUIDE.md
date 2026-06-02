@@ -22,7 +22,8 @@ Set up:
 - /data/intermediate
 - /data/processed
 - /data/qa
-- /scripts
+- /data-pipeline
+- /apps
 - /docs
 
 Create starter tracker files for source_registry.csv, scrape_targets.csv, scrape_runs.jsonl, recheck_queue.csv, source_backlog.md, and data_operations_log.md.
@@ -47,13 +48,16 @@ Ask Codex:
 Set up a TypeScript data-pipeline script environment for this repo.
 
 Use simple scripts, Zod schemas, and package scripts.
+Keep pipeline code inside /data-pipeline.
+Keep root pnpm commands working.
 Do not build a frontend yet.
 Do not scrape any live source yet.
 ```
 
 Double-check:
 
-- `package.json` exists
+- root `package.json` exists
+- `data-pipeline/package.json` exists
 - scripts are clear and boring
 - schemas are separate from scraper logic
 - there is a dry-run or sample mode planned
@@ -362,3 +366,79 @@ Setup trackers and scripts
 ```
 
 If a phase feels messy, stop and improve the tracker/report before scaling up.
+
+## 12. What to study first
+
+Read these in this order if you want to learn the project and the scraping/data workflow.
+
+### A. Project direction
+
+1. `README.md`
+
+   Read this first for the repo layout and the big idea.
+
+2. `guide/00_WORKFLOW_GUIDE.md`
+
+   This is the practical project roadmap. It tells you what to do first, what to ask Codex, and what to double-check.
+
+3. `guide/01_PRD.md`
+
+   This explains the product goals, ethics rules, and what the final map/timeline should and should not do.
+
+### B. Data system
+
+4. `guide/02_DATA_PIPELINE_PLAN.md`
+
+   Study this to understand the whole pipeline: source registry, scrape targets, raw snapshots, AI extraction, validation, normalization, dedupe, review, and export.
+
+5. `guide/03_DATA_SCHEMA.md`
+
+   Study this to understand the tables and fields. This is the best file for learning how we track sources, victims, incidents, extraction runs, and review queues.
+
+6. `data/ops/source_registry.csv`
+
+   This will eventually list source families like Paalam, linked news, Dahas, Drug Archive, and ACLED.
+
+7. `data/ops/scrape_targets.csv`
+
+   This is the key scraping tracker. It answers: "Have we discovered, scraped, failed, changed, or queued this URL?"
+
+### C. Code basics
+
+8. `package.json`
+
+   Read this to see the root commands you can run with pnpm.
+
+9. `data-pipeline/package.json`
+
+   Read this to see the actual data-pipeline package dependencies and script commands.
+
+10. `data-pipeline/scripts/validate-workspace.ts`
+
+   This is the best starter code file. It checks folders, CSV headers, JSONL files, and Zod row schemas.
+
+11. `data-pipeline/scripts/ops-summary.ts`
+
+   This is a small reporting script. It teaches how we read tracker files and summarize current project status.
+
+12. `data-pipeline/scripts/schemas/ops.ts`
+
+   This defines the allowed statuses and tracker row shapes using Zod.
+
+13. `data-pipeline/scripts/schemas/workspace.ts`
+
+   This defines the expected folder structure and CSV headers.
+
+### D. When scraping starts
+
+When we build the scraper, study files in this order:
+
+1. URL discovery script
+2. scraper config
+3. safe fetch helper
+4. HTML-to-text helper
+5. snapshot writer
+6. target tracker updater
+7. sample scrape report
+
+The most important scraping lesson: a scraper is not just "download a page." A good scraper also tracks what it touched, what failed, what changed, and what should happen next.

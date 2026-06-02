@@ -8,3 +8,4 @@ Use this log for human-readable notes about setup, scraper runs, rechecks, schem
 - No source data has been scraped.
 - No source records have been added to the registry yet.
 - Added pnpm TypeScript script environment with Zod schemas, workspace validation, and operations summary commands.
+- Moved data-pipeline scripts into `/data-pipeline` so future web app code can live separately under `/apps`.

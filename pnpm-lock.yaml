@@ -6,7 +6,9 @@ settings:
 
 importers:
 
-  .:
+  .: {}
+
+  data-pipeline:
     dependencies:
       csv-parse:
         specifier: ^6.2.1
