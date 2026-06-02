@@ -6,7 +6,8 @@
   "scripts": {
     "check": "tsc --noEmit",
     "validate:workspace": "tsx scripts/validate-workspace.ts",
-    "ops:summary": "tsx scripts/ops-summary.ts"
+    "ops:summary": "tsx scripts/ops-summary.ts",
+    "discover:paalam": "tsx scripts/discover-paalam.ts"
   },
   "dependencies": {
     "csv-parse": "^6.2.1",

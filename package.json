@@ -6,6 +6,7 @@
   "scripts": {
     "check": "pnpm --filter @wod-victims/data-pipeline check",
     "validate:workspace": "pnpm --filter @wod-victims/data-pipeline validate:workspace",
-    "ops:summary": "pnpm --filter @wod-victims/data-pipeline ops:summary"
+    "ops:summary": "pnpm --filter @wod-victims/data-pipeline ops:summary",
+    "discover:paalam": "pnpm --filter @wod-victims/data-pipeline discover:paalam"
   }
 }

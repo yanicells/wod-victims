@@ -20,3 +20,8 @@ export function readJsonlRows(filePath: string): JsonlRow[] {
   });
 }
 
+// Append one JSON object as one line.
+// This is how scrape/discovery runs stay audit-friendly over time.
+export function appendJsonlRow(filePath: string, row: JsonlRow): void {
+  fs.appendFileSync(filePath, `${JSON.stringify(row)}\n`);
+}

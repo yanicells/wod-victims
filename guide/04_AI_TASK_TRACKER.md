@@ -103,8 +103,8 @@ Responsibilities:
 
 | ID | Task | Owner | Status | Notes |
 |---|---|---|---|---|
-| P1-001 | Inspect Paalam page structure | Script Agent | Todo | Identify list and profile links |
-| P1-002 | Seed Paalam targets | Script Agent | Todo | Add list/profile URLs to `scrape_targets.csv` |
+| P1-001 | Inspect Paalam page structure | Script Agent | Done | See `guide/06_PAALAM_SITE_INSPECTION.md`; no broad scrape run |
+| P1-002 | Seed Paalam targets | Script Agent | Done | Discovery run `paalam_discover_20260602172527` added 3,349 queued profile targets |
 | P1-003 | Build safe scraper | Script Agent | Todo | Slow rate, logs, restartable |
 | P1-004 | Save raw HTML snapshots | Script Agent | Todo | Append-only, do not overwrite old captures |
 | P1-005 | Save raw text snapshots | Script Agent | Todo | Cleaner AI input |

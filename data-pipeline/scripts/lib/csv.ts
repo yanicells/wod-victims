@@ -26,3 +26,21 @@ export function readCsvRows(filePath: string): Record<string, string>[] {
   }) as Record<string, string>[];
 }
 
+// CSV values need escaping when they contain commas, quotes, or newlines.
+// This tiny helper keeps tracker writing dependency-light and predictable.
+function escapeCsvValue(value: string): string {
+  if (!/[",\n\r]/.test(value)) {
+    return value;
+  }
+
+  return `"${value.replaceAll('"', '""')}"`;
+}
+
+export function writeCsvRows(filePath: string, columns: string[], rows: Record<string, string>[]): void {
+  const lines = [
+    columns.join(","),
+    ...rows.map((row) => columns.map((column) => escapeCsvValue(row[column] ?? "")).join(","))
+  ];
+
+  fs.writeFileSync(filePath, `${lines.join("\n")}\n`);
+}
