@@ -19,6 +19,9 @@ The data work is the hard part, so the project should prioritize:
 
 ## Files
 
+- `00_WORKFLOW_GUIDE.md`
+  Start-here guide for project workflow, first prompts, setup checklist, and what to double-check before scaling.
+
 - `01_PRD.md`  
   Product requirements document and project scope.
 

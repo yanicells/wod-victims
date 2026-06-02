@@ -1,0 +1,364 @@
+# Workflow Guide
+
+Use this as the practical "what do I do next?" guide for the project.
+
+The short version: set up the data operating system first, scrape Paalam slowly, inspect small batches, then build extraction, validation, normalization, dedupe, and export. Do not jump to the frontend until the first public-safe dataset exists.
+
+## 1. First things to set up
+
+Do these before any serious scraping.
+
+### A. Create the project data workspace
+
+Ask Codex:
+
+```text
+Create the initial data pipeline workspace for this repo based on the docs.
+
+Set up:
+- /data/ops
+- /data/raw/paalam
+- /data/raw/news
+- /data/intermediate
+- /data/processed
+- /data/qa
+- /scripts
+- /docs
+
+Create starter tracker files for source_registry.csv, scrape_targets.csv, scrape_runs.jsonl, recheck_queue.csv, source_backlog.md, and data_operations_log.md.
+
+Do not scrape anything yet.
+```
+
+Double-check:
+
+- the folders exist
+- the tracker files have the right columns
+- no raw data was invented
+- nothing was scraped yet
+
+### B. Choose the scripting stack
+
+Recommended default: TypeScript/Node with Zod validation.
+
+Ask Codex:
+
+```text
+Set up a TypeScript data-pipeline script environment for this repo.
+
+Use simple scripts, Zod schemas, and package scripts.
+Do not build a frontend yet.
+Do not scrape any live source yet.
+```
+
+Double-check:
+
+- `package.json` exists
+- scripts are clear and boring
+- schemas are separate from scraper logic
+- there is a dry-run or sample mode planned
+
+### C. Confirm Paalam as the first active source
+
+Ask Codex:
+
+```text
+Add Paalam.org as the first active source in source_registry.csv.
+Keep linked news, Dahas, Drug Archive, and ACLED in backlog status.
+Do not scrape yet.
+```
+
+Double-check:
+
+- Paalam is active or approved
+- other sources are backlog
+- robots/terms notes are left as TODO until checked
+
+## 2. First real work: inspect Paalam
+
+Goal: understand page structure before writing a scraper.
+
+Ask Codex:
+
+```text
+Inspect Paalam.org page structure for victim list pages and profile pages.
+
+Report:
+- likely list/index pages
+- likely profile URL patterns
+- what data appears on profile pages
+- outgoing source links
+- scraping risks
+- proposed safe scraper approach
+
+Do not scrape the full site.
+```
+
+Double-check:
+
+- the site structure is described clearly
+- the scraper plan includes slow rate limits
+- the plan saves raw HTML and raw text
+- the plan tracks target IDs, snapshot IDs, run IDs, and content hashes
+
+Move on only when the target discovery strategy is clear.
+
+## 3. Build scraper in small steps
+
+### A. Discovery only
+
+Ask Codex:
+
+```text
+Build the Paalam discovery script.
+
+It should find candidate profile URLs, normalize/canonicalize URLs, and add them to scrape_targets.csv.
+It should not fetch every profile page yet.
+It should log a scrape_runs.jsonl entry with mode discover.
+```
+
+Double-check:
+
+- new URLs land in `scrape_targets.csv`
+- duplicate URLs are not added repeatedly
+- discovered targets have `status=discovered` or `queued`
+- source and run IDs are present
+
+### B. Sample scrape
+
+Ask Codex:
+
+```text
+Run a safe sample scrape for 20 Paalam profile targets.
+
+Save append-only raw HTML and raw text snapshots.
+Update scrape_targets.csv with status, latest snapshot, content hash, HTTP status, and failure count.
+Generate a scrape status summary.
+```
+
+Double-check:
+
+- raw HTML files exist
+- raw text files are readable
+- failed URLs are tracked, not dropped
+- content hashes are present
+- no old raw snapshots were overwritten
+
+Do not run a full scrape until the sample looks good.
+
+## 4. Extraction workflow
+
+Only extract from raw text after the sample scrape is readable.
+
+Ask Codex:
+
+```text
+Create the strict AI extraction schema and extraction prompt for Paalam victim profiles.
+
+Every non-null field must include source_quote and confidence.
+Include source_key, target_id, snapshot_id, and source_url in each output.
+Do not run extraction yet.
+```
+
+Then ask:
+
+```text
+Run extraction on the 20 sample Paalam records only.
+Save outputs to data/intermediate/extractions/paalam_ai_extracts.jsonl.
+Validate each output against the schema.
+Generate an extraction quality report.
+```
+
+Double-check:
+
+- names are supported by quotes
+- dates are not invented
+- barangays/cities are not guessed
+- `needs_review` is true when uncertain
+- low-confidence fields are not treated as public facts
+
+## 5. Validation and review workflow
+
+After extraction, run a second pass before trusting anything.
+
+Ask Codex:
+
+```text
+Validate the 20 extracted Paalam records against their raw source text.
+
+Flag:
+- unsupported extracted fields
+- weak source quotes
+- missing sources
+- possible sensitive location details
+- records needing review
+
+Write a review queue CSV.
+```
+
+Double-check:
+
+- unsupported fields are lowered or nulled
+- public-risky rows are flagged
+- the review queue is small and focused
+
+## 6. Normalize, dedupe, then export
+
+Do not normalize before extraction quality is acceptable.
+
+Suggested order:
+
+1. Normalize names.
+2. Normalize dates.
+3. Normalize locations.
+4. Assign location precision.
+5. Generate dedupe candidates.
+6. Review dedupe candidates.
+7. Export public-safe data.
+
+Ask Codex:
+
+```text
+Build normalization scripts for the extracted Paalam sample.
+
+Normalize names and dates first.
+For locations, preserve raw_location_text and only assign city/barangay/province when supported.
+Do not generate exact private coordinates.
+```
+
+Then ask:
+
+```text
+Generate conservative duplicate candidates for the normalized Paalam sample.
+
+Use name, date, location, age, source URLs, and incident context.
+Do not auto-merge unless the match is very strong.
+```
+
+Then ask:
+
+```text
+Export the first public-safe sample dataset.
+
+Only include records that pass public record rules.
+Also export internal review rows and a data quality report.
+```
+
+Double-check:
+
+- public rows have source URLs
+- low-confidence fields are hidden or clearly labeled
+- province-only records are not shown as individual pins
+- duplicate status is not unresolved
+
+## 7. Scale up slowly
+
+After the 20-record sample works:
+
+1. Run 100 Paalam records.
+2. Review the scrape and extraction reports.
+3. Fix scraper/schema/prompt issues.
+4. Run the remaining Paalam records.
+5. Re-run dedupe and export.
+6. Only then consider linked news articles.
+
+Ask Codex:
+
+```text
+Scale the Paalam pipeline from 20 records to 100 records.
+
+Only process queued or changed targets.
+Generate scrape, extraction, review, dedupe, and data quality reports.
+Do not touch linked news yet.
+```
+
+## 8. Ongoing maintenance
+
+Once the pipeline exists, future updates should be incremental.
+
+Ask Codex periodically:
+
+```text
+Run the Paalam maintenance workflow.
+
+Check active sources due for recheck.
+Discover new targets.
+Recheck due targets.
+Retry failed targets.
+Compare content hashes.
+Queue extraction only for new or changed snapshots.
+Generate an operations report.
+```
+
+Double-check:
+
+- unchanged pages are skipped
+- changed pages are queued for extraction
+- failed pages remain visible
+- new source ideas go into backlog, not straight into the scraper
+
+## 9. When to add other sources
+
+Add new sources only after Paalam has:
+
+- working discovery
+- working scrape snapshots
+- extraction schema
+- validation reports
+- review queue
+- dedupe candidates
+- first public-safe export
+
+For each new source, ask:
+
+```text
+Evaluate this source for the project before adding it to the active pipeline.
+
+Classify it as names-first, event-level, methodology-only, or supporting evidence.
+Recommend active, backlog, blocked, or out of scope.
+List scraping/access/ethics risks and suggested source_registry values.
+```
+
+Default source order:
+
+1. Paalam profiles
+2. news links discovered from Paalam
+3. Dahas methodology/context
+4. Drug Archive if access is practical
+5. ACLED for event-level comparison only
+
+## 10. Things to avoid early
+
+Avoid:
+
+- building the frontend before the first dataset export
+- scraping all sources at once
+- scraping random news articles
+- treating AI extraction as verified truth
+- geocoding exact homes or private locations
+- deleting failed URLs
+- overwriting raw snapshots
+- merging duplicates by name alone
+
+## 11. Simple phase checklist
+
+Use this as the rough project rhythm:
+
+```text
+Setup trackers and scripts
+→ inspect Paalam
+→ discover profile URLs
+→ sample scrape 20
+→ inspect raw text
+→ extract 20
+→ validate 20
+→ normalize sample
+→ dedupe sample
+→ export sample
+→ scale to 100
+→ scale to all Paalam
+→ add linked sources
+→ build frontend
+```
+
+If a phase feels messy, stop and improve the tracker/report before scaling up.

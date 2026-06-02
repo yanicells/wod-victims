@@ -2,6 +2,8 @@
 
 Use this file as the shared tracker across ChatGPT, Claude, scripts, and future agents.
 
+Before starting tasks, read `00_WORKFLOW_GUIDE.md` for the recommended order of operations, setup prompts, and checkpoints.
+
 ## Project status
 
 ```text
