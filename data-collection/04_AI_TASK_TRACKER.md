@@ -91,13 +91,13 @@ Responsibilities:
 |---|---|---|---|---|
 | P0-001 | Finalize PRD | ChatGPT | Done | Initial version created |
 | P0-002 | Confirm target source order | Yani | Todo | Default: Paalam first |
-| P0-003 | Create repo folder structure | Script Agent | Todo | Use `/data/ops`, `/data/raw`, `/intermediate`, `/processed`, `/qa` |
+| P0-003 | Create repo folder structure | Script Agent | Done | Created `/data/ops`, `/data/raw`, `/data/intermediate`, `/data/processed`, `/data/qa`, `/scripts`, `/docs` |
 | P0-004 | Create schema files | Script Agent | Todo | JSON schema or Zod preferred |
 | P0-005 | Create methodology draft | ChatGPT | Todo | Needed before public launch |
-| P0-006 | Create source registry | Script Agent | Todo | Tracks source families like Paalam, linked news, Dahas, Drug Archive, ACLED |
-| P0-007 | Create scrape target tracker | Script Agent | Todo | Tracks discovered/scraped/failed/changed URLs |
-| P0-008 | Create scrape run log format | Script Agent | Todo | One row per discovery, scrape, recheck, retry, or backfill run |
-| P0-009 | Create source backlog | Operations Agent | Todo | Keep future sources and blockers visible |
+| P0-006 | Create source registry | Script Agent | Done | Header-only starter created; no source rows yet |
+| P0-007 | Create scrape target tracker | Script Agent | Done | Header-only starter created; no targets yet |
+| P0-008 | Create scrape run log format | Script Agent | Done | Empty JSONL starter created |
+| P0-009 | Create source backlog | Operations Agent | Done | Starter backlog table created |
 
 ### Phase 1: Scraping
 

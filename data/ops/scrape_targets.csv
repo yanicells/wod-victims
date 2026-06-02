@@ -1,0 +1,1 @@
+target_id,source_key,url,canonical_url,target_type,discovered_at,discovered_from_url,status,priority,last_scraped_at,last_success_at,last_checked_at,last_http_status,last_content_hash,latest_raw_html_path,latest_raw_text_path,latest_snapshot_id,extraction_status,review_status,failure_count,next_retry_at,notes,created_at,updated_at
