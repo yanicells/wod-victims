@@ -1,0 +1,277 @@
+{
+  "run_id": "paalam_batch_20260603065359",
+  "started_at": "2026-06-03T06:53:59.287Z",
+  "finished_at": "2026-06-03T06:55:20.671Z",
+  "target_count": 20,
+  "success_count": 20,
+  "failed_count": 0,
+  "results": [
+    {
+      "target_id": "paalam_profile_d324d94350c1",
+      "url": "https://paalam.org/homepage/victims/raymond-tington/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_d324d94350c1_20260603065403_c46a17bc",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_d324d94350c1_20260603065403_c46a17bc.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_d324d94350c1_20260603065403_c46a17bc.txt",
+      "outgoing_source_links_count": 1,
+      "outgoing_source_links": [
+        "https://www.gmanetwork.com/news/news/metro/789634/2-dead-2-wounded-in-tondo-shooting/story/"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_05d951c1e021",
+      "url": "https://paalam.org/homepage/victims/obet-tington/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_05d951c1e021_20260603065407_a8f81a99",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_05d951c1e021_20260603065407_a8f81a99.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_05d951c1e021_20260603065407_a8f81a99.txt",
+      "outgoing_source_links_count": 2,
+      "outgoing_source_links": [
+        "https://tribune.net.ph/index.php/2021/06/02/uncle-nephew-slain-inside-tondo-home/",
+        "https://www.gmanetwork.com/news/news/metro/789634/2-dead-2-wounded-in-tondo-shooting/story/"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_7c9868051fd6",
+      "url": "https://paalam.org/homepage/victims/alberto-neneng/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_7c9868051fd6_20260603065411_33a9546a",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_7c9868051fd6_20260603065411_33a9546a.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_7c9868051fd6_20260603065411_33a9546a.txt",
+      "outgoing_source_links_count": 1,
+      "outgoing_source_links": [
+        "https://news.abs-cbn.com/news/05/21/21/senior-citizen-patay-sa-pamamaril-sa-tondo"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_38a1b53a78ab",
+      "url": "https://paalam.org/homepage/victims/abraham-damil/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_38a1b53a78ab_20260603065414_fd73a9e7",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_38a1b53a78ab_20260603065414_fd73a9e7.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_38a1b53a78ab_20260603065414_fd73a9e7.txt",
+      "outgoing_source_links_count": 2,
+      "outgoing_source_links": [
+        "https://news.abs-cbn.com/video/news/05/06/21/lalaking-kasama-sa-drug-watchlist-ng-barangay-patay-sa-pamamaril",
+        "https://www.philstar.com/pilipino-star-ngayon/metro/2021/05/07/2096462/kelot-itinumba-habang-nagbibisikleta"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_54cf8cd6ccd8",
+      "url": "https://paalam.org/homepage/victims/erwin-arcega/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_54cf8cd6ccd8_20260603065417_2c6049d0",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_54cf8cd6ccd8_20260603065417_2c6049d0.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_54cf8cd6ccd8_20260603065417_2c6049d0.txt",
+      "outgoing_source_links_count": 1,
+      "outgoing_source_links": [
+        "https://www.philstar.com/pilipino-star-ngayon/metro/2021/05/05/2095913/tulak-todas-sa-shootout-sa-malabon"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_102b9c0c83b7",
+      "url": "https://paalam.org/homepage/victims/julius-sison/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_102b9c0c83b7_20260603065421_ff933122",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_102b9c0c83b7_20260603065421_ff933122.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_102b9c0c83b7_20260603065421_ff933122.txt",
+      "outgoing_source_links_count": 1,
+      "outgoing_source_links": [
+        "https://newsinfo.inquirer.net/1437618/drug-suspect-slain-in-cavite-bust"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_d961b78f0532",
+      "url": "https://paalam.org/homepage/victims/aldrin-singcosa/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_d961b78f0532_20260603065425_81cfd5f0",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_d961b78f0532_20260603065425_81cfd5f0.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_d961b78f0532_20260603065425_81cfd5f0.txt",
+      "outgoing_source_links_count": 2,
+      "outgoing_source_links": [
+        "https://newsinfo.inquirer.net/1434356/2-drug-suspects-slain-in-cavite-buy-busts",
+        "https://www.philstar.com/pilipino-star-ngayon/probinsiya/2021/05/20/2099486/big-time-tulak-todas-sa-buy-bust"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_7d0e811199f4",
+      "url": "https://paalam.org/homepage/victims/edwin-callos/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_7d0e811199f4_20260603065429_fc0db314",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_7d0e811199f4_20260603065429_fc0db314.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_7d0e811199f4_20260603065429_fc0db314.txt",
+      "outgoing_source_links_count": 1,
+      "outgoing_source_links": [
+        "https://newsinfo.inquirer.net/1434356/2-drug-suspects-slain-in-cavite-buy-busts"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_fd8be8bb5345",
+      "url": "https://paalam.org/homepage/victims/larry-miranda/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_fd8be8bb5345_20260603065433_12d81a32",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_fd8be8bb5345_20260603065433_12d81a32.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_fd8be8bb5345_20260603065433_12d81a32.txt",
+      "outgoing_source_links_count": 1,
+      "outgoing_source_links": [
+        "https://newsinfo.inquirer.net/1430300/1-drug-suspect-slain-17-busted-in-cavite"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_03c879818e40",
+      "url": "https://paalam.org/homepage/victims/jonathan-mulos/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_03c879818e40_20260603065440_3910fa87",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_03c879818e40_20260603065440_3910fa87.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_03c879818e40_20260603065440_3910fa87.txt",
+      "outgoing_source_links_count": 2,
+      "outgoing_source_links": [
+        "https://news.abs-cbn.com/news/05/03/21/umanoy-tulak-patay-sa-anti-drug-operation-sa-cavite",
+        "https://www.abante.com.ph/tulak-nagpaputok-sa-pulis-todas/"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_b2c2dcdaad13",
+      "url": "https://paalam.org/homepage/victims/victor-lawanan/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_b2c2dcdaad13_20260603065444_6f36b992",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_b2c2dcdaad13_20260603065444_6f36b992.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_b2c2dcdaad13_20260603065444_6f36b992.txt",
+      "outgoing_source_links_count": 1,
+      "outgoing_source_links": [
+        "https://newsinfo.inquirer.net/1436891/3-drug-suspects-dead-in-camarines-stings"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_0c191ac741f7",
+      "url": "https://paalam.org/homepage/victims/andrew-flores/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_0c191ac741f7_20260603065448_4f9decb6",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_0c191ac741f7_20260603065448_4f9decb6.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_0c191ac741f7_20260603065448_4f9decb6.txt",
+      "outgoing_source_links_count": 1,
+      "outgoing_source_links": [
+        "https://newsinfo.inquirer.net/1436891/3-drug-suspects-dead-in-camarines-stings"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_efa195e681c2",
+      "url": "https://paalam.org/homepage/victims/alyas-dodoy/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_efa195e681c2_20260603065452_847ae208",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_efa195e681c2_20260603065452_847ae208.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_efa195e681c2_20260603065452_847ae208.txt",
+      "outgoing_source_links_count": 1,
+      "outgoing_source_links": [
+        "https://news.abs-cbn.com/news/05/10/21/high-value-drug-suspect-patay-sa-engkwentro-sa-camarines-norte"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_486e9898fce9",
+      "url": "https://paalam.org/homepage/victims/yaba/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_486e9898fce9_20260603065456_95fba99a",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_486e9898fce9_20260603065456_95fba99a.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_486e9898fce9_20260603065456_95fba99a.txt",
+      "outgoing_source_links_count": 1,
+      "outgoing_source_links": [
+        "https://www.bomboradyo.com/naga/drug-suspect-patay-matapos-mauwi-sa-armed-confrontation-ang-buybust-ops-sa-pili-camsur-nasa-p300-k-halaga-ng-droga-nakumpiska/"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_c7cbe2accc55",
+      "url": "https://paalam.org/homepage/victims/carlo-villagarcia/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_c7cbe2accc55_20260603065500_ea8f305c",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_c7cbe2accc55_20260603065500_ea8f305c.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_c7cbe2accc55_20260603065500_ea8f305c.txt",
+      "outgoing_source_links_count": 1,
+      "outgoing_source_links": [
+        "https://newsinfo.inquirer.net/1431284/drug-suspect-slain-in-camarines-norte-sting"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_bc8134e0fae6",
+      "url": "https://paalam.org/homepage/victims/josemear-empleo/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_bc8134e0fae6_20260603065503_e52876f4",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_bc8134e0fae6_20260603065503_e52876f4.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_bc8134e0fae6_20260603065503_e52876f4.txt",
+      "outgoing_source_links_count": 2,
+      "outgoing_source_links": [
+        "https://newsinfo.inquirer.net/1438556/5-drug-suspects-killed-in-separate-cavite-busts",
+        "https://tribune.net.ph/index.php/2021/05/28/11-drug-suspects-killed-in-cavite-bulacan-nueva-ecija/"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_af2927b62cf6",
+      "url": "https://paalam.org/homepage/victims/noe-ababa/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_af2927b62cf6_20260603065507_7a0e71b6",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_af2927b62cf6_20260603065507_7a0e71b6.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_af2927b62cf6_20260603065507_7a0e71b6.txt",
+      "outgoing_source_links_count": 2,
+      "outgoing_source_links": [
+        "https://newsinfo.inquirer.net/1196685/p5-4m-shabu-seized-in-pasay-city",
+        "https://newsinfo.inquirer.net/1435611/3-drug-suspects-killed-in-separate-buy-busts-in-bulacan"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_5304e7e215e0",
+      "url": "https://paalam.org/homepage/victims/dagul/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_5304e7e215e0_20260603065513_ebdffdae",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_5304e7e215e0_20260603065513_ebdffdae.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_5304e7e215e0_20260603065513_ebdffdae.txt",
+      "outgoing_source_links_count": 1,
+      "outgoing_source_links": [
+        "https://newsinfo.inquirer.net/1435611/3-drug-suspects-killed-in-separate-buy-busts-in-bulacan"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_f937d921c3f2",
+      "url": "https://paalam.org/homepage/victims/marcelino-baluyot/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_f937d921c3f2_20260603065516_d6cfe6cb",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_f937d921c3f2_20260603065516_d6cfe6cb.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_f937d921c3f2_20260603065516_d6cfe6cb.txt",
+      "outgoing_source_links_count": 2,
+      "outgoing_source_links": [
+        "http://rondabalita.news/10-others-fall-in-bulacan-police-ops",
+        "https://tonite.abante.com.ph/tulak-nanlaban-todas-sa-bulacan-buy-bust-2-pa-timbog/"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_6404ce0a0487",
+      "url": "https://paalam.org/homepage/victims/daniel-lopez/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_6404ce0a0487_20260603065520_45987ff2",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_6404ce0a0487_20260603065520_45987ff2.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_6404ce0a0487_20260603065520_45987ff2.txt",
+      "outgoing_source_links_count": 1,
+      "outgoing_source_links": [
+        "https://tribune.net.ph/index.php/2021/05/07/5-drug-suspects-slain-in-nueva-ecija-bulacan/"
+      ]
+    }
+  ]
+}

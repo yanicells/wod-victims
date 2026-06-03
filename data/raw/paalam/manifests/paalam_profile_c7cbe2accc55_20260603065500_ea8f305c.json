@@ -1,0 +1,14 @@
+{
+  "snapshot_id": "paalam_profile_c7cbe2accc55_20260603065500_ea8f305c",
+  "target_id": "paalam_profile_c7cbe2accc55",
+  "source_key": "paalam",
+  "url": "https://paalam.org/homepage/victims/carlo-villagarcia/",
+  "fetched_at": "2026-06-03T06:55:00.715Z",
+  "http_status": 200,
+  "content_hash": "ea8f305c4cb738f6cb26ee1747991c0c2662fe6ee920aa165d4bf645b053da39",
+  "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_c7cbe2accc55_20260603065500_ea8f305c.html",
+  "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_c7cbe2accc55_20260603065500_ea8f305c.txt",
+  "outgoing_source_links": [
+    "https://newsinfo.inquirer.net/1431284/drug-suspect-slain-in-camarines-norte-sting"
+  ]
+}

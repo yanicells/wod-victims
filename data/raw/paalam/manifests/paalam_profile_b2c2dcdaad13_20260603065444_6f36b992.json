@@ -1,0 +1,14 @@
+{
+  "snapshot_id": "paalam_profile_b2c2dcdaad13_20260603065444_6f36b992",
+  "target_id": "paalam_profile_b2c2dcdaad13",
+  "source_key": "paalam",
+  "url": "https://paalam.org/homepage/victims/victor-lawanan/",
+  "fetched_at": "2026-06-03T06:54:44.005Z",
+  "http_status": 200,
+  "content_hash": "6f36b99240b6f8cac90511410e71905b673745a8cc5641279425970a2f6112e9",
+  "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_b2c2dcdaad13_20260603065444_6f36b992.html",
+  "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_b2c2dcdaad13_20260603065444_6f36b992.txt",
+  "outgoing_source_links": [
+    "https://newsinfo.inquirer.net/1436891/3-drug-suspects-dead-in-camarines-stings"
+  ]
+}

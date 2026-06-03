@@ -1,0 +1,15 @@
+{
+  "snapshot_id": "paalam_profile_38a1b53a78ab_20260603065414_fd73a9e7",
+  "target_id": "paalam_profile_38a1b53a78ab",
+  "source_key": "paalam",
+  "url": "https://paalam.org/homepage/victims/abraham-damil/",
+  "fetched_at": "2026-06-03T06:54:14.158Z",
+  "http_status": 200,
+  "content_hash": "fd73a9e77b2be12bbcf083a3176bbbcd467179d7b6be6127d1252ea04bda2cc6",
+  "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_38a1b53a78ab_20260603065414_fd73a9e7.html",
+  "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_38a1b53a78ab_20260603065414_fd73a9e7.txt",
+  "outgoing_source_links": [
+    "https://news.abs-cbn.com/video/news/05/06/21/lalaking-kasama-sa-drug-watchlist-ng-barangay-patay-sa-pamamaril",
+    "https://www.philstar.com/pilipino-star-ngayon/metro/2021/05/07/2096462/kelot-itinumba-habang-nagbibisikleta"
+  ]
+}

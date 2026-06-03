@@ -1,0 +1,14 @@
+{
+  "snapshot_id": "paalam_profile_7d0e811199f4_20260603065429_fc0db314",
+  "target_id": "paalam_profile_7d0e811199f4",
+  "source_key": "paalam",
+  "url": "https://paalam.org/homepage/victims/edwin-callos/",
+  "fetched_at": "2026-06-03T06:54:29.373Z",
+  "http_status": 200,
+  "content_hash": "fc0db314ff0c87999fc31a412c54604abad99480430dcfadd7cf3c805d00857c",
+  "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_7d0e811199f4_20260603065429_fc0db314.html",
+  "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_7d0e811199f4_20260603065429_fc0db314.txt",
+  "outgoing_source_links": [
+    "https://newsinfo.inquirer.net/1434356/2-drug-suspects-slain-in-cavite-buy-busts"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "snapshot_id": "paalam_profile_7c9868051fd6_20260603065411_33a9546a",
+  "target_id": "paalam_profile_7c9868051fd6",
+  "source_key": "paalam",
+  "url": "https://paalam.org/homepage/victims/alberto-neneng/",
+  "fetched_at": "2026-06-03T06:54:11.053Z",
+  "http_status": 200,
+  "content_hash": "33a9546a92b91c716193c72f85452137545bb79864e90d7d4928fdec443acdfa",
+  "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_7c9868051fd6_20260603065411_33a9546a.html",
+  "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_7c9868051fd6_20260603065411_33a9546a.txt",
+  "outgoing_source_links": [
+    "https://news.abs-cbn.com/news/05/21/21/senior-citizen-patay-sa-pamamaril-sa-tondo"
+  ]
+}

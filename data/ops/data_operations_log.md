@@ -20,3 +20,8 @@ Use this log for human-readable notes about setup, scraper runs, rechecks, schem
 - Ran extraction validation against the current empty output file; 0 lines, 0 invalid records. The next step is to fill `data/intermediate/extractions/paalam_ai_extracts.jsonl` from the prepared batch and re-run validation.
 - Updated the scrape-quality review script so target review status is reflected in `data/ops/scrape_targets.csv`; current summary shows 19 targets queued for extraction and 1 target queued for review.
 - Added a duplicate-batch guard to `prepare:paalam:extraction`; re-running it now points to existing queued batch `paalam_extraction_batch_20260602181037` instead of creating another batch for the same records.
+- Extracted the 19 records from `paalam_extraction_batch_20260602181037` into `data/intermediate/extractions/paalam_ai_extracts.jsonl`.
+- Ran Paalam extraction validation; 19 valid records, 7 records needing review, 0 invalid records. Added the 7 extraction review issues to `data/qa/review_queue.csv`.
+- Ran Paalam batch scrape `paalam_batch_20260603065359`; fetched the next 20 queued profile pages, saved raw HTML/text snapshots, recorded manifests and content hashes, and had 0 failed fetches.
+- Ran scrape-quality review after the second batch; 40 scraped records reviewed, 39 ready for AI extraction, and 1 scrape-quality issue still queued for review.
+- Prepared next Paalam AI extraction batch `paalam_extraction_batch_20260603065545` with 20 newly scraped ready records. This is the next continuation point.

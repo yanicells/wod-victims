@@ -1,0 +1,15 @@
+{
+  "snapshot_id": "paalam_profile_03c879818e40_20260603065440_3910fa87",
+  "target_id": "paalam_profile_03c879818e40",
+  "source_key": "paalam",
+  "url": "https://paalam.org/homepage/victims/jonathan-mulos/",
+  "fetched_at": "2026-06-03T06:54:40.883Z",
+  "http_status": 200,
+  "content_hash": "3910fa87b9530bc9f0a2032d715faabcdde2a9d2dbced7bebd9e4e48d48a7862",
+  "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_03c879818e40_20260603065440_3910fa87.html",
+  "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_03c879818e40_20260603065440_3910fa87.txt",
+  "outgoing_source_links": [
+    "https://news.abs-cbn.com/news/05/03/21/umanoy-tulak-patay-sa-anti-drug-operation-sa-cavite",
+    "https://www.abante.com.ph/tulak-nagpaputok-sa-pulis-todas/"
+  ]
+}

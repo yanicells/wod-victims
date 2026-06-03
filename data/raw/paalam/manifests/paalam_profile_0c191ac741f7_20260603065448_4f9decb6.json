@@ -1,0 +1,14 @@
+{
+  "snapshot_id": "paalam_profile_0c191ac741f7_20260603065448_4f9decb6",
+  "target_id": "paalam_profile_0c191ac741f7",
+  "source_key": "paalam",
+  "url": "https://paalam.org/homepage/victims/andrew-flores/",
+  "fetched_at": "2026-06-03T06:54:48.175Z",
+  "http_status": 200,
+  "content_hash": "4f9decb6100d681d327c1775d23e8b7086c4d29c06df0d7572b81ef1a1c17da9",
+  "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_0c191ac741f7_20260603065448_4f9decb6.html",
+  "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_0c191ac741f7_20260603065448_4f9decb6.txt",
+  "outgoing_source_links": [
+    "https://newsinfo.inquirer.net/1436891/3-drug-suspects-dead-in-camarines-stings"
+  ]
+}

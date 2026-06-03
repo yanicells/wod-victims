@@ -1,0 +1,14 @@
+{
+  "snapshot_id": "paalam_profile_5304e7e215e0_20260603065513_ebdffdae",
+  "target_id": "paalam_profile_5304e7e215e0",
+  "source_key": "paalam",
+  "url": "https://paalam.org/homepage/victims/dagul/",
+  "fetched_at": "2026-06-03T06:55:13.444Z",
+  "http_status": 200,
+  "content_hash": "ebdffdae69b134b53f6d683a74dd937dc93e3bdeddbcd0e50c35ee96d4a25531",
+  "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_5304e7e215e0_20260603065513_ebdffdae.html",
+  "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_5304e7e215e0_20260603065513_ebdffdae.txt",
+  "outgoing_source_links": [
+    "https://newsinfo.inquirer.net/1435611/3-drug-suspects-killed-in-separate-buy-busts-in-bulacan"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "snapshot_id": "paalam_profile_486e9898fce9_20260603065456_95fba99a",
+  "target_id": "paalam_profile_486e9898fce9",
+  "source_key": "paalam",
+  "url": "https://paalam.org/homepage/victims/yaba/",
+  "fetched_at": "2026-06-03T06:54:56.533Z",
+  "http_status": 200,
+  "content_hash": "95fba99a2295735e68c6ef7b30bc4fc18d9669ab35327ce65b42afaf6ae354f3",
+  "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_486e9898fce9_20260603065456_95fba99a.html",
+  "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_486e9898fce9_20260603065456_95fba99a.txt",
+  "outgoing_source_links": [
+    "https://www.bomboradyo.com/naga/drug-suspect-patay-matapos-mauwi-sa-armed-confrontation-ang-buybust-ops-sa-pili-camsur-nasa-p300-k-halaga-ng-droga-nakumpiska/"
+  ]
+}

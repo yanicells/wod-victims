@@ -1,0 +1,14 @@
+{
+  "snapshot_id": "paalam_profile_fd8be8bb5345_20260603065433_12d81a32",
+  "target_id": "paalam_profile_fd8be8bb5345",
+  "source_key": "paalam",
+  "url": "https://paalam.org/homepage/victims/larry-miranda/",
+  "fetched_at": "2026-06-03T06:54:33.545Z",
+  "http_status": 200,
+  "content_hash": "12d81a328bf4b23553e6f9f4c18ba45c1a20da79e53c8efb95e633fbc4472f2b",
+  "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_fd8be8bb5345_20260603065433_12d81a32.html",
+  "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_fd8be8bb5345_20260603065433_12d81a32.txt",
+  "outgoing_source_links": [
+    "https://newsinfo.inquirer.net/1430300/1-drug-suspect-slain-17-busted-in-cavite"
+  ]
+}

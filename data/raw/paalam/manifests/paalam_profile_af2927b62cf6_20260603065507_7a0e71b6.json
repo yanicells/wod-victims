@@ -1,0 +1,15 @@
+{
+  "snapshot_id": "paalam_profile_af2927b62cf6_20260603065507_7a0e71b6",
+  "target_id": "paalam_profile_af2927b62cf6",
+  "source_key": "paalam",
+  "url": "https://paalam.org/homepage/victims/noe-ababa/",
+  "fetched_at": "2026-06-03T06:55:07.975Z",
+  "http_status": 200,
+  "content_hash": "7a0e71b623f5998d1dab91924bdbc70636f5ccc814cf3c2b99ab4b0588bb903f",
+  "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_af2927b62cf6_20260603065507_7a0e71b6.html",
+  "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_af2927b62cf6_20260603065507_7a0e71b6.txt",
+  "outgoing_source_links": [
+    "https://newsinfo.inquirer.net/1196685/p5-4m-shabu-seized-in-pasay-city",
+    "https://newsinfo.inquirer.net/1435611/3-drug-suspects-killed-in-separate-buy-busts-in-bulacan"
+  ]
+}

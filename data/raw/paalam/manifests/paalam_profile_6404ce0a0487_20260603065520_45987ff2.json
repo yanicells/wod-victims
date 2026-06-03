@@ -1,0 +1,14 @@
+{
+  "snapshot_id": "paalam_profile_6404ce0a0487_20260603065520_45987ff2",
+  "target_id": "paalam_profile_6404ce0a0487",
+  "source_key": "paalam",
+  "url": "https://paalam.org/homepage/victims/daniel-lopez/",
+  "fetched_at": "2026-06-03T06:55:20.661Z",
+  "http_status": 200,
+  "content_hash": "45987ff2807a2e3328d64413e002e22d360c79c31260bb9d0a9f28bb4e2ee0b0",
+  "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_6404ce0a0487_20260603065520_45987ff2.html",
+  "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_6404ce0a0487_20260603065520_45987ff2.txt",
+  "outgoing_source_links": [
+    "https://tribune.net.ph/index.php/2021/05/07/5-drug-suspects-slain-in-nueva-ecija-bulacan/"
+  ]
+}

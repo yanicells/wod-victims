@@ -38,13 +38,13 @@ As of 2026-06-03:
 ```text
 Source focus: paalam
 Discovered Paalam profile targets: 3,349
-Scraped Paalam profile targets: 20
-Queued Paalam profile targets not scraped yet: 3,329
-Scrape-quality-ready records: 19
-Records needing scrape review: 1
-Latest prepared extraction batch: paalam_extraction_batch_20260602181037
-AI extraction output: not populated yet
-Next real data step: extract the 19 records in the latest batch, validate them, then continue scraping the next batch
+Scraped Paalam profile targets: 40
+Queued Paalam profile targets not scraped yet: 3,309
+Validated Paalam AI extraction records: 19
+Latest prepared extraction batch: paalam_extraction_batch_20260603065545
+Records in latest prepared extraction batch: 20
+Review-queued targets: 8
+Next real data step: extract the 20 records in the latest batch, validate them, then continue scraping the next batch
 ```
 
 The known review issue is:
