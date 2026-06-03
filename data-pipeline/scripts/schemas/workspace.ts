@@ -17,6 +17,7 @@ export const expectedDirectories = [
   "data/raw/news/snapshots",
   "data/raw/news/manifests",
   "data/intermediate/extractions",
+  "data/intermediate/extractions/batches",
   "data/intermediate/normalized",
   "data/intermediate/dedupe",
   "data/processed",

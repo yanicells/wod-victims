@@ -128,12 +128,12 @@ Double-check:
 - discovered targets have `status=discovered` or `queued`
 - source and run IDs are present
 
-### B. Sample scrape
+### B. First safe scrape, then batch scrape
 
 Ask Codex:
 
 ```text
-Run a safe sample scrape for 20 Paalam profile targets.
+Run a safe first scrape for 20 Paalam profile targets.
 
 Save append-only raw HTML and raw text snapshots.
 Update scrape_targets.csv with status, latest snapshot, content hash, HTTP status, and failure count.
@@ -148,11 +148,30 @@ Double-check:
 - content hashes are present
 - no old raw snapshots were overwritten
 
-Do not run a full scrape until the sample looks good.
+After the first scrape looks good, continue with `pnpm scrape:paalam:batch` in small batches.
+
+### C. Review scrape quality
+
+Ask Codex:
+
+```text
+Run the Paalam scrape-quality review.
+
+Use the saved raw snapshots and manifests.
+Report how many scraped records are ready for AI extraction and which records need review.
+Do not scrape a large backlog before extracting and validating the ready records.
+```
+
+Double-check:
+
+- the quality report exists
+- raw HTML/text files exist
+- records with missing or malformed source links are flagged
+- only quality-ready records move to AI extraction
 
 ## 4. Extraction workflow
 
-Only extract from raw text after the sample scrape is readable.
+Only extract from raw text after scraped pages pass quality review.
 
 Ask Codex:
 
@@ -161,13 +180,14 @@ Create the strict AI extraction schema and extraction prompt for Paalam victim p
 
 Every non-null field must include source_quote and confidence.
 Include source_key, target_id, snapshot_id, and source_url in each output.
-Do not run extraction yet.
+Use guide/09_PAALAM_EXTRACTION_SCHEMA.md as the schema reference.
 ```
 
 Then ask:
 
 ```text
-Run extraction on the 20 sample Paalam records only.
+Prepare the next Paalam AI extraction batch and run extraction on the scrape-quality-ready records.
+
 Save outputs to data/intermediate/extractions/paalam_ai_extracts.jsonl.
 Validate each output against the schema.
 Generate an extraction quality report.
@@ -188,7 +208,7 @@ After extraction, run a second pass before trusting anything.
 Ask Codex:
 
 ```text
-Validate the 20 extracted Paalam records against their raw source text.
+Validate the extracted Paalam records against their raw source text.
 
 Flag:
 - unsupported extracted fields
@@ -223,7 +243,7 @@ Suggested order:
 Ask Codex:
 
 ```text
-Build normalization scripts for the extracted Paalam sample.
+Build normalization scripts for the first validated Paalam extraction batch.
 
 Normalize names and dates first.
 For locations, preserve raw_location_text and only assign city/barangay/province when supported.
@@ -233,7 +253,7 @@ Do not generate exact private coordinates.
 Then ask:
 
 ```text
-Generate conservative duplicate candidates for the normalized Paalam sample.
+Generate conservative duplicate candidates for the normalized Paalam records.
 
 Use name, date, location, age, source URLs, and incident context.
 Do not auto-merge unless the match is very strong.
@@ -242,7 +262,7 @@ Do not auto-merge unless the match is very strong.
 Then ask:
 
 ```text
-Export the first public-safe sample dataset.
+Export the first public-safe dataset.
 
 Only include records that pass public record rules.
 Also export internal review rows and a data quality report.
@@ -255,24 +275,27 @@ Double-check:
 - province-only records are not shown as individual pins
 - duplicate status is not unresolved
 
-## 7. Scale up slowly
+## 7. Continue in repeatable batches
 
-After the 20-record sample works:
+After the first extraction batch validates:
 
-1. Run 100 Paalam records.
-2. Review the scrape and extraction reports.
-3. Fix scraper/schema/prompt issues.
-4. Run the remaining Paalam records.
-5. Re-run dedupe and export.
-6. Only then consider linked news articles.
+1. Extract any already-scraped quality-ready records first.
+2. Scrape the next Paalam batch.
+3. Review scrape quality.
+4. Prepare an AI extraction batch.
+5. Extract and validate that batch.
+6. Fix scraper/schema/prompt issues while the batch is still small.
+7. Repeat.
+8. Only then consider linked news articles.
 
 Ask Codex:
 
 ```text
-Scale the Paalam pipeline from 20 records to 100 records.
+Continue the Paalam pipeline using guide/08_AI_WORKFLOW.md.
 
-Only process queued or changed targets.
-Generate scrape, extraction, review, dedupe, and data quality reports.
+Use batch size 20 unless I say otherwise.
+Extract ready scraped records before scraping more.
+Generate scrape, extraction, review, and data quality reports.
 Do not touch linked news yet.
 ```
 
@@ -352,14 +375,16 @@ Use this as the rough project rhythm:
 Setup trackers and scripts
 → inspect Paalam
 → discover profile URLs
-→ sample scrape 20
+→ first safe scrape 20
 → inspect raw text
-→ extract 20
-→ validate 20
-→ normalize sample
-→ dedupe sample
-→ export sample
-→ scale to 100
+→ run scrape-quality review
+→ prepare AI extraction batch
+→ extract scrape-quality-ready records
+→ validate extraction
+→ continue Paalam in batches
+→ normalize validated records
+→ dedupe validated records
+→ export public-safe dataset
 → scale to all Paalam
 → add linked sources
 → build frontend
@@ -431,18 +456,23 @@ Read these in this order if you want to learn the project and the scraping/data 
 
 14. `guide/07_SCRAPING_STUDY_GUIDE.md`
 
-   Read this before studying the sample scraper. It explains targets, runs, snapshots, hashes, manifests, and why scraping is separated from extraction.
+   Read this before studying the scraper. It explains targets, runs, snapshots, hashes, manifests, and why scraping is separated from extraction.
 
-### D. When scraping starts
+15. `guide/08_AI_WORKFLOW.md`
 
-When we build the scraper, study files in this order:
+   This is the future-agent handoff file. Read it when you want another AI session to know exactly what scripts to run, what reports to inspect, and what trackers to update.
 
-1. URL discovery script
-2. scraper config
-3. safe fetch helper
-4. HTML-to-text helper
-5. snapshot writer
-6. target tracker updater
-7. sample scrape report
+### D. Scraping and extraction scripts
+
+Study files in this order:
+
+1. `data-pipeline/scripts/discover-paalam.ts`
+2. `data-pipeline/scripts/scrape-paalam.ts`
+3. `data-pipeline/scripts/lib/http.ts`
+4. `data-pipeline/scripts/lib/html.ts`
+5. `data-pipeline/scripts/review-paalam-scrape-quality.ts`
+6. `data-pipeline/scripts/prepare-paalam-extraction-batch.ts`
+7. `data-pipeline/scripts/validate-paalam-extractions.ts`
+8. latest scrape and extraction reports
 
 The most important scraping lesson: a scraper is not just "download a page." A good scraper also tracks what it touched, what failed, what changed, and what should happen next.

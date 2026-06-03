@@ -8,7 +8,11 @@
     "validate:workspace": "tsx scripts/validate-workspace.ts",
     "ops:summary": "tsx scripts/ops-summary.ts",
     "discover:paalam": "tsx scripts/discover-paalam.ts",
-    "scrape:paalam:sample": "tsx scripts/scrape-paalam-sample.ts"
+    "scrape:paalam:batch": "tsx scripts/scrape-paalam.ts --run-mode=batch",
+    "scrape:paalam:sample": "tsx scripts/scrape-paalam.ts --run-mode=sample",
+    "review:paalam:scrape-quality": "tsx scripts/review-paalam-scrape-quality.ts",
+    "prepare:paalam:extraction": "tsx scripts/prepare-paalam-extraction-batch.ts",
+    "validate:paalam:extraction": "tsx scripts/validate-paalam-extractions.ts"
   },
   "dependencies": {
     "cheerio": "^1.2.0",

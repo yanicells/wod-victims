@@ -25,7 +25,7 @@ export const ExtractionStatus = z.enum([
   "needs_rerun"
 ]);
 export const ReviewStatus = z.enum(["not_required", "queued", "in_review", "reviewed", "needs_follow_up"]);
-export const ScrapeRunMode = z.enum(["discover", "initial_scrape", "recheck", "retry_failed", "backfill", "sample"]);
+export const ScrapeRunMode = z.enum(["discover", "initial_scrape", "recheck", "retry_failed", "backfill", "sample", "batch"]);
 
 const optionalText = z.string().optional();
 
@@ -89,4 +89,3 @@ export const RecheckQueueRow = z.object({
   updated_at: optionalText,
   notes: optionalText
 });
-

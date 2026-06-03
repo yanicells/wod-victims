@@ -14,6 +14,7 @@ type Args = {
   limit: number;
   delayMs: number;
   timeoutMs: number;
+  runMode: "sample" | "batch";
 };
 
 type ScrapeResult = {
@@ -54,7 +55,8 @@ function parseArgs(): Args {
     dryRun: args.includes("--dry-run"),
     limit: readNumberFlag("limit", 20),
     delayMs: readNumberFlag("delay-ms", 2_500),
-    timeoutMs: readNumberFlag("timeout-ms", 20_000)
+    timeoutMs: readNumberFlag("timeout-ms", 20_000),
+    runMode: args.includes("--run-mode=sample") ? "sample" : "batch"
   };
 }
 
@@ -252,7 +254,7 @@ function updateTargetRows(
 async function main(): Promise<void> {
   const args = parseArgs();
   const startedAt = new Date().toISOString();
-  const runId = makeRunId(SOURCE_KEY, "sample", startedAt);
+  const runId = makeRunId(SOURCE_KEY, args.runMode, startedAt);
 
   const allTargets = readCsvRows(fromRoot("data/ops/scrape_targets.csv"));
   const selectedTargets = selectQueuedTargets(allTargets, args.limit);
@@ -262,7 +264,7 @@ async function main(): Promise<void> {
     return;
   }
 
-  console.log(`Starting Paalam sample scrape: ${runId}`);
+  console.log(`Starting Paalam ${args.runMode} scrape: ${runId}`);
   console.log(`Targets selected: ${selectedTargets.length}`);
   console.log(args.dryRun ? "Mode: dry run (no pages fetched, no files changed)" : "Mode: write raw snapshots and update trackers");
 
@@ -321,16 +323,16 @@ async function main(): Promise<void> {
     source_key: SOURCE_KEY,
     started_at: startedAt,
     finished_at: finishedAt,
-    mode: "sample",
+    mode: args.runMode,
     target_count: selectedTargets.length,
     success_count: successCount,
     changed_count: successCount,
     unchanged_count: 0,
     failed_count: failedCount,
-    script_version: "scrape-paalam-sample.ts@0.1",
+    script_version: "scrape-paalam.ts@0.2",
     git_commit: "",
     operator: "Codex",
-    notes: `limit=${args.limit}; delay_ms=${args.delayMs}; profile_pages_only=true; images_fetched=false; linked_news_fetched=false`
+    notes: `run_mode=${args.runMode}; limit=${args.limit}; delay_ms=${args.delayMs}; profile_pages_only=true; images_fetched=false; linked_news_fetched=false`
   });
 
   for (const result of results.filter((item) => !item.ok)) {
@@ -368,8 +370,8 @@ async function main(): Promise<void> {
   const reportPath = fromRoot(`data/raw/paalam/manifests/${runId}.json`);
   fs.writeFileSync(reportPath, `${JSON.stringify(report, null, 2)}\n`);
 
-  console.log("\nSample scrape summary");
-  console.log("---------------------");
+  console.log(`\nPaalam ${args.runMode} scrape summary`);
+  console.log("---------------------------");
   console.log(`Success: ${successCount}`);
   console.log(`Failed: ${failedCount}`);
   console.log(`Report: ${path.relative(fromRoot(), reportPath)}`);

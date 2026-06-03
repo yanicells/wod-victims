@@ -7,9 +7,9 @@ Before starting tasks, read `00_WORKFLOW_GUIDE.md` for the recommended order of 
 ## Project status
 
 ```text
-Current phase: Planning
+Current phase: Paalam extraction prep
 Current source: Paalam.org
-Current goal: Build names-first data pipeline, scrape tracking system, and first clean public dataset
+Current goal: Continue the Paalam data pipeline in small scrape/extract/validate batches
 ```
 
 ## Roles
@@ -105,7 +105,7 @@ Responsibilities:
 |---|---|---|---|---|
 | P1-001 | Inspect Paalam page structure | Script Agent | Done | See `guide/06_PAALAM_SITE_INSPECTION.md`; no broad scrape run |
 | P1-002 | Seed Paalam targets | Script Agent | Done | Discovery run `paalam_discover_20260602172527` added 3,349 queued profile targets |
-| P1-003 | Build safe scraper | Script Agent | Done | Added commented Paalam sample scraper with dry-run, slow rate, logs, and tracker updates |
+| P1-003 | Build safe scraper | Script Agent | Done | Added commented Paalam scraper with dry-run, sample mode, batch mode, slow rate, logs, and tracker updates |
 | P1-004 | Save raw HTML snapshots | Script Agent | Done | Sample run saved append-only HTML snapshots |
 | P1-005 | Save raw text snapshots | Script Agent | Done | Sample run saved readable text snapshots |
 | P1-006 | Save outgoing source links | Script Agent | Done | Sample manifests include outgoing source links; one malformed source link found |
@@ -113,8 +113,10 @@ Responsibilities:
 | P1-008 | Update target status after each run | Script Agent | Done | 20 targets changed from queued to scraped |
 | P1-009 | Track failed URLs and retries | Script Agent | Done | Failure path exists; sample run had 0 failures |
 | P1-010 | Run scraper on 20 records | Script Agent | Done | Run `paalam_sample_20260602173855` fetched 20 profile pages |
-| P1-011 | Review scrape quality | Yani + AI | Needs Review | Text is readable; Arthur Abdul source link is malformed/non-external and should be noted |
+| P1-011 | Review scrape quality | Yani + AI | Done | Quality report says 19 ready for AI extraction and 1 needs review |
 | P1-012 | Generate first scrape status report | Operations Agent | Done | See `data/raw/paalam/manifests/paalam_sample_20260602173855.json` |
+| P1-013 | Generate scrape quality report | Operations Agent | Done | See `data/qa/paalam_scrape_quality_report.json` |
+| P1-014 | Add real batch continuation command | Script Agent | Done | `pnpm scrape:paalam:batch -- --limit=20 --delay-ms=2500` continues queued Paalam profile targets |
 
 ### Phase 1.5: Incremental operations
 
@@ -131,13 +133,15 @@ Responsibilities:
 
 | ID | Task | Owner | Status | Notes |
 |---|---|---|---|---|
-| P2-001 | Create extraction prompt v1 | ChatGPT | Todo | Use strict JSON |
-| P2-002 | Run extraction on 20 new/changed records | Extractor | Todo | Small test |
-| P2-003 | Validate 20 outputs | Validator | Todo | Look for hallucinations |
-| P2-004 | Revise prompt/schema | ChatGPT | Todo | Based on failures |
-| P2-005 | Run extraction on 100 new/changed records | Extractor | Todo | First useful batch |
-| P2-006 | Generate extraction report | Script Agent | Todo | Missing fields, confidence counts |
-| P2-007 | Track extraction status per target | Script Agent | Todo | not_started/queued/extracted/validated/failed/skipped_unchanged/needs_rerun |
+| P2-001 | Create extraction schema v1 | ChatGPT | Done | See `guide/09_PAALAM_EXTRACTION_SCHEMA.md` |
+| P2-002 | Create reusable AI continue workflow | ChatGPT | Done | See `guide/08_AI_WORKFLOW.md` |
+| P2-003 | Build extraction batch prep script | Script Agent | Done | `pnpm prepare:paalam:extraction -- --limit=20` creates batch JSONL/prompt and queues target extraction status |
+| P2-004 | Build extraction validation script | Script Agent | Done | `pnpm validate:paalam:extraction` checks JSONL, evidence support, duplicates, raw text paths, and updates target status after success |
+| P2-005 | Run extraction on scrape-quality-ready Paalam records | Extractor | Todo | Start with the 19 ready records before scraping more pages |
+| P2-006 | Validate first AI extraction output | Validator | Todo | Validate `data/intermediate/extractions/paalam_ai_extracts.jsonl` and inspect validation report |
+| P2-007 | Revise prompt/schema | ChatGPT | Todo | Based on extraction failures or unsupported fields |
+| P2-008 | Continue next Paalam scrape/extract batch | Script Agent + Extractor | Todo | After ready records are extracted and validated, use `guide/08_AI_WORKFLOW.md` |
+| P2-009 | Generate extraction report | Script Agent | Todo | Missing fields, confidence counts, needs-review counts |
 
 ### Phase 3: Location normalization
 

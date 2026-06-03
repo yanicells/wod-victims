@@ -8,6 +8,10 @@
     "validate:workspace": "pnpm --filter @wod-victims/data-pipeline validate:workspace",
     "ops:summary": "pnpm --filter @wod-victims/data-pipeline ops:summary",
     "discover:paalam": "pnpm --filter @wod-victims/data-pipeline discover:paalam",
-    "scrape:paalam:sample": "pnpm --filter @wod-victims/data-pipeline scrape:paalam:sample"
+    "scrape:paalam:batch": "pnpm --filter @wod-victims/data-pipeline scrape:paalam:batch",
+    "scrape:paalam:sample": "pnpm --filter @wod-victims/data-pipeline scrape:paalam:sample",
+    "review:paalam:scrape-quality": "pnpm --filter @wod-victims/data-pipeline review:paalam:scrape-quality",
+    "prepare:paalam:extraction": "pnpm --filter @wod-victims/data-pipeline prepare:paalam:extraction",
+    "validate:paalam:extraction": "pnpm --filter @wod-victims/data-pipeline validate:paalam:extraction"
   }
 }

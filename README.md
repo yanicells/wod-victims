@@ -37,6 +37,12 @@ The data work is the hard part, so the project should prioritize:
 - `guide/05_AI_HANDOFF_PROMPTS.md`
   Reusable prompts for extraction, validation, deduplication, and QA.
 
+- `guide/08_AI_WORKFLOW.md`
+  Operational handoff for future AI agents: how to continue Paalam scraping, extraction, validation, and tracker updates in repeatable batches.
+
+- `guide/09_PAALAM_EXTRACTION_SCHEMA.md`
+  Strict JSONL schema for AI extraction from Paalam raw text snapshots.
+
 ## Blunt project rule
 
 Do not treat AI-cleaned data as truth. AI should extract, structure, flag, and explain. Public-facing rows should keep source links, confidence labels, and location precision.
@@ -67,3 +73,20 @@ docs/              Future public methodology and implementation notes
 ```
 
 Use `pnpm` from the repo root for data-pipeline commands. The web app can be added later under `apps/web` as a separate package.
+
+## Current Continuation Commands
+
+```text
+pnpm check
+pnpm validate:workspace
+pnpm ops:summary
+pnpm review:paalam:scrape-quality
+pnpm prepare:paalam:extraction -- --limit=20
+pnpm validate:paalam:extraction
+```
+
+For future AI sessions, the main instruction is:
+
+```text
+Read guide/08_AI_WORKFLOW.md and continue the Paalam data pipeline for the next batch.
+```
