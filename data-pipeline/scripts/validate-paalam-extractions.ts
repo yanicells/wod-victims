@@ -68,6 +68,11 @@ function updateTargetExtractionStatuses(records: Array<{ target_id: string; need
   const rows = readCsvRows(targetsPath);
   const recordsByTargetId = new Map(records.map((record) => [record.target_id, record]));
 
+  // Review states that a human/review pass has already decided. We must NOT
+  // overwrite these on re-validation, or every batch's validate run would wipe
+  // the review queue back to "queued".
+  const dispositioned = new Set(["in_review", "reviewed", "needs_follow_up"]);
+
   // Only call this after validation has no issues.
   // That way the tracker never says "validated" for a broken output file.
   const updatedRows = rows.map((row) => {
@@ -78,10 +83,18 @@ function updateTargetExtractionStatuses(records: Array<{ target_id: string; need
       return row;
     }
 
+    // Preserve an existing disposition; otherwise queue freshly-flagged rows.
+    const currentReview = row.review_status ?? "";
+    const reviewStatus = dispositioned.has(currentReview)
+      ? currentReview
+      : record.needs_review
+        ? "queued"
+        : "not_required";
+
     return {
       ...row,
       extraction_status: "validated",
-      review_status: record.needs_review ? "queued" : "not_required",
+      review_status: reviewStatus,
       updated_at: validatedAt
     };
   });

@@ -1,0 +1,15 @@
+{
+  "snapshot_id": "paalam_profile_5ce90fddb70d_20260604054454_271b1d1d",
+  "target_id": "paalam_profile_5ce90fddb70d",
+  "source_key": "paalam",
+  "url": "https://paalam.org/homepage/victims/froilan-reyes/",
+  "fetched_at": "2026-06-04T05:44:54.252Z",
+  "http_status": 200,
+  "content_hash": "271b1d1dfc31e4e5b42a0b0dafff36c7cbf9ce96ff72282bad05772482cbac6a",
+  "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_5ce90fddb70d_20260604054454_271b1d1d.html",
+  "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_5ce90fddb70d_20260604054454_271b1d1d.txt",
+  "outgoing_source_links": [
+    "http://saksingayon.com/probinsiya/abc-prexy-ng-kalayaan-laguna-patay-sa-pamamaril/",
+    "https://newsinfo.inquirer.net/1293876/village-chief-gunned-down-in-laguna"
+  ]
+}

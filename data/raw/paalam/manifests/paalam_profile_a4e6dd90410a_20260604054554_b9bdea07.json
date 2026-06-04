@@ -1,0 +1,14 @@
+{
+  "snapshot_id": "paalam_profile_a4e6dd90410a_20260604054554_b9bdea07",
+  "target_id": "paalam_profile_a4e6dd90410a",
+  "source_key": "paalam",
+  "url": "https://paalam.org/homepage/victims/ritchie-de-asis/",
+  "fetched_at": "2026-06-04T05:45:54.808Z",
+  "http_status": 200,
+  "content_hash": "b9bdea0702872ccc88df8d5269f85c4f52305bb07b4e2083a431876984bf131b",
+  "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_a4e6dd90410a_20260604054554_b9bdea07.html",
+  "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_a4e6dd90410a_20260604054554_b9bdea07.txt",
+  "outgoing_source_links": [
+    "https://rmn.ph/drug-pusher-misukol-patay-4/"
+  ]
+}

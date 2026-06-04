@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-06-03T08:32:59.617Z",
+  "generated_at": "2026-06-04T06:32:16.572Z",
   "input_path": "data/intermediate/extractions/paalam_ai_extracts.jsonl",
-  "total_lines": 45,
-  "valid_records": 45,
-  "needs_review": 18,
+  "total_lines": 72,
+  "valid_records": 72,
+  "needs_review": 40,
   "invalid_records": 0,
   "issues": []
 }

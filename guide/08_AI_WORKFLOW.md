@@ -38,36 +38,22 @@ If the AI context window is tight, use 5 or 10 records. Do not try to process al
 
 ## Current Checkpoint
 
-As of 2026-06-03:
+As of 2026-06-04 (post first review pass — clean start):
 
 ```text
 Source focus: paalam
 Discovered Paalam profile targets: 3,349
-Scraped Paalam profile targets: 47
-Failed Paalam profile targets (network errors, retry pending): 13
-Queued Paalam profile targets not scraped yet: 3,289
-Validated Paalam AI extraction records: 45
-Records needing review (accumulating): 18
-Latest prepared extraction batch: paalam_extraction_batch_20260603083113
-Records in latest prepared extraction batch: 6 (all extracted and validated)
-Review-queued targets: 16
-Next real data step: retry the 13 failed URLs, then scrape and extract the next batch
+Scraped Paalam profile targets: 75
+Failed Paalam profile targets: 0  (a throttle event failed 13; all recovered via scrape:paalam:retry)
+Queued Paalam profile targets not scraped yet: 3,274
+Validated Paalam AI extraction records: 72
+Last landed extraction batch: paalam_extraction_batch_20260604054601 (27 records)
+Review status: 0 queued, 16 reviewed, 27 needs_follow_up
+Clean-start state: 0 failed, 0 review-queued.
+Next real data step: scrape the next batch (smaller chunks, see guide/10), extract, validate, continue.
 ```
 
-Known review issues (do not resolve yet — dedicated review pass later):
-
-```text
-Target ID: paalam_profile_4f073c39d6e5
-Issue: source_section_without_valid_external_link
-
-Target ID: paalam_profile_159ca7bf7ae7 (Antonio Rodriguez)
-Issue: location_discrepancy — profile says Lucena/Laguna, source says Balayan/Batangas
-
-Target IDs: paalam_profile_bf5fc9288233 (Christopher Cuan), paalam_profile_3d6c39963120 (Caesar Perez)
-Issue: politically sensitive cases — sitting mayors on drug list killed by unknown assailants
-
-Tracker: data/qa/review_queue.csv
-```
+The 27 `needs_follow_up` items (notes in `data/qa/review_queue.csv`) are NOT pipeline bugs — they are editorial/scope and data-quality calls reserved for Yani: watchlist mayors, an apparent activist/"state forces" killing, a sensitive minor case (16-year-old allegedly handcuffed), public officials, victims with no drug-war link in the source, anonymous victims, and 3 targets with no usable source link. Do not silently accept or delete these; leave them for a dedicated session with Yani. The 16 `reviewed` items include 6 corrections recorded in `data/qa/manual_fixes.csv`.
 
 ## Non-Negotiable Rules
 

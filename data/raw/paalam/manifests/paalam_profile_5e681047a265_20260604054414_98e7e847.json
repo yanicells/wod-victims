@@ -1,0 +1,14 @@
+{
+  "snapshot_id": "paalam_profile_5e681047a265_20260604054414_98e7e847",
+  "target_id": "paalam_profile_5e681047a265",
+  "source_key": "paalam",
+  "url": "https://paalam.org/homepage/victims/anonymous-07-29-2020/",
+  "fetched_at": "2026-06-04T05:44:14.018Z",
+  "http_status": 200,
+  "content_hash": "98e7e847d2e40b6e1126246ee58a34af6a54a04dba4e85ddb056c786d7a18431",
+  "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_5e681047a265_20260604054414_98e7e847.html",
+  "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_5e681047a265_20260604054414_98e7e847.txt",
+  "outgoing_source_links": [
+    "https://news.abs-cbn.com/news/07/26/20/babae-patay-sa-pamamaril-ng-motorcycle-rider-sa-maynila"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "snapshot_id": "paalam_profile_3df67fce3fcd_20260604054457_0d1df996",
+  "target_id": "paalam_profile_3df67fce3fcd",
+  "source_key": "paalam",
+  "url": "https://paalam.org/homepage/victims/jeremie-garcia/",
+  "fetched_at": "2026-06-04T05:44:57.316Z",
+  "http_status": 200,
+  "content_hash": "0d1df9960ffed1be6478c707c42b2de3759d98d3e3ff08934d8306ff17773377",
+  "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_3df67fce3fcd_20260604054457_0d1df996.html",
+  "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_3df67fce3fcd_20260604054457_0d1df996.txt",
+  "outgoing_source_links": [
+    "https://news.abs-cbn.com/news/11/08/20/2-patay-sa-magkakasunod-na-operasyon-kontra-droga-sa-bulacan",
+    "https://newsinfo.inquirer.net/1358025/2-drug-suspects-slain-in-bulacan-drug-bust",
+    "https://www.philstar.com/pilipino-star-ngayon/probinsiya/2020/11/08/2055405/2-tulak-todas-sa-bulacan"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "snapshot_id": "paalam_profile_93bd036005e7_20260604054421_8cbd47eb",
+  "target_id": "paalam_profile_93bd036005e7",
+  "source_key": "paalam",
+  "url": "https://paalam.org/homepage/victims/anonymous-july17a-2020/",
+  "fetched_at": "2026-06-04T05:44:21.344Z",
+  "http_status": 200,
+  "content_hash": "8cbd47eb7ff993a6958defa0bad112e5942f88a693f9aab1a813257236e1f98d",
+  "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_93bd036005e7_20260604054421_8cbd47eb.html",
+  "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_93bd036005e7_20260604054421_8cbd47eb.txt",
+  "outgoing_source_links": [
+    "https://news.abs-cbn.com/news/07/14/20/babaeng-kakalaya-lang-sa-kulungan-patay-sa-pamamaril-sa-maynila"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "snapshot_id": "paalam_profile_9dab465c6a1a_20260604054540_3dc8338c",
+  "target_id": "paalam_profile_9dab465c6a1a",
+  "source_key": "paalam",
+  "url": "https://paalam.org/homepage/victims/vincent-adia/",
+  "fetched_at": "2026-06-04T05:45:40.061Z",
+  "http_status": 200,
+  "content_hash": "3dc8338c353cb800a0682b47e49840f47afd8183883eff9290c687af66bdcee4",
+  "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_9dab465c6a1a_20260604054540_3dc8338c.html",
+  "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_9dab465c6a1a_20260604054540_3dc8338c.txt",
+  "outgoing_source_links": [
+    "https://www.gmanetwork.com/news/news/regions/762840/shooting-victim-killed-while-undergoing-treatment-at-angono-hospital/story/",
+    "https://www.rappler.com/newsbreak/in-depth/vincent-adia-angono-rizal-hospital-ejk-victim-last-words",
+    "https://www.rappler.com/newsbreak/in-depth/vincent-adia-survived-shots-to-head-gunman-kills-him-hospital-rizal"
+  ]
+}

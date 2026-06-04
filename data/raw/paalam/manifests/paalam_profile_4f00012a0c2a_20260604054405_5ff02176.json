@@ -1,0 +1,14 @@
+{
+  "snapshot_id": "paalam_profile_4f00012a0c2a_20260604054405_5ff02176",
+  "target_id": "paalam_profile_4f00012a0c2a",
+  "source_key": "paalam",
+  "url": "https://paalam.org/homepage/victims/harriet-barrameda-serra/",
+  "fetched_at": "2026-06-04T05:44:05.424Z",
+  "http_status": 200,
+  "content_hash": "5ff02176db5ad987a9896d9e0df2355e2a01bdf3109c1a27752583b4a0bc0ff5",
+  "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_4f00012a0c2a_20260604054405_5ff02176.html",
+  "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_4f00012a0c2a_20260604054405_5ff02176.txt",
+  "outgoing_source_links": [
+    "https://www.philstar.com/pilipino-star-ngayon/probinsiya/2020/07/28/2031136/lady-kagawad-pinasok-kinatay-sa-bahay"
+  ]
+}

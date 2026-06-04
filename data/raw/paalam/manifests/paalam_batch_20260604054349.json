@@ -1,0 +1,221 @@
+{
+  "run_id": "paalam_batch_20260604054349",
+  "started_at": "2026-06-04T05:43:49.462Z",
+  "finished_at": "2026-06-04T05:44:54.259Z",
+  "run_mode": "batch",
+  "retry_failed": false,
+  "selected_count": 15,
+  "attempted_count": 15,
+  "stopped_early": false,
+  "target_count": 15,
+  "success_count": 15,
+  "failed_count": 0,
+  "results": [
+    {
+      "target_id": "paalam_profile_46268ee51c59",
+      "url": "https://paalam.org/homepage/victims/remar-caballero/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_46268ee51c59_20260604054352_7b5b5301",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_46268ee51c59_20260604054352_7b5b5301.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_46268ee51c59_20260604054352_7b5b5301.txt",
+      "outgoing_source_links_count": 2,
+      "outgoing_source_links": [
+        "https://news.abs-cbn.com/news/08/26/20/hustisya-panawagan-ng-pamilya-ng-pinaslang-na-kagawad-sa-batangas",
+        "https://www.youtube.com/watch?v=rG1LJlmixW4"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_ee71b9dc7a06",
+      "url": "https://paalam.org/homepage/victims/emelito-mercado/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_ee71b9dc7a06_20260604054355_0155a80e",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_ee71b9dc7a06_20260604054355_0155a80e.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_ee71b9dc7a06_20260604054355_0155a80e.txt",
+      "outgoing_source_links_count": 2,
+      "outgoing_source_links": [
+        "https://tonite.abante.com.ph/kapitan-tinumba-ng-tandem-sa-cavite1/",
+        "https://www.remate.ph/barangay-captain-todas-sa-riding-in-tandem/"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_ba041f510f4e",
+      "url": "https://paalam.org/homepage/victims/abdulmajid-mamalumpong/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_ba041f510f4e_20260604054400_0e358b95",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_ba041f510f4e_20260604054400_0e358b95.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_ba041f510f4e_20260604054400_0e358b95.txt",
+      "outgoing_source_links_count": 2,
+      "outgoing_source_links": [
+        "https://www.philstar.com/pilipino-star-ngayon/probinsiya/2020/08/05/2032980/kagawad-nilikida-ng-tandem",
+        "https://www.pna.gov.ph/articles/1110974"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_4f00012a0c2a",
+      "url": "https://paalam.org/homepage/victims/harriet-barrameda-serra/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_4f00012a0c2a_20260604054405_5ff02176",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_4f00012a0c2a_20260604054405_5ff02176.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_4f00012a0c2a_20260604054405_5ff02176.txt",
+      "outgoing_source_links_count": 1,
+      "outgoing_source_links": [
+        "https://www.philstar.com/pilipino-star-ngayon/probinsiya/2020/07/28/2031136/lady-kagawad-pinasok-kinatay-sa-bahay"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_97e28fa3739c",
+      "url": "https://paalam.org/homepage/victims/cornelio-hementela/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_97e28fa3739c_20260604054410_2fc1e53b",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_97e28fa3739c_20260604054410_2fc1e53b.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_97e28fa3739c_20260604054410_2fc1e53b.txt",
+      "outgoing_source_links_count": 2,
+      "outgoing_source_links": [
+        "https://newsinfo.inquirer.net/1320032/teacher-brother-shot-dead-in-nueva-ecija",
+        "https://tabloid.ph/2020/08/11/teacher-brother-shot-dead-in-nueva-ecija/"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_5e681047a265",
+      "url": "https://paalam.org/homepage/victims/anonymous-07-29-2020/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_5e681047a265_20260604054414_98e7e847",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_5e681047a265_20260604054414_98e7e847.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_5e681047a265_20260604054414_98e7e847.txt",
+      "outgoing_source_links_count": 1,
+      "outgoing_source_links": [
+        "https://news.abs-cbn.com/news/07/26/20/babae-patay-sa-pamamaril-ng-motorcycle-rider-sa-maynila"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_d2042b7e093d",
+      "url": "https://paalam.org/homepage/victims/anonymous-july-20-2020/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_d2042b7e093d_20260604054417_5b3a98b5",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_d2042b7e093d_20260604054417_5b3a98b5.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_d2042b7e093d_20260604054417_5b3a98b5.txt",
+      "outgoing_source_links_count": 1,
+      "outgoing_source_links": [
+        "https://news.abs-cbn.com/news/07/19/20/lalaki-patay-sa-pamamaril-sa-lagusnilad-sa-maynila"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_93bd036005e7",
+      "url": "https://paalam.org/homepage/victims/anonymous-july17a-2020/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_93bd036005e7_20260604054421_8cbd47eb",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_93bd036005e7_20260604054421_8cbd47eb.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_93bd036005e7_20260604054421_8cbd47eb.txt",
+      "outgoing_source_links_count": 1,
+      "outgoing_source_links": [
+        "https://news.abs-cbn.com/news/07/14/20/babaeng-kakalaya-lang-sa-kulungan-patay-sa-pamamaril-sa-maynila"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_2e2cee06ecf6",
+      "url": "https://paalam.org/homepage/victims/renato-cajelo-mariano/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_2e2cee06ecf6_20260604054426_19db53c5",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_2e2cee06ecf6_20260604054426_19db53c5.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_2e2cee06ecf6_20260604054426_19db53c5.txt",
+      "outgoing_source_links_count": 1,
+      "outgoing_source_links": [
+        "https://www.romblonnews.net/index.php/local/33-san-jose/5976-magsasaka-patay-sa-pamamaril-sa-san-jose"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_0cbfb0e74d36",
+      "url": "https://paalam.org/homepage/victims/anonymous-july17-2020/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_0cbfb0e74d36_20260604054430_6abe9102",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_0cbfb0e74d36_20260604054430_6abe9102.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_0cbfb0e74d36_20260604054430_6abe9102.txt",
+      "outgoing_source_links_count": 1,
+      "outgoing_source_links": [
+        "https://news.abs-cbn.com/news/07/15/20/babae-patay-sa-pamamaril-sa-quezon-city"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_e7cd6c0ebee4",
+      "url": "https://paalam.org/homepage/victims/pablo-matinong-jr/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_e7cd6c0ebee4_20260604054434_bea30b07",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_e7cd6c0ebee4_20260604054434_bea30b07.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_e7cd6c0ebee4_20260604054434_bea30b07.txt",
+      "outgoing_source_links_count": 3,
+      "outgoing_source_links": [
+        "https://news.abs-cbn.com/news/07/10/20/south-cotabato-town-mayor-shot-dead",
+        "https://www.pna.gov.ph/articles/1108566",
+        "https://www.rappler.com/nation/266198-sto-nino-south-cotabato-mayor-pablo-matinong-killed-july-10-2020"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_a0e453420789",
+      "url": "https://paalam.org/homepage/victims/harold-tablazon/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_a0e453420789_20260604054438_1533811c",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_a0e453420789_20260604054438_1533811c.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_a0e453420789_20260604054438_1533811c.txt",
+      "outgoing_source_links_count": 2,
+      "outgoing_source_links": [
+        "https://news.abs-cbn.com/news/06/21/20/2-barangay-official-patay-sa-pamamaril-sa-iloilo",
+        "https://www.bulatlat.com/2020/06/22/in-one-day-4-farmers-killed-by-suspected-state-agents/"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_ee78d68e98a7",
+      "url": "https://paalam.org/homepage/victims/noron-mulod/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_ee78d68e98a7_20260604054443_57641d2f",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_ee78d68e98a7_20260604054443_57641d2f.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_ee78d68e98a7_20260604054443_57641d2f.txt",
+      "outgoing_source_links_count": 2,
+      "outgoing_source_links": [
+        "https://news.abs-cbn.com/news/06/18/20/mag-ama-patay-sa-pamamaril-sa-cotabato",
+        "https://www.pna.gov.ph/articles/1106261"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_cf5a2b5866ef",
+      "url": "https://paalam.org/homepage/victims/gener-amante-jr/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_cf5a2b5866ef_20260604054448_ca38858a",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_cf5a2b5866ef_20260604054448_ca38858a.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_cf5a2b5866ef_20260604054448_ca38858a.txt",
+      "outgoing_source_links_count": 3,
+      "outgoing_source_links": [
+        "https://news.abs-cbn.com/news/08/31/19/pamangkin-ng-dating-san-pablo-mayor-patay-sa-pananambang",
+        "https://newsinfo.inquirer.net/1159595/amante-nephew-tagged-in-drugs-gunned-down-in-laguna",
+        "https://youtu.be/83ETTzPAsX4?t=30"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_5ce90fddb70d",
+      "url": "https://paalam.org/homepage/victims/froilan-reyes/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_5ce90fddb70d_20260604054454_271b1d1d",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_5ce90fddb70d_20260604054454_271b1d1d.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_5ce90fddb70d_20260604054454_271b1d1d.txt",
+      "outgoing_source_links_count": 2,
+      "outgoing_source_links": [
+        "http://saksingayon.com/probinsiya/abc-prexy-ng-kalayaan-laguna-patay-sa-pamamaril/",
+        "https://newsinfo.inquirer.net/1293876/village-chief-gunned-down-in-laguna"
+      ]
+    }
+  ]
+}

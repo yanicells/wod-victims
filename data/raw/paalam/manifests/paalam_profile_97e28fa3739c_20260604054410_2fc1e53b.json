@@ -1,0 +1,15 @@
+{
+  "snapshot_id": "paalam_profile_97e28fa3739c_20260604054410_2fc1e53b",
+  "target_id": "paalam_profile_97e28fa3739c",
+  "source_key": "paalam",
+  "url": "https://paalam.org/homepage/victims/cornelio-hementela/",
+  "fetched_at": "2026-06-04T05:44:10.391Z",
+  "http_status": 200,
+  "content_hash": "2fc1e53b2629ff12f9f2c51dc325c95db197638bccff0b9d7c3d3c5bf07c2a42",
+  "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_97e28fa3739c_20260604054410_2fc1e53b.html",
+  "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_97e28fa3739c_20260604054410_2fc1e53b.txt",
+  "outgoing_source_links": [
+    "https://newsinfo.inquirer.net/1320032/teacher-brother-shot-dead-in-nueva-ecija",
+    "https://tabloid.ph/2020/08/11/teacher-brother-shot-dead-in-nueva-ecija/"
+  ]
+}

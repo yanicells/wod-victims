@@ -1,0 +1,15 @@
+{
+  "snapshot_id": "paalam_profile_46268ee51c59_20260604054352_7b5b5301",
+  "target_id": "paalam_profile_46268ee51c59",
+  "source_key": "paalam",
+  "url": "https://paalam.org/homepage/victims/remar-caballero/",
+  "fetched_at": "2026-06-04T05:43:52.042Z",
+  "http_status": 200,
+  "content_hash": "7b5b5301d42fc16dcdd7b957112fb76c0583c58a4dcd67101150b86af3a72709",
+  "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_46268ee51c59_20260604054352_7b5b5301.html",
+  "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_46268ee51c59_20260604054352_7b5b5301.txt",
+  "outgoing_source_links": [
+    "https://news.abs-cbn.com/news/08/26/20/hustisya-panawagan-ng-pamilya-ng-pinaslang-na-kagawad-sa-batangas",
+    "https://www.youtube.com/watch?v=rG1LJlmixW4"
+  ]
+}

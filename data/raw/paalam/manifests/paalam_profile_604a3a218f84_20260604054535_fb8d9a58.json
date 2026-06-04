@@ -1,0 +1,14 @@
+{
+  "snapshot_id": "paalam_profile_604a3a218f84_20260604054535_fb8d9a58",
+  "target_id": "paalam_profile_604a3a218f84",
+  "source_key": "paalam",
+  "url": "https://paalam.org/homepage/victims/joshua-evangelista/",
+  "fetched_at": "2026-06-04T05:45:35.171Z",
+  "http_status": 200,
+  "content_hash": "fb8d9a58daa2def5e1b7d368d6b2d9f205b249d51878114cecab96cac43bc5e8",
+  "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_604a3a218f84_20260604054535_fb8d9a58.html",
+  "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_604a3a218f84_20260604054535_fb8d9a58.txt",
+  "outgoing_source_links": [
+    "https://www.philstar.com/nation/2020/10/23/2051601/teen-shot-dead-caloocan"
+  ]
+}
