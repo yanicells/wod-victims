@@ -126,7 +126,7 @@ Responsibilities:
 | P1O-002 | Build recheck queue | Script Agent | Todo | Queue due targets without re-scraping everything |
 | P1O-003 | Build changed-page detector | Script Agent | Todo | Compare latest content hash to previous successful snapshot |
 | P1O-004 | Queue extraction reruns for changed pages | Script Agent | Todo | New/changed pages only unless schema/prompt changed |
-| P1O-005 | Build retry-failed workflow | Script Agent | Todo | Retry failed pages without touching successful pages |
+| P1O-005 | Build retry-failed workflow | Script Agent | Done | `pnpm scrape:paalam:retry` re-attempts `failed` targets due per `next_retry_at` (oldest first, `--force` to ignore gate). Added circuit breaker (`--max-consecutive-failures`, default 5) + per-request retry (`--retries`, default 1) to avoid stranding targets when the site throttles |
 | P1O-006 | Produce monthly operations report | Operations Agent | Todo | Sources, targets, failures, changes, extraction backlog |
 
 ### Phase 2: AI extraction

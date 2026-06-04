@@ -10,6 +10,7 @@
     "discover:paalam": "tsx scripts/discover-paalam.ts",
     "scrape:paalam:batch": "tsx scripts/scrape-paalam.ts --run-mode=batch",
     "scrape:paalam:sample": "tsx scripts/scrape-paalam.ts --run-mode=sample",
+    "scrape:paalam:retry": "tsx scripts/scrape-paalam.ts --retry-failed",
     "review:paalam:scrape-quality": "tsx scripts/review-paalam-scrape-quality.ts",
     "prepare:paalam:extraction": "tsx scripts/prepare-paalam-extraction-batch.ts",
     "validate:paalam:extraction": "tsx scripts/validate-paalam-extractions.ts"

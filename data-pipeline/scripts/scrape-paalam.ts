@@ -14,7 +14,12 @@ type Args = {
   limit: number;
   delayMs: number;
   timeoutMs: number;
-  runMode: "sample" | "batch";
+  retries: number;
+  maxConsecutiveFailures: number;
+  maxFailures: number;
+  retryFailed: boolean;
+  force: boolean;
+  runMode: "sample" | "batch" | "retry_failed";
 };
 
 type ScrapeResult = {
@@ -35,7 +40,7 @@ const SOURCE_KEY = "paalam";
 function parseArgs(): Args {
   const args = process.argv.slice(2);
 
-  function readNumberFlag(name: string, fallback: number): number {
+  function readNumberFlag(name: string, fallback: number, allowZero = false): number {
     const prefix = `--${name}=`;
     const match = args.find((arg) => arg.startsWith(prefix));
 
@@ -44,19 +49,31 @@ function parseArgs(): Args {
     }
 
     const value = Number(match.slice(prefix.length));
-    if (!Number.isFinite(value) || value <= 0) {
-      throw new Error(`Invalid --${name}; expected a positive number.`);
+    const invalid = !Number.isFinite(value) || (allowZero ? value < 0 : value <= 0);
+    if (invalid) {
+      throw new Error(`Invalid --${name}; expected a ${allowZero ? "non-negative" : "positive"} number.`);
     }
 
     return value;
   }
+
+  const retryFailed = args.includes("--retry-failed");
 
   return {
     dryRun: args.includes("--dry-run"),
     limit: readNumberFlag("limit", 20),
     delayMs: readNumberFlag("delay-ms", 2_500),
     timeoutMs: readNumberFlag("timeout-ms", 20_000),
-    runMode: args.includes("--run-mode=sample") ? "sample" : "batch"
+    // Extra fetch attempts per page (transient drops). 0 disables.
+    retries: readNumberFlag("retries", 1, true),
+    // Stop the run after this many consecutive failures (likely throttling). 0 disables.
+    maxConsecutiveFailures: readNumberFlag("max-consecutive-failures", 5, true),
+    // In retry-failed mode, skip targets that have already failed this many times.
+    maxFailures: readNumberFlag("max-failures", 5),
+    retryFailed,
+    // Ignore next_retry_at gating in retry-failed mode (retry due + not-yet-due).
+    force: args.includes("--force"),
+    runMode: retryFailed ? "retry_failed" : args.includes("--run-mode=sample") ? "sample" : "batch"
   };
 }
 
@@ -70,12 +87,24 @@ function getCsvColumns(filePath: string): string[] {
   return expectation.columns;
 }
 
-function selectQueuedTargets(rows: Record<string, string>[], limit: number): Record<string, string>[] {
-  return rows
+function selectTargets(rows: Record<string, string>[], args: Args, now: Date): Record<string, string>[] {
+  const base = rows
     .filter((row) => row.source_key === SOURCE_KEY)
-    .filter((row) => row.target_type === "profile_page")
-    .filter((row) => row.status === "queued")
-    .slice(0, limit);
+    .filter((row) => row.target_type === "profile_page");
+
+  if (!args.retryFailed) {
+    return base.filter((row) => row.status === "queued").slice(0, args.limit);
+  }
+
+  // Retry-failed mode: re-attempt targets that previously failed, oldest retry
+  // time first, skipping ones that have already failed too many times. Unless
+  // --force is set, only pick targets whose next_retry_at has passed.
+  return base
+    .filter((row) => row.status === "failed")
+    .filter((row) => Number(row.failure_count || "0") < args.maxFailures)
+    .filter((row) => args.force || !row.next_retry_at || new Date(row.next_retry_at) <= now)
+    .sort((a, b) => (a.next_retry_at || "").localeCompare(b.next_retry_at || ""))
+    .slice(0, args.limit);
 }
 
 function relativeSnapshotPath(snapshotId: string, extension: "html" | "txt"): string {
@@ -92,9 +121,13 @@ function incrementFailureCount(row: Record<string, string>): string {
   return String(Number.isFinite(current) ? current + 1 : 1);
 }
 
-function buildRetryTime(now: Date): string {
+function buildRetryTime(now: Date, failureCount: number): string {
   const retry = new Date(now);
-  retry.setDate(retry.getDate() + 1);
+  // Growing backoff so repeat failures wait longer, but the first retry comes
+  // back soon (a throttle usually clears in minutes, not a day). ~15m, 30m, 60m,
+  // ... capped at 24h.
+  const minutes = Math.min(15 * 2 ** Math.max(0, failureCount - 1), 24 * 60);
+  retry.setMinutes(retry.getMinutes() + minutes);
   return retry.toISOString();
 }
 
@@ -108,14 +141,14 @@ function requiredCell(row: Record<string, string>, field: string): string {
   return value;
 }
 
-async function scrapeOneTarget(row: Record<string, string>, timeoutMs: number): Promise<ScrapeResult> {
+async function scrapeOneTarget(row: Record<string, string>, timeoutMs: number, retries: number): Promise<ScrapeResult> {
   const targetId = requiredCell(row, "target_id");
   const url = requiredCell(row, "url");
 
   try {
     // This fetches only the HTML document for the victim profile.
     // It does not download images, scripts, or outgoing news articles.
-    const response = await fetchText(url, timeoutMs);
+    const response = await fetchText(url, timeoutMs, retries);
 
     if (response.status < 200 || response.status >= 300) {
       return {
@@ -237,14 +270,15 @@ function updateTargetRows(
       };
     }
 
+    const failureCount = incrementFailureCount(row);
     return {
       ...row,
       status: "failed",
       last_scraped_at: checkedAt,
       last_checked_at: checkedAt,
       last_http_status: result.httpStatus ? String(result.httpStatus) : "",
-      failure_count: incrementFailureCount(row),
-      next_retry_at: buildRetryTime(new Date(checkedAt)),
+      failure_count: failureCount,
+      next_retry_at: buildRetryTime(new Date(checkedAt), Number(failureCount)),
       notes: `${row.notes}; last_error=${result.error ?? "unknown"}`,
       updated_at: checkedAt
     };
@@ -257,10 +291,14 @@ async function main(): Promise<void> {
   const runId = makeRunId(SOURCE_KEY, args.runMode, startedAt);
 
   const allTargets = readCsvRows(fromRoot("data/ops/scrape_targets.csv"));
-  const selectedTargets = selectQueuedTargets(allTargets, args.limit);
+  const selectedTargets = selectTargets(allTargets, args, new Date(startedAt));
 
   if (selectedTargets.length === 0) {
-    console.log("No queued Paalam profile targets found.");
+    console.log(
+      args.retryFailed
+        ? "No failed Paalam profile targets due for retry (try --force to ignore retry timing)."
+        : "No queued Paalam profile targets found."
+    );
     return;
   }
 
@@ -277,19 +315,37 @@ async function main(): Promise<void> {
   }
 
   const results: ScrapeResult[] = [];
+  let consecutiveFailures = 0;
+  let stoppedEarly = false;
 
   for (const [index, row] of selectedTargets.entries()) {
     // Scraping happens one page at a time. This is slower, but kinder to the site
     // and much easier to debug than many parallel requests.
     console.log(`[${index + 1}/${selectedTargets.length}] Fetching ${row.url}`);
 
-    const result = await scrapeOneTarget(row, args.timeoutMs);
+    const result = await scrapeOneTarget(row, args.timeoutMs, args.retries);
     results.push(result);
 
     if (result.ok) {
+      consecutiveFailures = 0;
       console.log(`  saved ${result.snapshotId} (${result.outgoingSourceLinks.length} source links)`);
     } else {
+      consecutiveFailures += 1;
       console.log(`  failed: ${result.error}`);
+    }
+
+    // Circuit breaker: a burst of consecutive failures almost always means the
+    // site has throttled us. Stop now and leave the untouched targets as they
+    // were (queued, or still failed) instead of burning through them. They get
+    // picked up by the next normal or `--retry-failed` run.
+    if (args.maxConsecutiveFailures > 0 && consecutiveFailures >= args.maxConsecutiveFailures) {
+      stoppedEarly = true;
+      const remaining = selectedTargets.length - (index + 1);
+      console.log(
+        `\nStopping early after ${consecutiveFailures} consecutive failures (likely rate-limited). ` +
+          `${remaining} selected target(s) left untouched.`
+      );
+      break;
     }
 
     // Delay after every target except the last one.
@@ -329,10 +385,10 @@ async function main(): Promise<void> {
     changed_count: successCount,
     unchanged_count: 0,
     failed_count: failedCount,
-    script_version: "scrape-paalam.ts@0.2",
+    script_version: "scrape-paalam.ts@0.3",
     git_commit: "",
     operator: "Codex",
-    notes: `run_mode=${args.runMode}; limit=${args.limit}; delay_ms=${args.delayMs}; profile_pages_only=true; images_fetched=false; linked_news_fetched=false`
+    notes: `run_mode=${args.runMode}; retry_failed=${args.retryFailed}; force=${args.force}; limit=${args.limit}; delay_ms=${args.delayMs}; retries=${args.retries}; max_consecutive_failures=${args.maxConsecutiveFailures}; attempted=${results.length}; stopped_early=${stoppedEarly}; profile_pages_only=true; images_fetched=false; linked_news_fetched=false`
   });
 
   for (const result of results.filter((item) => !item.ok)) {
@@ -350,6 +406,11 @@ async function main(): Promise<void> {
     run_id: runId,
     started_at: startedAt,
     finished_at: finishedAt,
+    run_mode: args.runMode,
+    retry_failed: args.retryFailed,
+    selected_count: selectedTargets.length,
+    attempted_count: results.length,
+    stopped_early: stoppedEarly,
     target_count: selectedTargets.length,
     success_count: successCount,
     failed_count: failedCount,
@@ -372,6 +433,8 @@ async function main(): Promise<void> {
 
   console.log(`\nPaalam ${args.runMode} scrape summary`);
   console.log("---------------------------");
+  console.log(`Selected: ${selectedTargets.length}`);
+  console.log(`Attempted: ${results.length}${stoppedEarly ? " (stopped early)" : ""}`);
   console.log(`Success: ${successCount}`);
   console.log(`Failed: ${failedCount}`);
   console.log(`Report: ${path.relative(fromRoot(), reportPath)}`);

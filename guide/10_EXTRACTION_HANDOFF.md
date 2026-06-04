@@ -99,17 +99,31 @@ so if you accidentally append twice or the AI emitted a bad line, it will tell
 you — fix and re-run. Keep the per-batch `<id>_extracted.jsonl` as an audit
 trail; do not delete it.
 
-## Scraping note (why 50 may not yield 50)
+## Scraping note (throttling + retry)
 
 The Paalam site dropped 13 of 20 connections after ~7 fetches even at
-`--delay-ms=2500`. Until the scraper gets a gentler rate or a retry-failed mode
-(`P1O-005`, still TODO), expect partial batches. Failed URLs are tracked in
-`data/raw/paalam/failed_urls.jsonl` and the targets are marked `failed` — they
-are NOT auto-retried (batch selection only picks `queued`). Options:
+`--delay-ms=2500` — the server cuts the connection once it sees a burst, so a big
+`--limit` does not mean a big yield. The scraper now handles this:
 
-- Scrape in smaller chunks (e.g. `--limit=15`) to stay under the drop threshold.
-- Raise `--delay-ms` (e.g. `4000`).
-- Build the retry-failed workflow before doing large pulls.
+- **Circuit breaker**: after `--max-consecutive-failures` (default 5) consecutive
+  failures the run stops and leaves the untouched targets as they were (`queued`,
+  or still `failed`) instead of burning through them. Disable with
+  `--max-consecutive-failures=0`.
+- **Per-request retry**: `--retries` (default 1) extra attempts with backoff for a
+  lone transient drop.
+- **Retry-failed mode**: `pnpm scrape:paalam:retry` re-attempts targets in `failed`
+  status whose `next_retry_at` has passed (oldest first, skipping ones past
+  `--max-failures`, default 5). Add `--force` to ignore the retry-time gate.
+
+Practical recipe to stay under the throttle:
+
+```text
+pnpm scrape:paalam:batch -- --limit=15 --delay-ms=3000     # smaller chunks
+pnpm scrape:paalam:retry -- --limit=15 --delay-ms=4000 --force   # mop up failures later
+```
+
+Failed URLs are also logged to `data/raw/paalam/failed_urls.jsonl`. `next_retry_at`
+backoff grows with `failure_count` (~15m, 30m, 60m … capped at 24h).
 
 ## Deferred (not part of this loop — later passes)
 
