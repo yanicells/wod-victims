@@ -25,3 +25,11 @@ Use this log for human-readable notes about setup, scraper runs, rechecks, schem
 - Ran Paalam batch scrape `paalam_batch_20260603065359`; fetched the next 20 queued profile pages, saved raw HTML/text snapshots, recorded manifests and content hashes, and had 0 failed fetches.
 - Ran scrape-quality review after the second batch; 40 scraped records reviewed, 39 ready for AI extraction, and 1 scrape-quality issue still queued for review.
 - Prepared next Paalam AI extraction batch `paalam_extraction_batch_20260603065545` with 20 newly scraped ready records. This is the next continuation point.
+- Extracted 20 records from `paalam_extraction_batch_20260603065545` into `data/intermediate/extractions/paalam_ai_extracts.jsonl`; total is now 39 records.
+- Ran Paalam extraction validation; 39 valid records, 14 records needing review, 0 invalid records. Review queue accumulating; no reviews resolved yet.
+- Ran Paalam batch scrape `paalam_batch_20260603081835`; fetched 20 queued profile pages, 7 succeeded, 13 failed with network errors (rate-limit or connection drop mid-batch). All failures tracked in `data/raw/paalam/failed_urls.jsonl`.
+- Ran scrape-quality review; 47 scraped targets reviewed, 45 ready for AI extraction, 2 needing review.
+- Prepared extraction batch `paalam_extraction_batch_20260603083113` with 6 newly scraped ready records.
+- Extracted 6 records from `paalam_extraction_batch_20260603083113`; total is now 45 records.
+- Ran Paalam extraction validation; 45 valid records, 18 needing review, 0 invalid records. Review queue accumulating; no reviews resolved yet.
+- Notable issues flagged this session: location discrepancy on Antonio Rodriguez (profile says Lucena/Laguna, source says Balayan/Batangas); 2 politically sensitive mayoral killings (Christopher Cuan, Caesar Perez) flagged for human review.

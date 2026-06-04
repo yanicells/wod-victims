@@ -140,7 +140,7 @@ Responsibilities:
 | P2-005 | Run extraction on scrape-quality-ready Paalam records | Extractor | Done | Extracted 19 records from `paalam_extraction_batch_20260602181037` |
 | P2-006 | Validate first AI extraction output | Validator | Done | 19 valid records, 7 needing review, 0 invalid records |
 | P2-007 | Revise prompt/schema | ChatGPT | Todo | Based on extraction failures or unsupported fields |
-| P2-008 | Continue next Paalam scrape/extract batch | Script Agent + Extractor | Doing | Scraped next 20 records and prepared `paalam_extraction_batch_20260603065545`; extraction pending |
+| P2-008 | Continue next Paalam scrape/extract batch | Script Agent + Extractor | Done | Extracted and validated batches through `paalam_extraction_batch_20260603083113`; 45 total records, 18 needing review; 13 URLs failed with network errors and are queued for retry |
 | P2-009 | Generate extraction report | Script Agent | Done | See `data/qa/paalam_extraction_validation_report.json` |
 
 ### Phase 3: Location normalization

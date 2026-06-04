@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-06-03T06:55:36.024Z",
+  "generated_at": "2026-06-03T08:30:51.323Z",
   "source_key": "paalam",
-  "scraped_targets_reviewed": 40,
-  "ready_for_ai_extraction": 39,
-  "needs_review": 1,
+  "scraped_targets_reviewed": 47,
+  "ready_for_ai_extraction": 45,
+  "needs_review": 2,
   "issue_counts": {
-    "source_section_without_valid_external_link": 1
+    "source_section_without_valid_external_link": 2
   },
   "rows": [
     {
@@ -567,6 +567,104 @@
       "outgoing_source_links_count": "1",
       "issues": "",
       "ready_for_ai_extraction": "yes"
+    },
+    {
+      "target_id": "paalam_profile_9a38f76e148f",
+      "url": "https://paalam.org/homepage/victims/jr/",
+      "status": "scraped",
+      "latest_snapshot_id": "paalam_profile_9a38f76e148f_20260603081845_771a2804",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_9a38f76e148f_20260603081845_771a2804.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_9a38f76e148f_20260603081845_771a2804.txt",
+      "html_exists": "yes",
+      "text_exists": "yes",
+      "text_char_count": "1854",
+      "outgoing_source_links_count": "1",
+      "issues": "",
+      "ready_for_ai_extraction": "yes"
+    },
+    {
+      "target_id": "paalam_profile_159ca7bf7ae7",
+      "url": "https://paalam.org/homepage/victims/antonio-rodriguez/",
+      "status": "scraped",
+      "latest_snapshot_id": "paalam_profile_159ca7bf7ae7_20260603081851_b21afd5a",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_159ca7bf7ae7_20260603081851_b21afd5a.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_159ca7bf7ae7_20260603081851_b21afd5a.txt",
+      "html_exists": "yes",
+      "text_exists": "yes",
+      "text_char_count": "1156",
+      "outgoing_source_links_count": "1",
+      "issues": "",
+      "ready_for_ai_extraction": "yes"
+    },
+    {
+      "target_id": "paalam_profile_717af0fb9fa6",
+      "url": "https://paalam.org/homepage/victims/eugen-llaga/",
+      "status": "scraped",
+      "latest_snapshot_id": "paalam_profile_717af0fb9fa6_20260603081855_2fbbb390",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_717af0fb9fa6_20260603081855_2fbbb390.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_717af0fb9fa6_20260603081855_2fbbb390.txt",
+      "html_exists": "yes",
+      "text_exists": "yes",
+      "text_char_count": "1250",
+      "outgoing_source_links_count": "1",
+      "issues": "",
+      "ready_for_ai_extraction": "yes"
+    },
+    {
+      "target_id": "paalam_profile_4df2c79b988a",
+      "url": "https://paalam.org/homepage/victims/dario-oquialda/",
+      "status": "scraped",
+      "latest_snapshot_id": "paalam_profile_4df2c79b988a_20260603081900_566fe3c7",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_4df2c79b988a_20260603081900_566fe3c7.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_4df2c79b988a_20260603081900_566fe3c7.txt",
+      "html_exists": "yes",
+      "text_exists": "yes",
+      "text_char_count": "1273",
+      "outgoing_source_links_count": "2",
+      "issues": "",
+      "ready_for_ai_extraction": "yes"
+    },
+    {
+      "target_id": "paalam_profile_bf5fc9288233",
+      "url": "https://paalam.org/homepage/victims/christopher-amping-cuan/",
+      "status": "scraped",
+      "latest_snapshot_id": "paalam_profile_bf5fc9288233_20260603081905_10f4438f",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_bf5fc9288233_20260603081905_10f4438f.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_bf5fc9288233_20260603081905_10f4438f.txt",
+      "html_exists": "yes",
+      "text_exists": "yes",
+      "text_char_count": "1951",
+      "outgoing_source_links_count": "2",
+      "issues": "",
+      "ready_for_ai_extraction": "yes"
+    },
+    {
+      "target_id": "paalam_profile_3d6c39963120",
+      "url": "https://paalam.org/homepage/victims/caesar-perez/",
+      "status": "scraped",
+      "latest_snapshot_id": "paalam_profile_3d6c39963120_20260603081908_724e9375",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_3d6c39963120_20260603081908_724e9375.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_3d6c39963120_20260603081908_724e9375.txt",
+      "html_exists": "yes",
+      "text_exists": "yes",
+      "text_char_count": "1928",
+      "outgoing_source_links_count": "3",
+      "issues": "",
+      "ready_for_ai_extraction": "yes"
+    },
+    {
+      "target_id": "paalam_profile_4026ed3c52ea",
+      "url": "https://paalam.org/homepage/victims/alexander-ibanez/",
+      "status": "scraped",
+      "latest_snapshot_id": "paalam_profile_4026ed3c52ea_20260603081913_7ac46c55",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_4026ed3c52ea_20260603081913_7ac46c55.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_4026ed3c52ea_20260603081913_7ac46c55.txt",
+      "html_exists": "yes",
+      "text_exists": "yes",
+      "text_char_count": "866",
+      "outgoing_source_links_count": "0",
+      "issues": "source_section_without_valid_external_link",
+      "ready_for_ai_extraction": "no"
     }
   ]
 }

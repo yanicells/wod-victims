@@ -1,0 +1,220 @@
+{
+  "run_id": "paalam_batch_20260603081835",
+  "started_at": "2026-06-03T08:18:35.532Z",
+  "finished_at": "2026-06-03T08:22:06.172Z",
+  "target_count": 20,
+  "success_count": 7,
+  "failed_count": 13,
+  "results": [
+    {
+      "target_id": "paalam_profile_9a38f76e148f",
+      "url": "https://paalam.org/homepage/victims/jr/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_9a38f76e148f_20260603081845_771a2804",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_9a38f76e148f_20260603081845_771a2804.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_9a38f76e148f_20260603081845_771a2804.txt",
+      "outgoing_source_links_count": 1,
+      "outgoing_source_links": [
+        "https://news.abs-cbn.com/news/05/03/21/tulak-umano-ng-droga-patay-sa-buy-bust-sa-bulacan"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_159ca7bf7ae7",
+      "url": "https://paalam.org/homepage/victims/antonio-rodriguez/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_159ca7bf7ae7_20260603081851_b21afd5a",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_159ca7bf7ae7_20260603081851_b21afd5a.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_159ca7bf7ae7_20260603081851_b21afd5a.txt",
+      "outgoing_source_links_count": 1,
+      "outgoing_source_links": [
+        "https://newsinfo.inquirer.net/1436932/suspected-criminal-slain-in-batangas-town"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_717af0fb9fa6",
+      "url": "https://paalam.org/homepage/victims/eugen-llaga/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_717af0fb9fa6_20260603081855_2fbbb390",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_717af0fb9fa6_20260603081855_2fbbb390.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_717af0fb9fa6_20260603081855_2fbbb390.txt",
+      "outgoing_source_links_count": 1,
+      "outgoing_source_links": [
+        "https://newsinfo.inquirer.net/1436341/2-suspected-drug-pushers-slain-in-shootouts-with-cops-in-bicol"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_4df2c79b988a",
+      "url": "https://paalam.org/homepage/victims/dario-oquialda/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_4df2c79b988a_20260603081900_566fe3c7",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_4df2c79b988a_20260603081900_566fe3c7.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_4df2c79b988a_20260603081900_566fe3c7.txt",
+      "outgoing_source_links_count": 2,
+      "outgoing_source_links": [
+        "https://newsinfo.inquirer.net/1436341/2-suspected-drug-pushers-slain-in-shootouts-with-cops-in-bicol",
+        "https://www.philstar.com/pilipino-star-ngayon/probinsiya/2021/05/26/2100829/tulak-todas-sa-buy-bust-2-nakatakas"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_bf5fc9288233",
+      "url": "https://paalam.org/homepage/victims/christopher-amping-cuan/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_bf5fc9288233_20260603081905_10f4438f",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_bf5fc9288233_20260603081905_10f4438f.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_bf5fc9288233_20260603081905_10f4438f.txt",
+      "outgoing_source_links_count": 2,
+      "outgoing_source_links": [
+        "https://newsinfo.inquirer.net/1382121/mayor-in-dutertes-drug-list-driver-slain-in-cotabato-town-gun-attack",
+        "https://newsinfo.inquirer.net/1382382/another-man-on-du30-narcolist-gunned-down"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_3d6c39963120",
+      "url": "https://paalam.org/homepage/victims/caesar-perez/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_3d6c39963120_20260603081908_724e9375",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_3d6c39963120_20260603081908_724e9375.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_3d6c39963120_20260603081908_724e9375.txt",
+      "outgoing_source_links_count": 3,
+      "outgoing_source_links": [
+        "https://interaksyon.philstar.com/politics-issues/2020/12/04/181618/university-philippines-uplb-caesar-perez-killed/",
+        "https://newsinfo.inquirer.net/1368203/shock-rage-in-los-banos-over-mayors-slay",
+        "https://www.rappler.com/nation/los-banos-laguna-mayor-shot-december-3-2020"
+      ]
+    },
+    {
+      "target_id": "paalam_profile_4026ed3c52ea",
+      "url": "https://paalam.org/homepage/victims/alexander-ibanez/",
+      "ok": true,
+      "http_status": 200,
+      "snapshot_id": "paalam_profile_4026ed3c52ea_20260603081913_7ac46c55",
+      "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_4026ed3c52ea_20260603081913_7ac46c55.html",
+      "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_4026ed3c52ea_20260603081913_7ac46c55.txt",
+      "outgoing_source_links_count": 0,
+      "outgoing_source_links": []
+    },
+    {
+      "target_id": "paalam_profile_3df67fce3fcd",
+      "url": "https://paalam.org/homepage/victims/jeremie-garcia/",
+      "ok": false,
+      "http_status": 0,
+      "outgoing_source_links_count": 0,
+      "outgoing_source_links": [],
+      "error": "AbortError: This operation was aborted"
+    },
+    {
+      "target_id": "paalam_profile_716d60157553",
+      "url": "https://paalam.org/homepage/victims/eric-sandoval/",
+      "ok": false,
+      "http_status": 0,
+      "outgoing_source_links_count": 0,
+      "outgoing_source_links": [],
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "target_id": "paalam_profile_ddd1994b2137",
+      "url": "https://paalam.org/homepage/victims/jocel-sales/",
+      "ok": false,
+      "http_status": 0,
+      "outgoing_source_links_count": 0,
+      "outgoing_source_links": [],
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "target_id": "paalam_profile_6516bdc1e32b",
+      "url": "https://paalam.org/homepage/victims/alfredo-roy-elgarico/",
+      "ok": false,
+      "http_status": 0,
+      "outgoing_source_links_count": 0,
+      "outgoing_source_links": [],
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "target_id": "paalam_profile_7c4934ec4540",
+      "url": "https://paalam.org/homepage/victims/joseph-rey-villegas/",
+      "ok": false,
+      "http_status": 0,
+      "outgoing_source_links_count": 0,
+      "outgoing_source_links": [],
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "target_id": "paalam_profile_dde54aa96345",
+      "url": "https://paalam.org/homepage/victims/alfredo-orpeza/",
+      "ok": false,
+      "http_status": 0,
+      "outgoing_source_links_count": 0,
+      "outgoing_source_links": [],
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "target_id": "paalam_profile_14b276681e95",
+      "url": "https://paalam.org/homepage/victims/aldrin-tangonan-jr/",
+      "ok": false,
+      "http_status": 0,
+      "outgoing_source_links_count": 0,
+      "outgoing_source_links": [],
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "target_id": "paalam_profile_604a3a218f84",
+      "url": "https://paalam.org/homepage/victims/joshua-evangelista/",
+      "ok": false,
+      "http_status": 0,
+      "outgoing_source_links_count": 0,
+      "outgoing_source_links": [],
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "target_id": "paalam_profile_9dab465c6a1a",
+      "url": "https://paalam.org/homepage/victims/vincent-adia/",
+      "ok": false,
+      "http_status": 0,
+      "outgoing_source_links_count": 0,
+      "outgoing_source_links": [],
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "target_id": "paalam_profile_f31ad2aa859e",
+      "url": "https://paalam.org/homepage/victims/norman-sola/",
+      "ok": false,
+      "http_status": 0,
+      "outgoing_source_links_count": 0,
+      "outgoing_source_links": [],
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "target_id": "paalam_profile_5dbb9505d4af",
+      "url": "https://paalam.org/homepage/victims/paul-andre-fabian-diaz/",
+      "ok": false,
+      "http_status": 0,
+      "outgoing_source_links_count": 0,
+      "outgoing_source_links": [],
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "target_id": "paalam_profile_a4e6dd90410a",
+      "url": "https://paalam.org/homepage/victims/ritchie-de-asis/",
+      "ok": false,
+      "http_status": 0,
+      "outgoing_source_links_count": 0,
+      "outgoing_source_links": [],
+      "error": "TypeError: fetch failed"
+    },
+    {
+      "target_id": "paalam_profile_14975aed7d23",
+      "url": "https://paalam.org/homepage/victims/gilbert-paala/",
+      "ok": false,
+      "http_status": 0,
+      "outgoing_source_links_count": 0,
+      "outgoing_source_links": [],
+      "error": "TypeError: fetch failed"
+    }
+  ]
+}

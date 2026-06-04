@@ -1,5 +1,10 @@
 # AI Continue Workflow
 
+> **Default flow is now `guide/10_EXTRACTION_HANDOFF.md`** (token-efficient: human
+> runs all scripts, AI only does extraction). Use the end-to-end loop below only
+> when you want one AI conversation to drive scraping, extraction, and validation
+> together — it works, but it wastes tokens waiting on scripts.
+
 This is the reusable handoff file for future AI agents.
 
 Use it when Yani says something like:
@@ -38,21 +43,29 @@ As of 2026-06-03:
 ```text
 Source focus: paalam
 Discovered Paalam profile targets: 3,349
-Scraped Paalam profile targets: 40
-Queued Paalam profile targets not scraped yet: 3,309
-Validated Paalam AI extraction records: 19
-Latest prepared extraction batch: paalam_extraction_batch_20260603065545
-Records in latest prepared extraction batch: 20
-Review-queued targets: 8
-Next real data step: extract the 20 records in the latest batch, validate them, then continue scraping the next batch
+Scraped Paalam profile targets: 47
+Failed Paalam profile targets (network errors, retry pending): 13
+Queued Paalam profile targets not scraped yet: 3,289
+Validated Paalam AI extraction records: 45
+Records needing review (accumulating): 18
+Latest prepared extraction batch: paalam_extraction_batch_20260603083113
+Records in latest prepared extraction batch: 6 (all extracted and validated)
+Review-queued targets: 16
+Next real data step: retry the 13 failed URLs, then scrape and extract the next batch
 ```
 
-The known review issue is:
+Known review issues (do not resolve yet — dedicated review pass later):
 
 ```text
 Target ID: paalam_profile_4f073c39d6e5
 Issue: source_section_without_valid_external_link
-Meaning: the Paalam page has Source(s) text, but the saved HTML did not contain a valid external source URL
+
+Target ID: paalam_profile_159ca7bf7ae7 (Antonio Rodriguez)
+Issue: location_discrepancy — profile says Lucena/Laguna, source says Balayan/Batangas
+
+Target IDs: paalam_profile_bf5fc9288233 (Christopher Cuan), paalam_profile_3d6c39963120 (Caesar Perez)
+Issue: politically sensitive cases — sitting mayors on drug list killed by unknown assailants
+
 Tracker: data/qa/review_queue.csv
 ```
 

@@ -1,0 +1,16 @@
+{
+  "snapshot_id": "paalam_profile_3d6c39963120_20260603081908_724e9375",
+  "target_id": "paalam_profile_3d6c39963120",
+  "source_key": "paalam",
+  "url": "https://paalam.org/homepage/victims/caesar-perez/",
+  "fetched_at": "2026-06-03T08:19:08.647Z",
+  "http_status": 200,
+  "content_hash": "724e9375e25dba9d364a7e6819eab8f705abf7a384c597c731c7a868b2fd0b9a",
+  "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_3d6c39963120_20260603081908_724e9375.html",
+  "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_3d6c39963120_20260603081908_724e9375.txt",
+  "outgoing_source_links": [
+    "https://interaksyon.philstar.com/politics-issues/2020/12/04/181618/university-philippines-uplb-caesar-perez-killed/",
+    "https://newsinfo.inquirer.net/1368203/shock-rage-in-los-banos-over-mayors-slay",
+    "https://www.rappler.com/nation/los-banos-laguna-mayor-shot-december-3-2020"
+  ]
+}

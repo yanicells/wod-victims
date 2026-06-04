@@ -1,0 +1,14 @@
+{
+  "snapshot_id": "paalam_profile_159ca7bf7ae7_20260603081851_b21afd5a",
+  "target_id": "paalam_profile_159ca7bf7ae7",
+  "source_key": "paalam",
+  "url": "https://paalam.org/homepage/victims/antonio-rodriguez/",
+  "fetched_at": "2026-06-03T08:18:51.504Z",
+  "http_status": 200,
+  "content_hash": "b21afd5ac1c3e4e3a7dfab5016dc5669424430a51b24b585059b6ec1ea30e05a",
+  "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_159ca7bf7ae7_20260603081851_b21afd5a.html",
+  "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_159ca7bf7ae7_20260603081851_b21afd5a.txt",
+  "outgoing_source_links": [
+    "https://newsinfo.inquirer.net/1436932/suspected-criminal-slain-in-batangas-town"
+  ]
+}

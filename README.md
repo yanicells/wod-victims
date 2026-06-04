@@ -38,10 +38,13 @@ The data work is the hard part, so the project should prioritize:
   Reusable prompts for extraction, validation, deduplication, and QA.
 
 - `guide/08_AI_WORKFLOW.md`
-  Operational handoff for future AI agents: how to continue Paalam scraping, extraction, validation, and tracker updates in repeatable batches.
+  Operational handoff for an AI driving the whole loop in one conversation. Kept as the fallback flow.
 
 - `guide/09_PAALAM_EXTRACTION_SCHEMA.md`
   Strict JSONL schema for AI extraction from Paalam raw text snapshots.
+
+- `guide/10_EXTRACTION_HANDOFF.md`
+  Default token-efficient flow: human runs all scripts, AI only does the extraction step.
 
 ## Blunt project rule
 
@@ -88,5 +91,5 @@ pnpm validate:paalam:extraction
 For future AI sessions, the main instruction is:
 
 ```text
-Read guide/08_AI_WORKFLOW.md and continue the Paalam data pipeline for the next batch.
+Read guide/10_EXTRACTION_HANDOFF.md. I have scraped and prepared a batch — extract batch <batch_id>.
 ```

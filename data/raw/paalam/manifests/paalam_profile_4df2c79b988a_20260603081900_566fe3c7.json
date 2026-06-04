@@ -1,0 +1,15 @@
+{
+  "snapshot_id": "paalam_profile_4df2c79b988a_20260603081900_566fe3c7",
+  "target_id": "paalam_profile_4df2c79b988a",
+  "source_key": "paalam",
+  "url": "https://paalam.org/homepage/victims/dario-oquialda/",
+  "fetched_at": "2026-06-03T08:19:00.529Z",
+  "http_status": 200,
+  "content_hash": "566fe3c7b4407ec63ea06435adf1ea8780de5c66ae8c257578e0914c5b816297",
+  "raw_html_path": "data/raw/paalam/snapshots/paalam_profile_4df2c79b988a_20260603081900_566fe3c7.html",
+  "raw_text_path": "data/raw/paalam/snapshots/paalam_profile_4df2c79b988a_20260603081900_566fe3c7.txt",
+  "outgoing_source_links": [
+    "https://newsinfo.inquirer.net/1436341/2-suspected-drug-pushers-slain-in-shootouts-with-cops-in-bicol",
+    "https://www.philstar.com/pilipino-star-ngayon/probinsiya/2021/05/26/2100829/tulak-todas-sa-buy-bust-2-nakatakas"
+  ]
+}
