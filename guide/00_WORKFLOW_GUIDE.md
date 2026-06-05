@@ -460,7 +460,11 @@ Read these in this order if you want to learn the project and the scraping/data 
 
 15. `guide/08_AI_WORKFLOW.md`
 
-   This is the future-agent handoff file. Read it when you want another AI session to know exactly what scripts to run, what reports to inspect, and what trackers to update.
+   The full end-to-end loop for one AI session driving everything. Kept as the fallback flow.
+
+16. `guide/10_EXTRACTION_HANDOFF.md`
+
+   The default, token-efficient flow: the human runs all scripts (scrape, retry, review, prepare, validate) and the AI only does the extraction step. Read this to know the actual run cadence and the scrape/retry settings that avoid the site's throttle.
 
 ### D. Scraping and extraction scripts
 

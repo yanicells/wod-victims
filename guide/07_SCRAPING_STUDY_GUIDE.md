@@ -4,6 +4,10 @@ Use this guide while reading the Paalam scraping and extraction-prep scripts.
 
 The goal is to learn scraping as a data workflow, not just "download a page."
 
+> For the day-to-day run cadence (who runs what, the AI handoff), see
+> `guide/10_EXTRACTION_HANDOFF.md`. This guide explains how the scraper works
+> inside.
+
 ## Files to study first
 
 Start with:
@@ -160,6 +164,62 @@ data/qa/paalam_scrape_quality_report.json
 
 The report tells you which scraped records are ready for AI extraction and which need review first.
 
+### Failed targets, retry, and the circuit breaker
+
+A fetch can fail — usually a network drop, or the site throttling us after a
+burst of requests. When that happens the scraper:
+
+- marks the target `status=failed`, bumps `failure_count`, and sets
+  `next_retry_at` with a growing backoff (~15m, 30m, 60m … capped at 24h);
+- appends the failure to `data/raw/paalam/failed_urls.jsonl` (append-only —
+  failures are never hidden or deleted).
+
+Normal batch runs only pick `status=queued`, so failed targets are not retried
+automatically. To recover them:
+
+```text
+pnpm scrape:paalam:retry -- --limit=15 --delay-ms=4000 --force
+```
+
+Retry-failed mode re-selects `failed` targets whose `next_retry_at` has passed
+(oldest first, skipping ones past `--max-failures`). `--force` ignores the
+retry-time gate.
+
+Two safeguards live inside the scraper:
+
+- `--retries` (default 1): extra fetch attempts with backoff for a lone
+  transient drop.
+- `--max-consecutive-failures` (default 5): a circuit breaker. After that many
+  failures in a row — almost always a throttle — the run stops and leaves the
+  untouched targets as they were, instead of burning through them. Use `0` to
+  disable.
+
+### Review status and disposition
+
+Extraction does not decide truth. Records the AI is unsure about are flagged
+`needs_review`, and the target's `review_status` moves through these states:
+
+```text
+not_required -> queued -> reviewed | needs_follow_up
+```
+
+- `queued`: flagged, awaiting a review pass.
+- `reviewed`: a review decided the record is fine (sometimes with a correction).
+- `needs_follow_up`: parked for a human editorial/scope call (sensitive cases,
+  no clear drug-war link, anonymous victims, etc.).
+
+Two QA files carry the review work:
+
+- `data/qa/review_queue.csv` — one row per flagged record, with a note + status.
+- `data/qa/manual_fixes.csv` — corrections (old value -> new value + source
+  quote). Corrections are recorded here, NOT written back over the AI output in
+  `paalam_ai_extracts.jsonl`, so the original extraction stays as an audit trail
+  and the fix is applied later at the normalize/export step.
+
+Important: `validate:paalam:extraction` only queues freshly-flagged rows; it
+preserves `reviewed` and `needs_follow_up`, so running it every batch does not
+wipe review work.
+
 ## How to read the script
 
 Read `scrape-paalam.ts` in this order:
@@ -168,17 +228,20 @@ Read `scrape-paalam.ts` in this order:
 
    Learns command-line options like `--limit`, `--delay-ms`, and `--dry-run`.
 
-2. `selectQueuedTargets`
+2. `selectTargets`
 
-   Learns how the script chooses which rows to scrape.
+   Learns how the script chooses which rows to scrape — `queued` targets in a
+   normal run, or due `failed` targets when `--retry-failed` is set.
 
 3. `scrapeOneTarget`
 
-   This is the main scraper body. Study it slowly.
+   This is the main scraper body. Study it slowly. Note it passes `--retries`
+   down to `fetchText` for transient-failure retries.
 
 4. `updateTargetRows`
 
-   Learns how successful and failed fetches update the tracker.
+   Learns how successful and failed fetches update the tracker, including
+   `failure_count` and the `next_retry_at` backoff on failure.
 
 5. `main`
 
@@ -210,7 +273,8 @@ Then read `validate-paalam-extractions.ts` in this order:
 
 3. `updateTargetExtractionStatuses`
 
-   Learns how successful validation updates long-term tracker state.
+   Learns how successful validation updates long-term tracker state — and how it
+   preserves an existing review disposition instead of re-queueing it.
 
 ## Helper files to read
 
@@ -221,6 +285,7 @@ Teaches:
 - fetch with timeout
 - user-agent header
 - simple delay helper
+- retrying transient (thrown) failures with a growing backoff
 
 ### `data-pipeline/scripts/lib/html.ts`
 
@@ -282,6 +347,7 @@ Teaches:
 - checking that extracted facts have quotes/confidence
 - writing an extraction validation report
 - marking targets as validated after successful extraction validation
+- preserving existing review dispositions (`reviewed` / `needs_follow_up`) on re-validation
 
 ## Commands to try
 
@@ -291,10 +357,16 @@ Dry run first:
 pnpm scrape:paalam:sample -- --dry-run --limit=20
 ```
 
-Real 20-page batch:
+Real batch — keep chunks small, since the site throttles after ~7 rapid hits:
 
 ```text
-pnpm scrape:paalam:batch -- --limit=20 --delay-ms=2500
+pnpm scrape:paalam:batch -- --limit=15 --delay-ms=3000
+```
+
+Recover anything that failed (e.g. a throttle event):
+
+```text
+pnpm scrape:paalam:retry -- --limit=15 --delay-ms=4000 --force
 ```
 
 Quality review:
@@ -342,7 +414,7 @@ Check:
 - each scraped target has `latest_snapshot_id`
 - each scraped target has raw HTML and raw text paths
 - each manifest has outgoing source links
-- failed URLs, if any, are listed in `failed_urls.jsonl`
+- failed URLs, if any, are listed in `failed_urls.jsonl` and recoverable with `pnpm scrape:paalam:retry`
 - quality report says which records are ready for AI extraction
 - extraction batch files include raw text plus source-link context
 - validation report says whether AI output is schema-valid and evidence-supported
@@ -355,7 +427,7 @@ Check:
 - Wait between requests.
 - Save raw HTML before cleaning anything.
 - Never overwrite raw snapshots.
-- Track failures instead of hiding them.
+- Track failures instead of hiding them, and recover them with `scrape:paalam:retry` rather than leaving them stuck.
 - Keep linked sources for a later phase.
 - Keep raw snapshots permanently.
 - Review a batch before scaling.
