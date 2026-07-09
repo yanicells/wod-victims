@@ -1,13 +1,16 @@
 # Apps
 
-Future application code will live here.
-
-Planned structure:
-
 ```text
 apps/
-  web/
+  web/   Next.js 16 app (App Router + Tailwind)
 ```
 
-The web app should use public-safe exports from `/data/processed`, not raw scraped data.
+Run from the repo root:
 
+```text
+pnpm dev
+pnpm build
+pnpm lint
+```
+
+The web app should eventually consume public-safe exports from the Paalam pipeline (`data/paalam/`), not raw HTML.

@@ -112,15 +112,11 @@ Each public record should have at least one source URL or source note.
 
 If no source exists, the record can remain internal but should not be shown publicly as verified.
 
-### Principle 3: AI can help, but must leave receipts
+### Principle 3: Parse from labeled fields, never infer
 
-AI-extracted fields should include:
+Core fields (name, age, date, location, source links) come from a deterministic parser reading Paalam's own labeled detail fields, not from AI inference over narrative text. If a field isn't explicitly labeled on the page, it stays null rather than being guessed.
 
-- extracted value
-- confidence score
-- source quote
-- reasoning note
-- needs_review flag
+Records the parser is unsure about (missing name/date/location/source, malformed links, sensitive-occupation subjects) are marked `needsReview` with specific reasons instead of being silently published or dropped.
 
 ### Principle 4: Small clean layers beat one messy giant dataset
 
@@ -136,22 +132,16 @@ Do not force every record into every layer.
 
 ### Principle 5: The data pipeline is a long-term system
 
-The project should not depend on memory, one-off scripts, or a single AI chat knowing what happened before.
+The project should not depend on memory or one-off scripts knowing what happened before.
 
 The pipeline should track:
 
-- source families approved for scraping or future research
 - discovered URLs
-- scraped URLs
-- raw snapshots
-- content hashes
-- failed URLs
-- changed pages
-- extraction status
-- review status
-- recheck cadence
+- completed (already-ingested) URLs
+- failed URLs, with error and attempt count
+- per-record review status and reasons
 
-This makes the project scalable across Paalam, linked sources, and future datasets without wasting time redoing work or losing provenance.
+This makes the project scalable across Paalam, linked sources, and future datasets without wasting time redoing work or losing provenance. It does not require keeping raw page captures around — a temporary fetch cache, deleted after each run, is enough, because the parser output plus the source URL is the durable evidence.
 
 ## 7. User experience
 
@@ -241,14 +231,11 @@ Police stations: 3
 
 ### Data success
 
-- Raw scraped data is preserved.
-- Source registry and scrape target trackers exist.
-- Already-scraped, changed, unchanged, and failed URLs are visible.
-- Raw snapshots are append-only and traceable to scraper runs.
-- Every cleaned field has source evidence.
-- Every record has a confidence status.
+- Discovered, completed, and failed URLs are tracked and visible.
+- Every parsed field traces back to a labeled field on the source page, not an inference.
+- Every record has a source URL and a review status.
 - Duplicate handling is documented.
-- The dataset can be regenerated from scripts.
+- The dataset can be regenerated from scripts by re-running discover + ingest.
 
 ### Product success
 
@@ -262,7 +249,7 @@ Police stations: 3
 - Do not show photos in v1.
 - Do not expose exact private addresses.
 - Do not publish source-less records as verified.
-- Do not let AI silently invent missing values.
+- Do not silently invent missing values — leave them null and flag for review instead.
 - Do not treat the dataset as complete or official.
 - Do not label people beyond what sources say.
 
@@ -270,11 +257,9 @@ Police stations: 3
 
 The first serious MVP should include:
 
-- Paalam scraper
-- raw page archive
-- AI extraction pipeline
-- confidence scoring
-- cleaned victim table
+- Paalam discovery (sitemap + WordPress REST)
+- Paalam ingest/parser (fetch, parse labeled fields, delete temporary HTML)
+- review-flag queue for uncertain records
 - location normalization
 - map + timeline
 - methodology page

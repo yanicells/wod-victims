@@ -1,16 +1,38 @@
 # Data Pipeline
 
-This package contains TypeScript scripts for the data collection workflow.
+TypeScript scripts for discovering and parsing Paalam victim profiles into a clean dataset. Parser-first: Cheerio reads labeled HTML fields, no AI extraction for core fields.
 
 Run commands from the repo root:
 
 ```text
-pnpm validate:workspace
-pnpm ops:summary
-pnpm check
+pnpm discover:paalam                  # find profile URLs
+pnpm ingest:paalam -- --limit=20      # fetch, parse, append, delete HTML
+pnpm summary:paalam                   # dataset stats
+pnpm test                             # parser unit tests
+pnpm check                            # tsc --noEmit
+pnpm compare:parser                   # optional: parser output vs old AI extracts, if present
 ```
 
-The scripts read and write project data from the repo-level `/data` folder.
+## Architecture
 
-No live scraper has been added yet.
+```text
+discover-paalam.ts   sitemap.xml + WP REST API -> data/paalam/state.json (discoveredUrls)
+ingest-paalam.ts     fetch HTML -> parse-paalam-profile.ts -> victims.jsonl, delete HTML
+summary-paalam.ts    reads state.json + victims.jsonl -> stats
+```
 
+Supporting libs live in `scripts/lib/`. See `scripts/README.md` for the full file list.
+
+## Data files
+
+```text
+data/paalam/state.json      discovered URLs, completed IDs, failed fetches
+data/paalam/victims.jsonl   one parsed victim record per line (committed)
+data/cache/paalam/          temporary HTML during ingest — gitignored, deleted after each run
+```
+
+No raw HTML or raw text snapshots are committed. The parser reads each page once and keeps only the structured result.
+
+## Adding a new source later
+
+Each source needs its own discover/ingest pair plus a parser in `lib/` and a record type. Keep the same shape: discover finds URLs, ingest fetches+parses+deletes, everything lands in one JSONL per source.

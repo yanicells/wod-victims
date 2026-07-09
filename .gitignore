@@ -1,5 +1,13 @@
 node_modules/
 dist/
+.next/
+*.tsbuildinfo
 .env
 .env.*
 
+# Temporary HTML fetch cache — never commit
+data/cache/
+
+# Local scratch
+*.log
+.DS_Store

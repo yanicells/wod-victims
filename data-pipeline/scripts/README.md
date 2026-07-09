@@ -1,27 +1,38 @@
 # Scripts
 
-Data pipeline scripts live here.
+## Active pipeline
 
-Current starter commands:
+- `discover-paalam.ts` — fetches `sitemap.xml` and the WordPress REST `victim` list, merges/canonicalizes profile URLs, writes new ones into `data/paalam/state.json`. Does not fetch profile pages.
+- `ingest-paalam.ts` — takes queued URLs from `state.json`, fetches each profile page, parses it with `lib/parse-paalam-profile.ts`, builds a record with `lib/paalam-record.ts`, appends it to `data/paalam/victims.jsonl`, and deletes the fetched HTML (unless `--keep-cache`). Tracks failures and stops after too many consecutive failures (throttle protection).
+- `summary-paalam.ts` — reads `state.json` + `victims.jsonl` and prints counts: total, with name/date/location/sources/age, needs-review breakdown by reason.
+
+Commands (from repo root):
 
 ```text
-pnpm validate:workspace
-pnpm ops:summary
+pnpm discover:paalam
+pnpm ingest:paalam -- --limit=20
+pnpm summary:paalam
+pnpm test
 pnpm check
-pnpm discover:paalam -- --dry-run
-pnpm scrape:paalam:batch -- --limit=20 --delay-ms=2500
-pnpm scrape:paalam:sample -- --limit=5 --delay-ms=2500
-pnpm review:paalam:scrape-quality
-pnpm prepare:paalam:extraction -- --limit=20
-pnpm validate:paalam:extraction
 ```
 
-- `validate:workspace` checks that the data folders and tracker files exist and have the expected headers.
-- `ops:summary` prints a quick status count for sources, scrape targets, recheck queue items, and scrape runs.
-- `check` runs the TypeScript compiler without generating files.
-- `discover:paalam` finds Paalam profile URLs from sitemap and WordPress REST metadata. It does not fetch profile pages.
-- `scrape:paalam:batch` fetches the next queued Paalam profile pages and saves raw HTML/text snapshots for real pipeline continuation.
-- `scrape:paalam:sample` runs the same scraper in a test/sample mode label.
-- `review:paalam:scrape-quality` checks saved Paalam snapshots and writes scrape-quality reports.
-- `prepare:paalam:extraction` creates a JSONL batch for AI extraction and marks matching targets as queued for extraction.
-- `validate:paalam:extraction` validates AI output and updates target extraction/review statuses after successful validation.
+## Library (`lib/`)
+
+- `http.ts` — fetch with timeout, retry-with-backoff, delay helper.
+- `canonicalize.ts` — normalize Paalam profile URLs (trailing slash, strip query/hash) so discovery and ingest share one ID space.
+- `parse-paalam-profile.ts` — the parser. Reads labeled `ul.plm-details` fields and the `plm-details.source` link list. Never invents facts from narrative text; flags `needsReview` with a reason instead.
+- `paalam-record.ts` — shapes a parse result plus fetch metadata into the committed `PaalamVictimRecord`.
+- `state.ts` — reads/writes `data/paalam/state.json`, resolves paths, loads existing victim IDs for resume.
+- `ids.ts` — deterministic IDs from the canonical URL.
+- `hash.ts` — SHA-256 of raw HTML for `contentHash`.
+- `jsonl.ts` — read/append JSONL files.
+- `paths.ts` — resolve paths from the repo root.
+
+## Tests
+
+```text
+data-pipeline/scripts/__tests__/parse-paalam-profile.test.ts
+data-pipeline/scripts/__tests__/fixtures/*.html
+```
+
+Fixture HTML covers: a full profile, missing age, anonymous victim, a public-figure (mayor) subject, a location-text typo, and age + occupation as separate fields. Run with `pnpm test`.

@@ -1,95 +1,53 @@
 # Drug War Victim Mapping Project
 
-This folder contains a planning pack for a journalism-focused web project that maps and presents named victims of the Philippine drug war using public sources.
+A journalism-focused, names-first map and timeline of named victims of the Philippine drug war, built from public sources. Primary source: [Paalam.org](https://paalam.org).
 
-## Main project direction
+## How the data pipeline works
 
-Build a names-first, journalism-style map and timeline.
+Parser-first. No AI extraction for core fields.
 
-The data work is the hard part, so the project should prioritize:
+```text
+pnpm discover:paalam                  # find profile URLs -> data/paalam/state.json
+pnpm ingest:paalam -- --limit=20      # fetch + parse + append -> data/paalam/victims.jsonl
+pnpm summary:paalam                   # dataset stats
+pnpm test                             # parser unit tests
+```
 
-1. Scraping public victim/name sources
-2. Preserving raw data
-3. AI-assisted extraction
-4. Confidence scoring
-5. Location normalization
-6. Deduplication
-7. Transparent uncertainty
-8. Long-term source tracking and repeatable updates
+1. **Discover** — `discover-paalam.ts` reads Paalam's sitemap and WordPress REST API for victim profile URLs. Fetches no profile pages.
+2. **Ingest** — `ingest-paalam.ts` fetches each queued profile page, parses the labeled `plm-details` fields with Cheerio (`lib/parse-paalam-profile.ts`), appends one clean JSON record per victim to `data/paalam/victims.jsonl`, then deletes the fetched HTML. Nothing raw is kept.
+3. **Review flags** — records with missing name/date/location/source, malformed source links, or a sensitive-occupation subject are flagged `needsReview` with reasons, not silently dropped or invented.
+4. **Later** — normalization, dedupe, confidence scoring, map/timeline, and public export (not built yet).
 
-## Files
+See `data-pipeline/README.md` for commands and `guide/02_DATA_PIPELINE_PLAN.md` for the full pipeline design.
 
-- `guide/00_WORKFLOW_GUIDE.md`
-  Start-here guide for project workflow, first prompts, setup checklist, and what to double-check before scaling.
+## Blunt project rules
 
-- `guide/01_PRD.md`
-  Product requirements document and project scope.
-
-- `guide/02_DATA_PIPELINE_PLAN.md`
-  Main plan for scraping, extraction, cleaning, deduplication, review, and long-term scrape tracking.
-
-- `guide/03_DATA_SCHEMA.md`
-  Proposed tables, fields, enums, and validation rules.
-
-- `guide/04_AI_TASK_TRACKER.md`
-  Task list and tracker format for working across ChatGPT, Claude, scripts, and future agents.
-
-- `guide/05_AI_HANDOFF_PROMPTS.md`
-  Reusable prompts for extraction, validation, deduplication, and QA.
-
-- `guide/08_AI_WORKFLOW.md`
-  Operational handoff for an AI driving the whole loop in one conversation. Kept as the fallback flow.
-
-- `guide/09_PAALAM_EXTRACTION_SCHEMA.md`
-  Strict JSONL schema for AI extraction from Paalam raw text snapshots.
-
-- `guide/10_EXTRACTION_HANDOFF.md`
-  Default token-efficient flow: human runs all scripts, AI only does the extraction step.
-
-## Blunt project rule
-
-Do not treat AI-cleaned data as truth. AI should extract, structure, flag, and explain. Public-facing rows should keep source links, confidence labels, and location precision.
-
-## Long-term data operations
-
-This project should work like a small data system, not a one-time scrape.
-
-Keep durable trackers for:
-
-- sources approved for scraping or later research
-- URLs already discovered
-- URLs already scraped
-- URLs that changed since the last scrape
-- URLs that failed and need retry
-- pages needing extraction, validation, dedupe, or review
-
-Raw page captures should be append-only. If a page is scraped again later, save a new snapshot and use content hashes to decide whether extraction needs to run again. This keeps future updates cheap and lets another person or AI agent pick up the work without guessing what already happened.
+- No photos, no exact home addresses, no invented facts.
+- Every public record needs a source link.
+- Anonymous victims, missing sources, and public figures are flagged for review, not hidden.
+- The parser only reads Paalam's labeled detail fields. It never infers facts from narrative text.
 
 ## Repo layout
 
 ```text
-guide/             Planning docs, workflow guide, schema notes, handoff prompts
-data-pipeline/     TypeScript scripts for scraping, validation, reporting, and exports
-data/              Operational trackers, raw snapshots, intermediate files, processed exports
-apps/              Future web app workspace
-docs/              Future public methodology and implementation notes
+guide/             Planning docs: PRD, pipeline plan, schema, workflow guide
+data-pipeline/     TypeScript scripts: discover, ingest/parse, summary, tests
+data/paalam/       Committed output: victims.jsonl + state.json
+data/cache/        Temporary HTML fetch cache (gitignored, deleted after each ingest)
+apps/web/          Next.js app scaffold (map/timeline later)
+docs/              Future public methodology page
 ```
 
-Use `pnpm` from the repo root for data-pipeline commands. The web app can be added later under `apps/web` as a separate package.
-
-## Current Continuation Commands
+Use `pnpm` from the repo root.
 
 ```text
-pnpm check
-pnpm validate:workspace
-pnpm ops:summary
-pnpm review:paalam:scrape-quality
-pnpm prepare:paalam:extraction -- --limit=20
-pnpm validate:paalam:extraction
+pnpm test                 # pipeline tests
+pnpm discover:paalam
+pnpm ingest:paalam -- --limit=20
+pnpm summary:paalam
+pnpm dev                  # Next.js web app
 ```
 
-For future AI sessions, the main instruction is:
+## Start here
 
-```text
-Read guide/10_EXTRACTION_HANDOFF.md. I have scraped and prepared a batch — extract batch <batch_id>.
-```
+Read `guide/00_WORKFLOW_GUIDE.md` for what to run next.
