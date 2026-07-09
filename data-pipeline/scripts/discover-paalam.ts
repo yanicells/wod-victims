@@ -6,6 +6,7 @@
  *   pnpm discover:paalam
  *   pnpm discover:paalam -- --delay-ms=500 --max-rest-pages=2
  */
+import { canonicalizePaalamUrl } from "./lib/canonicalize.js";
 import { fetchText, sleep } from "./lib/http.js";
 import { loadState, saveState } from "./lib/state.js";
 
@@ -47,21 +48,11 @@ function parseArgs(): Args {
   };
 }
 
-function canonicalizeUrl(url: string): string {
-  const parsed = new URL(url);
-  parsed.hash = "";
-  parsed.search = "";
-  if (!parsed.pathname.endsWith("/")) {
-    parsed.pathname = `${parsed.pathname}/`;
-  }
-  return parsed.toString();
-}
-
 function collectSitemapVictimUrls(xml: string): string[] {
   return [...xml.matchAll(/<loc>(.*?)<\/loc>/g)]
     .map((match) => match[1] ?? "")
     .filter((url) => url.includes(VICTIM_PATH_MARKER))
-    .map(canonicalizeUrl);
+    .map(canonicalizePaalamUrl);
 }
 
 async function collectRestUrls(args: Args): Promise<{ urls: string[]; totalReported: number }> {
@@ -97,7 +88,7 @@ async function collectRestUrls(args: Args): Promise<{ urls: string[]; totalRepor
 
     for (const row of rows) {
       if (row.link) {
-        urls.push(canonicalizeUrl(row.link));
+        urls.push(canonicalizePaalamUrl(row.link));
       }
     }
 
