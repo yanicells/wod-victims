@@ -89,7 +89,33 @@ function normalizeLocationText(value: string): string {
   // Common Paalam typo seen in the wild.
   normalized = normalized.replace(/\bMetro Manilaa\b/gi, "Metro Manila");
 
+  // Drop empty leading/trailing comma segments: ", Quezon City" → "Quezon City"
+  normalized = normalized
+    .split(",")
+    .map((part) => part.trim())
+    .filter(Boolean)
+    .join(", ");
+
   return normalized;
+}
+
+function cleanPlaceName(value: string): string {
+  let place = cleanText(value);
+
+  // "Pikit town" → "Pikit" (keep "Quezon City" / "Talisay City")
+  place = place.replace(/\s+town\b/gi, "");
+
+  // "Cotabato (North Cotabato)" → "North Cotabato"
+  const paren = place.match(/^(.+?)\s*\(([^)]+)\)\s*$/);
+  if (paren) {
+    const outside = paren[1]!.trim();
+    const inside = paren[2]!.trim();
+    if (inside.toLowerCase().includes(outside.toLowerCase()) || inside.length > outside.length) {
+      place = inside;
+    }
+  }
+
+  return cleanText(place);
 }
 
 function parseGender(value: string | undefined): Gender {
@@ -191,12 +217,14 @@ export function parseLocation(raw: string | null | undefined): ParsedLocation {
   const normalized = normalizeLocationText(raw);
   const parts = normalized
     .split(",")
-    .map((part) => part.trim())
+    .map((part) => cleanPlaceName(part))
     .filter(Boolean);
+
+  const displayRaw = parts.join(", ") || normalized;
 
   if (parts.length === 0) {
     return {
-      raw: normalized,
+      raw: displayRaw || null,
       cityMunicipality: null,
       province: null,
       region: null,
@@ -208,7 +236,7 @@ export function parseLocation(raw: string | null | undefined): ParsedLocation {
     const only = parts[0]!;
     if (METRO_MANILA_ALIASES.has(only.toLowerCase())) {
       return {
-        raw: normalized,
+        raw: displayRaw,
         cityMunicipality: null,
         province: null,
         region: "National Capital Region",
@@ -217,7 +245,7 @@ export function parseLocation(raw: string | null | undefined): ParsedLocation {
     }
 
     return {
-      raw: normalized,
+      raw: displayRaw,
       cityMunicipality: only,
       province: null,
       region: null,
@@ -230,7 +258,7 @@ export function parseLocation(raw: string | null | undefined): ParsedLocation {
 
   if (METRO_MANILA_ALIASES.has(second.toLowerCase())) {
     return {
-      raw: normalized,
+      raw: displayRaw,
       cityMunicipality: city,
       province: null,
       region: "National Capital Region",
@@ -239,7 +267,7 @@ export function parseLocation(raw: string | null | undefined): ParsedLocation {
   }
 
   return {
-    raw: normalized,
+    raw: displayRaw,
     cityMunicipality: city,
     province: second,
     region: null,
@@ -369,6 +397,15 @@ function looksAnonymous(name: string | null): boolean {
   return /^anonymous\b/i.test(name);
 }
 
+function looksCombinedName(name: string | null): boolean {
+  if (!name) {
+    return false;
+  }
+
+  // Paalam sometimes lists two people in one profile title: "A / B"
+  return /\//.test(name);
+}
+
 function looksSensitiveOccupation(occupation: string | null): boolean {
   if (!occupation) {
     return false;
@@ -429,6 +466,8 @@ export function parsePaalamProfile(html: string): ParsedPaalamProfile {
     reviewReasons.push("missing_name");
   } else if (looksAnonymous(name)) {
     reviewReasons.push("anonymous_or_unnamed");
+  } else if (looksCombinedName(name)) {
+    reviewReasons.push("combined_or_slash_name");
   }
 
   if (!dateRaw || parsedDate.precision === "unknown") {

@@ -80,6 +80,30 @@ describe("parseLocation", () => {
     assert.equal(parsed.region, "National Capital Region");
     assert.equal(parsed.province, null);
   });
+
+  it("strips empty leading comma segments", () => {
+    assert.deepEqual(parseLocation(", Quezon City"), {
+      raw: "Quezon City",
+      cityMunicipality: "Quezon City",
+      province: null,
+      region: null,
+      precision: "city_municipality"
+    });
+  });
+
+  it("cleans town suffix and province parentheticals", () => {
+    assert.deepEqual(parseLocation("Pikit town, Cotabato"), {
+      raw: "Pikit, Cotabato",
+      cityMunicipality: "Pikit",
+      province: "Cotabato",
+      region: null,
+      precision: "city_municipality"
+    });
+    assert.equal(
+      parseLocation("Pikit, Cotabato (North Cotabato)").province,
+      "North Cotabato"
+    );
+  });
 });
 
 describe("parsePaalamProfile fixtures", () => {
