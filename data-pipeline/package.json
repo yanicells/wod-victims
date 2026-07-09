@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "check": "tsc --noEmit",
+    "test": "tsx --test scripts/__tests__/**/*.test.ts",
+    "compare:parser": "tsx scripts/compare-parser-vs-ai.ts",
     "validate:workspace": "tsx scripts/validate-workspace.ts",
     "ops:summary": "tsx scripts/ops-summary.ts",
     "discover:paalam": "tsx scripts/discover-paalam.ts",
