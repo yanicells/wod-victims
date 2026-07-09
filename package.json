@@ -8,7 +8,6 @@
     "test": "pnpm --filter @wod-victims/data-pipeline test",
     "discover:paalam": "pnpm --filter @wod-victims/data-pipeline discover:paalam",
     "ingest:paalam": "pnpm --filter @wod-victims/data-pipeline ingest:paalam",
-    "summary:paalam": "pnpm --filter @wod-victims/data-pipeline summary:paalam",
-    "compare:parser": "pnpm --filter @wod-victims/data-pipeline compare:parser"
+    "summary:paalam": "pnpm --filter @wod-victims/data-pipeline summary:paalam"
   }
 }

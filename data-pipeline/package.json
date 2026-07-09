@@ -6,15 +6,12 @@
   "scripts": {
     "check": "tsc --noEmit",
     "test": "tsx --test scripts/__tests__/**/*.test.ts",
-    "compare:parser": "tsx scripts/compare-parser-vs-ai.ts",
     "discover:paalam": "tsx scripts/discover-paalam.ts",
     "ingest:paalam": "tsx scripts/ingest-paalam.ts",
     "summary:paalam": "tsx scripts/summary-paalam.ts"
   },
   "dependencies": {
-    "cheerio": "^1.2.0",
-    "csv-parse": "^6.2.1",
-    "zod": "^4.4.3"
+    "cheerio": "^1.2.0"
   },
   "devDependencies": {
     "@types/node": "^25.9.1",
