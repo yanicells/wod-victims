@@ -1,5 +1,7 @@
 # Paalam Site Inspection
 
+> **Note:** structured victim fields (name, age, date, location, source links) live in each profile page's HTML, in labeled `ul.plm-details` list items — not in the WordPress REST API's `content.rendered`. REST is used for discovery (finding profile URLs) only; `ingest-paalam.ts` fetches the HTML page itself and parses it with `lib/parse-paalam-profile.ts`.
+
 Inspection date: 2026-06-03
 
 Purpose: understand Paalam.org structure before building any scraper.
