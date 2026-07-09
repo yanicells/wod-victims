@@ -2,3 +2,6 @@ packages:
   - "data-pipeline"
   - "apps/*"
 
+peerDependencyRules:
+  allowedVersions:
+    typescript: "*"

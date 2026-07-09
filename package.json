@@ -4,10 +4,13 @@
   "private": true,
   "packageManager": "pnpm@10.26.2",
   "scripts": {
-    "check": "pnpm --filter @wod-victims/data-pipeline check",
+    "check": "pnpm -r check",
     "test": "pnpm --filter @wod-victims/data-pipeline test",
     "discover:paalam": "pnpm --filter @wod-victims/data-pipeline discover:paalam",
     "ingest:paalam": "pnpm --filter @wod-victims/data-pipeline ingest:paalam",
-    "summary:paalam": "pnpm --filter @wod-victims/data-pipeline summary:paalam"
+    "summary:paalam": "pnpm --filter @wod-victims/data-pipeline summary:paalam",
+    "dev": "pnpm --filter @wod-victims/web dev",
+    "build": "pnpm --filter @wod-victims/web build",
+    "lint": "pnpm --filter @wod-victims/web lint"
   }
 }
