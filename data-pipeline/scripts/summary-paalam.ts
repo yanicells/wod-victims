@@ -24,6 +24,8 @@ function main(): void {
   const withLoc = rows.filter((row) => row.locationRaw);
   const withSources = rows.filter((row) => row.sourceUrls.length > 0);
   const withAge = rows.filter((row) => row.age !== null);
+  const uniqueIds = new Set(rows.map((row) => row.id));
+  const duplicateRows = rows.length - uniqueIds.size;
 
   const reasonCounts = new Map<string, number>();
   for (const row of needsReview) {
@@ -38,7 +40,9 @@ function main(): void {
         discovered_urls: state.discoveredUrls.length,
         completed_ids: state.completedIds.length,
         failed: state.failed.length,
-        victims: rows.length,
+        victims_rows: rows.length,
+        victims_unique_ids: uniqueIds.size,
+        duplicate_rows: duplicateRows,
         with_name: rows.filter((row) => row.name).length,
         with_date: withDate.length,
         with_location: withLoc.length,
@@ -60,6 +64,13 @@ function main(): void {
       2
     )
   );
+
+  if (duplicateRows > 0) {
+    console.error(
+      `WARNING: victims.jsonl has ${duplicateRows} duplicate row(s). Re-ingest should skip; inspect the file.`
+    );
+    process.exitCode = 1;
+  }
 }
 
 main();
