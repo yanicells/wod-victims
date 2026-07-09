@@ -34,11 +34,19 @@ guide/             Planning docs: PRD, pipeline plan, schema, workflow guide
 data-pipeline/     TypeScript scripts: discover, ingest/parse, summary, tests
 data/paalam/       Committed output: victims.jsonl + state.json
 data/cache/        Temporary HTML fetch cache (gitignored, deleted after each ingest)
-apps/              Future web app workspace
+apps/web/          Next.js app scaffold (map/timeline later)
 docs/              Future public methodology page
 ```
 
-Use `pnpm` from the repo root. The web app can be added later under `apps/web` as a separate package.
+Use `pnpm` from the repo root.
+
+```text
+pnpm test                 # pipeline tests
+pnpm discover:paalam
+pnpm ingest:paalam -- --limit=20
+pnpm summary:paalam
+pnpm dev                  # Next.js web app
+```
 
 ## Start here
 
