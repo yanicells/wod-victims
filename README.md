@@ -50,4 +50,5 @@ pnpm dev                  # Next.js web app
 
 ## Start here
 
-Read `guide/00_WORKFLOW_GUIDE.md` for what to run next.
+1. `guide/07_SCRAPING_STUDY_GUIDE.md` — learn how the project and parser work (concepts first)
+2. `guide/00_WORKFLOW_GUIDE.md` — what to run day to day

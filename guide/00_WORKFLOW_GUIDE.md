@@ -80,10 +80,9 @@ Paalam is the only active source. Add a new source only after Paalam has: workin
 
 ## 6. What to read to learn the project
 
-1. `README.md` — repo layout and the big idea.
-2. `guide/01_PRD.md` — product goals, ethics rules, what the map/timeline should and shouldn't do.
-3. `guide/02_DATA_PIPELINE_PLAN.md` — the full pipeline: discover, ingest/parse, review flags, and what comes after.
-4. `guide/03_DATA_SCHEMA.md` — the `PaalamVictimRecord` fields and public display rules.
-5. `data-pipeline/scripts/discover-paalam.ts`, then `ingest-paalam.ts`, then `lib/parse-paalam-profile.ts` — read in that order to see the whole flow end to end.
-6. `guide/06_PAALAM_SITE_INSPECTION.md` — how the site is structured and why discovery uses sitemap + REST instead of page scraping.
-7. `guide/07_SCRAPING_STUDY_GUIDE.md` — how the ingest script itself works (fetch, parse, retry, review flags).
+1. `guide/07_SCRAPING_STUDY_GUIDE.md` — **start here to study.** Concepts first (~70%), light code (~30%), with file tags to open as needed.
+2. `README.md` — repo layout and commands.
+3. `guide/01_PRD.md` — product goals, ethics rules, what the map/timeline should and shouldn't do.
+4. `guide/02_DATA_PIPELINE_PLAN.md` — longer pipeline plan (normalize/dedupe/export later).
+5. `guide/03_DATA_SCHEMA.md` — the `PaalamVictimRecord` fields and public display rules.
+6. `guide/06_PAALAM_SITE_INSPECTION.md` — Paalam site structure (why sitemap + REST for discovery).
