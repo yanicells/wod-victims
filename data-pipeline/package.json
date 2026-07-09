@@ -7,15 +7,9 @@
     "check": "tsc --noEmit",
     "test": "tsx --test scripts/__tests__/**/*.test.ts",
     "compare:parser": "tsx scripts/compare-parser-vs-ai.ts",
-    "validate:workspace": "tsx scripts/validate-workspace.ts",
-    "ops:summary": "tsx scripts/ops-summary.ts",
     "discover:paalam": "tsx scripts/discover-paalam.ts",
-    "scrape:paalam:batch": "tsx scripts/scrape-paalam.ts --run-mode=batch",
-    "scrape:paalam:sample": "tsx scripts/scrape-paalam.ts --run-mode=sample",
-    "scrape:paalam:retry": "tsx scripts/scrape-paalam.ts --retry-failed",
-    "review:paalam:scrape-quality": "tsx scripts/review-paalam-scrape-quality.ts",
-    "prepare:paalam:extraction": "tsx scripts/prepare-paalam-extraction-batch.ts",
-    "validate:paalam:extraction": "tsx scripts/validate-paalam-extractions.ts"
+    "ingest:paalam": "tsx scripts/ingest-paalam.ts",
+    "summary:paalam": "tsx scripts/summary-paalam.ts"
   },
   "dependencies": {
     "cheerio": "^1.2.0",
