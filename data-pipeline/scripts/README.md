@@ -19,6 +19,7 @@ pnpm check
 ## Library (`lib/`)
 
 - `http.ts` — fetch with timeout, retry-with-backoff, delay helper.
+- `canonicalize.ts` — normalize Paalam profile URLs (trailing slash, strip query/hash) so discovery and ingest share one ID space.
 - `parse-paalam-profile.ts` — the parser. Reads labeled `ul.plm-details` fields and the `plm-details.source` link list. Never invents facts from narrative text; flags `needsReview` with a reason instead.
 - `paalam-record.ts` — shapes a parse result plus fetch metadata into the committed `PaalamVictimRecord`.
 - `state.ts` — reads/writes `data/paalam/state.json`, resolves paths, loads existing victim IDs for resume.

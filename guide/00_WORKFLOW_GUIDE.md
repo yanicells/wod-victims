@@ -12,9 +12,9 @@ pnpm test
 ```
 
 - `discover:paalam` finds new profile URLs from Paalam's sitemap + WordPress REST API and adds them to `data/paalam/state.json`. Safe to rerun; it dedupes.
-- `ingest:paalam -- --limit=N` fetches the next N not-yet-completed URLs, parses each with Cheerio, appends clean records to `data/paalam/victims.jsonl`, and deletes the fetched HTML. Rerun with a higher limit or no limit flag (default 10) to keep going — it skips already-completed URLs automatically.
-- `summary:paalam` prints counts: total victims, how many have a name/date/location/sources/age, and a breakdown of `needsReview` reasons.
-- `test` runs the parser unit tests (`scripts/__tests__/parse-paalam-profile.test.ts` against fixture HTML). Run this after touching the parser.
+- `ingest:paalam -- --limit=N` fetches the next N not-yet-completed URLs, parses each with Cheerio, appends clean records to `data/paalam/victims.jsonl`, and deletes the fetched HTML. Rerun with a higher limit or no limit flag (default 10) to keep going — it skips already-completed URLs automatically, including when you pass `--url=...`.
+- `summary:paalam` prints counts: unique victim IDs, row count, how many have a name/date/location/sources/age, and a breakdown of `needsReview` reasons. Exits non-zero if duplicate IDs appear in the JSONL.
+- `test` runs the parser and ingest-selection unit tests. Run this after touching the parser or ingest queue logic.
 
 Useful flags on `ingest:paalam`:
 
@@ -23,9 +23,23 @@ Useful flags on `ingest:paalam`:
 --delay-ms=2500        pause between requests (default 2500)
 --dry-run              parse and print, write nothing
 --keep-cache           keep the fetched HTML instead of deleting it (debugging)
---url=<full url>       ingest one specific URL, bypassing the discovered queue
+--url=<full url>       ingest one specific URL (still skips if already completed)
 ```
 
+## 1b. Clean-slate rebuild (intentional)
+
+This branch starts with an empty `data/paalam/victims.jsonl`. That is deliberate: the old AI-extraction corpus and committed HTML snapshots were removed so the repo stays small and the parser-first path is the only source of truth.
+
+Rebuild coverage with:
+
+```text
+pnpm discover:paalam
+pnpm ingest:paalam -- --limit=20 --delay-ms=3000
+# repeat until summary shows the coverage you want
+pnpm summary:paalam
+```
+
+Do not expect the old 72 AI-extracted rows to still exist on disk. Re-ingest regenerates clean records from live Paalam pages.
 ## 2. Double-check after each ingest run
 
 - `pnpm summary:paalam` — did the victim count go up by roughly the batch size?
