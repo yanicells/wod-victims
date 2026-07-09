@@ -4,9 +4,14 @@
  * Usage:
  *   pnpm ingest:paalam -- --limit=10
  *   pnpm ingest:paalam -- --limit=5 --delay-ms=3000 --keep-cache
+ *   pnpm ingest:paalam -- --url=https://paalam.org/homepage/victims/example/
+ *
+ * Already-ingested IDs are always skipped (including explicit --url), so retries
+ * and manual re-runs cannot duplicate rows in victims.jsonl.
  */
 import fs from "node:fs";
 import path from "node:path";
+import { canonicalizePaalamUrl } from "./lib/canonicalize.js";
 import { sha256 } from "./lib/hash.js";
 import { fetchText, sleep } from "./lib/http.js";
 import { makeTargetId } from "./lib/ids.js";
@@ -63,15 +68,39 @@ function parseArgs(): Args {
   };
 }
 
-function pendingUrls(discovered: string[], completedIds: Set<string>, explicit: string[]): string[] {
-  if (explicit.length > 0) {
-    return explicit;
+function pendingUrls(
+  discovered: string[],
+  completedIds: Set<string>,
+  explicit: string[]
+): { queue: string[]; skippedAlreadyDone: number } {
+  const source = explicit.length > 0 ? explicit : discovered;
+  const seenInQueue = new Set<string>();
+  const queue: string[] = [];
+  let skippedAlreadyDone = 0;
+
+  for (const raw of source) {
+    let canonical: string;
+    try {
+      canonical = canonicalizePaalamUrl(raw);
+    } catch {
+      throw new Error(`Invalid URL: ${raw}`);
+    }
+
+    const id = makeTargetId("paalam", canonical);
+    if (completedIds.has(id)) {
+      skippedAlreadyDone += 1;
+      continue;
+    }
+
+    if (seenInQueue.has(id)) {
+      continue;
+    }
+
+    seenInQueue.add(id);
+    queue.push(canonical);
   }
 
-  return discovered.filter((url) => {
-    const id = makeTargetId("paalam", url);
-    return !completedIds.has(id);
-  });
+  return { queue, skippedAlreadyDone };
 }
 
 async function main(): Promise<void> {
@@ -80,15 +109,24 @@ async function main(): Promise<void> {
   const existingIds = loadVictimIds();
   const completed = new Set([...state.completedIds, ...existingIds]);
 
-  const queue = pendingUrls(state.discoveredUrls, completed, args.urls).slice(0, args.limit);
+  const { queue: pending, skippedAlreadyDone } = pendingUrls(
+    state.discoveredUrls,
+    completed,
+    args.urls
+  );
+  const queue = pending.slice(0, args.limit);
 
   if (queue.length === 0) {
-    console.log("Nothing to ingest. Run discover:paalam first, or pass --url=...");
+    console.log(
+      skippedAlreadyDone > 0
+        ? `Nothing to ingest (${skippedAlreadyDone} already completed).`
+        : "Nothing to ingest. Run discover:paalam first, or pass --url=..."
+    );
     return;
   }
 
   console.log(
-    `Ingesting ${queue.length} profile(s) (delay=${args.delayMs}ms, dryRun=${args.dryRun})…`
+    `Ingesting ${queue.length} profile(s) (delay=${args.delayMs}ms, dryRun=${args.dryRun}, skippedAlreadyDone=${skippedAlreadyDone})…`
   );
 
   fs.mkdirSync(cacheDir(), { recursive: true });
@@ -96,6 +134,7 @@ async function main(): Promise<void> {
 
   let success = 0;
   let failed = 0;
+  let skipped = skippedAlreadyDone;
   let consecutiveFailures = 0;
   const reviewFlags: string[] = [];
 
@@ -104,6 +143,13 @@ async function main(): Promise<void> {
     const id = makeTargetId("paalam", url);
     const scrapedAt = new Date().toISOString();
     const cachePath = path.join(cacheDir(), `${id}.html`);
+
+    // Re-check immediately before write — protects against concurrent/manual races.
+    if (completed.has(id) || loadVictimIds().has(id)) {
+      skipped += 1;
+      console.log(`↷ ${index + 1}/${queue.length} skip already ingested ${id}`);
+      continue;
+    }
 
     try {
       const response = await fetchText(url, args.timeoutMs, args.retries);
@@ -132,7 +178,15 @@ async function main(): Promise<void> {
           fs.writeFileSync(cachePath, html);
         }
 
+        // Final guard right before append.
+        if (loadVictimIds().has(id)) {
+          skipped += 1;
+          console.log(`↷ ${index + 1}/${queue.length} skip already ingested ${id}`);
+          continue;
+        }
+
         appendJsonlRow(victimsPath(), record);
+        completed.add(id);
         state.completedIds = [...new Set([...state.completedIds, id])];
         state.failed = state.failed.filter((row) => row.id !== id);
         saveState(state);
@@ -193,13 +247,15 @@ async function main(): Promise<void> {
     }
   }
 
+  const uniqueIds = loadVictimIds();
   console.log(
     JSON.stringify(
       {
         success,
         failed,
+        skipped,
         victims_file: victimsPath(),
-        completed_total: loadVictimIds().size,
+        completed_total: uniqueIds.size,
         review_flags: reviewFlags.slice(0, 20)
       },
       null,
