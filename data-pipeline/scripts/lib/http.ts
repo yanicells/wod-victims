@@ -104,12 +104,46 @@ function isDnsLookupFailure(error: unknown): boolean {
   );
 }
 
+function isTransientHttpStatus(status: number): boolean {
+  return [408, 425, 429, 500, 502, 503, 504].includes(status);
+}
+
+async function fetchTextOnce(url: string, timeoutMs: number): Promise<TextResponse> {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), timeoutMs);
+
+  try {
+    try {
+      const response = await fetch(url, {
+        headers: {
+          "User-Agent": "wod-victims-data-pipeline/0.1 (+https://github.com/)"
+        },
+        signal: controller.signal
+      });
+
+      return {
+        url: response.url,
+        status: response.status,
+        headers: response.headers,
+        body: await response.text()
+      };
+    } catch (error) {
+      if (isDnsLookupFailure(error)) {
+        return await fetchTextViaResolve4(url, timeoutMs);
+      }
+      throw error;
+    }
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
 // Fetch text with a timeout so scripts do not hang forever on a bad network day.
-// `retries` is the number of EXTRA attempts after the first one. We only retry
-// thrown errors (network drops / aborted timeouts) — the pattern we saw when the
-// site cut us off mid-run — and wait a growing backoff so we are not hammering a
-// server that just throttled us. Non-2xx responses are returned, not retried;
-// the caller decides what to do with them.
+// `retries` is the number of EXTRA attempts after the first one. We retry thrown
+// errors (network drops / aborted timeouts) and transient HTTP responses, then
+// wait a growing backoff so we are not hammering a server that just throttled us.
+// Permanent HTTP errors are returned immediately; the caller decides how to
+// record them.
 //
 // If getaddrinfo fails (ENOTFOUND) but dns.resolve4 works, we fall back to a
 // direct HTTPS request with SNI — needed in some agent/sandbox DNS setups.
@@ -122,38 +156,18 @@ export async function fetchText(
   let attempt = 0;
 
   for (;;) {
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), timeoutMs);
-
     try {
-      try {
-        const response = await fetch(url, {
-          headers: {
-            "User-Agent": "wod-victims-data-pipeline/0.1 (+https://github.com/)"
-          },
-          signal: controller.signal
-        });
-
-        return {
-          url: response.url,
-          status: response.status,
-          headers: response.headers,
-          body: await response.text()
-        };
-      } catch (error) {
-        if (isDnsLookupFailure(error)) {
-          return await fetchTextViaResolve4(url, timeoutMs);
-        }
-        throw error;
+      const response = await fetchTextOnce(url, timeoutMs);
+      if (!isTransientHttpStatus(response.status) || attempt >= retries) {
+        return response;
       }
     } catch (error) {
       if (attempt >= retries) {
         throw error;
       }
-      attempt += 1;
-      await sleep(backoffMs * attempt);
-    } finally {
-      clearTimeout(timeout);
     }
+
+    attempt += 1;
+    await sleep(backoffMs * attempt);
   }
 }
