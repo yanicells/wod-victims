@@ -190,6 +190,7 @@ describe("parsePaalamProfile fixtures", () => {
     assert.ok(
       parsed.warnings.some((warning) => warning.includes("Age mentioned in narrative"))
     );
+    assert.ok(!("narrative" in parsed));
   });
 
   it("parses age when occupation is a separate field", () => {

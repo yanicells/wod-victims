@@ -23,7 +23,6 @@ export type PaalamVictimRecord = {
   region: string | null;
   locationPrecision: "barangay" | "city_municipality" | "province" | "unknown";
   sourceUrls: string[];
-  narrative: string | null;
   warnings: string[];
   needsReview: boolean;
   reviewReasons: string[];
@@ -61,7 +60,6 @@ export function toVictimRecord(input: {
     region: parsed.location.region,
     locationPrecision: parsed.location.precision,
     sourceUrls: parsed.sourceUrls,
-    narrative: parsed.narrative,
     warnings: parsed.warnings,
     needsReview: parsed.needsReview,
     reviewReasons: parsed.reviewReasons

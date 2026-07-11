@@ -30,7 +30,6 @@ export type ParsedPaalamProfile = {
   timeOfIncident: string | null;
   location: ParsedLocation;
   sourceUrls: string[];
-  narrative: string | null;
   warnings: string[];
   needsReview: boolean;
   reviewReasons: string[];
@@ -519,7 +518,6 @@ export function parsePaalamProfile(html: string): ParsedPaalamProfile {
     timeOfIncident: fields["time of incident"] ?? null,
     location,
     sourceUrls,
-    narrative,
     warnings,
     needsReview: reviewReasons.length > 0,
     reviewReasons
