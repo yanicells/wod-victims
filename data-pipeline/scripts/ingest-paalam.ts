@@ -11,6 +11,7 @@
  */
 import fs from "node:fs";
 import path from "node:path";
+import { pathToFileURL } from "node:url";
 import { canonicalizePaalamUrl } from "./lib/canonicalize.js";
 import { sha256 } from "./lib/hash.js";
 import { fetchText, sleep } from "./lib/http.js";
@@ -26,7 +27,7 @@ import {
   victimsPath
 } from "./lib/state.js";
 
-type Args = {
+export type Args = {
   dryRun: boolean;
   limit: number;
   delayMs: number;
@@ -37,9 +38,7 @@ type Args = {
   urls: string[];
 };
 
-function parseArgs(): Args {
-  const args = process.argv.slice(2);
-
+export function parseArgs(args = process.argv.slice(2)): Args {
   function readNumberFlag(name: string, fallback: number, allowZero = false): number {
     const prefix = `--${name}=`;
     const match = args.find((arg) => arg.startsWith(prefix));
@@ -62,13 +61,13 @@ function parseArgs(): Args {
     delayMs: readNumberFlag("delay-ms", 2_500),
     timeoutMs: readNumberFlag("timeout-ms", 30_000),
     retries: readNumberFlag("retries", 1, true),
-    maxConsecutiveFailures: readNumberFlag("max-consecutive-failures", 5, true),
+    maxConsecutiveFailures: readNumberFlag("max-consecutive-failures", 5),
     keepCache: args.includes("--keep-cache"),
     urls: urlFlags
   };
 }
 
-function pendingUrls(
+export function pendingUrls(
   discovered: string[],
   completedIds: Set<string>,
   explicit: string[]
@@ -264,7 +263,13 @@ async function main(): Promise<void> {
   );
 }
 
-main().catch((error) => {
-  console.error(error);
-  process.exit(1);
-});
+const entrypoint = process.argv[1]
+  ? pathToFileURL(path.resolve(process.argv[1])).href
+  : null;
+
+if (entrypoint === import.meta.url) {
+  main().catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
+}
