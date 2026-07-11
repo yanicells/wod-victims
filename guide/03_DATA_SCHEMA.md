@@ -31,7 +31,6 @@ region               string | null — currently only ever "National Capital Reg
 locationPrecision   "barangay" | "city_municipality" | "province" | "unknown"
 
 sourceUrls          string[] — external links only; paalam.org self-links excluded
-narrative           string | null — first few paragraphs of body text, for context only (not a data source for other fields)
 warnings            string[] — non-blocking notes, e.g. "age mentioned in narrative but missing from profile details"
 needsReview         boolean
 reviewReasons       string[]
@@ -54,7 +53,7 @@ A record can have more than one reason. Reasons describe what's uncertain — th
 ## Design rules
 
 - **No `locationPrecision: "barangay"` today.** The parser only splits on commas into city/province; barangay-level detection isn't implemented yet. Don't map anything as barangay-precise until that lands.
-- **Never invent.** If a field isn't in a labeled `plm-details` entry, it's `null`. Narrative text is not a source for structured fields — it's stored (`narrative`) for human context and to explain `warnings` like "age mentioned in narrative but not the profile box."
+- **Never invent.** If a field isn't in a labeled `plm-details` entry, it's `null`. Narrative text may be inspected ephemerally to explain a warning like "age mentioned in narrative but not the profile box," but it is not saved or used as a structured-field source.
 - **Coordinates are not generated yet.** Location fields are text only. Add centroid coordinates only after real location normalization exists (see `guide/02_DATA_PIPELINE_PLAN.md`).
 
 ## Public display rules
@@ -102,7 +101,6 @@ Public wording:
   "sourceUrls": [
     "https://www.rappler.com/nation/cops-kill-16-year-old-boy-laguna-anti-drug-operation"
   ],
-  "narrative": "...",
   "warnings": [],
   "needsReview": false,
   "reviewReasons": []

@@ -34,7 +34,7 @@ That was slow, expensive, and overkill — Paalam pages already have **labeled f
 2. Fetch each page  
 3. **Parse the labeled fields with code**  
 4. Save one clean JSON line per victim  
-5. Delete the temporary HTML  
+5. Discard the in-memory HTML
 
 No AI for core fields. The durable output is JSON, not HTML.
 
@@ -42,9 +42,9 @@ No AI for core fields. The durable output is JSON, not HTML.
 
 ```text
 URL list  →  fetch HTML  →  parse labels  →  victims.jsonl  →  (later) map/timeline
-                 ↓
-           delete HTML
 ```
+
+HTML normally stays in memory. A developer can explicitly write a gitignored cache with `--keep-cache` while debugging.
 
 ---
 
@@ -60,7 +60,7 @@ Each profile page has structured blocks in the HTML, roughly:
 | Date of Incident | June 17, 2021 | `dateKilled` + `datePrecision` |
 | Location of Incident | Binan, Laguna | city / province fields |
 | Source(s) | news article links | `sourceUrls` |
-| Story paragraphs | narrative text | `narrative` (kept, but **not** used to invent age/date/etc.) |
+| Story paragraphs | narrative text | optional warning only; prose is **not saved** and never fills a fact |
 
 In the HTML, those labels live in lists with class names like `plm-details`.
 
@@ -93,7 +93,7 @@ For each not-yet-done URL:
 2. Parse labeled fields  
 3. Append one JSON object to `` `data/paalam/victims.jsonl` ``  
 4. Mark the ID completed in state  
-5. Delete the HTML  
+5. Discard the in-memory HTML
 
 **Code:** `` `data-pipeline/scripts/ingest-paalam.ts` ``
 
@@ -124,8 +124,9 @@ The same page can be written many ways:
 
 - with/without trailing `/`  
 - with `?utm=...` or `#section`  
+- with HTTP/HTTPS or `www`/apex host variants
 
-We **normalize** URLs so they always hash to the same ID.
+We accept only Paalam victim-profile URLs and **normalize** valid variants so they always hash to the same ID.
 
 **Code:** `` `data-pipeline/scripts/lib/canonicalize.ts` ``
 
@@ -176,9 +177,9 @@ Concept: later you can detect “did this page change?” without keeping the HT
 
 **Code:** `` `data-pipeline/scripts/lib/hash.ts` ``
 
-### 5.7 Temporary cache, not an archive
+### 5.7 Optional cache, not an archive
 
-HTML may briefly live under `` `data/cache/paalam/` `` (gitignored), then gets deleted.
+By default, HTML stays in memory and is discarded. With explicit `--keep-cache`, it is written under `` `data/cache/paalam/` `` for local debugging; that folder is gitignored.
 
 Concept: the repo stays small; the **parsed record** is the source of truth we keep.
 
@@ -191,7 +192,7 @@ If something is weak or sensitive, we still save the row, but set:
 
 Examples:
 
-- anonymous name  
+- anonymous, unidentified, unnamed, or unknown name
 - missing source link  
 - public figure / mayor  
 - slash name like `Person A / Person B` (two people in one title)  
@@ -206,6 +207,7 @@ So ingest:
 
 - goes one URL at a time  
 - waits `--delay-ms` between requests  
+- retries transient network errors and HTTP throttling/server errors with backoff
 - stops after several consecutive failures  
 
 Concept: scrapers are guests. Slow is correct.
@@ -234,7 +236,7 @@ HTML string
   → read h1 name
   → read ul.plm-details label:value pairs
   → read source links
-  → optionally keep short narrative
+  → optionally inspect short narrative for warnings, then discard it
   → normalize date + location
   → attach warnings / reviewReasons
 ```
@@ -288,7 +290,7 @@ pnpm ingest:paalam -- --limit=3 --delay-ms=2500
 
 1. Load state + existing victim IDs  
 2. Pick 3 URLs not in `completedIds`  
-3. For URL #1: fetch → parse → append line to `victims.jsonl` → mark completed → delete HTML  
+3. For URL #1: fetch in memory → parse → append line to `victims.jsonl` → mark completed
 4. Wait 2.5 seconds  
 5. Repeat for URL #2 and #3  
 6. Print JSON summary (success/failed/skipped)  
@@ -311,6 +313,7 @@ Don’t treat tests as “CI noise.” They’re **worked examples**.
 | `` `.../fixtures/*.html` `` | Tiny real-ish HTML pages (full profile, no age, anonymous, mayor, etc.) |
 | `` `.../canonicalize.test.ts` `` | URL normalization |
 | `` `.../ingest-pending.test.ts` `` | Why `--url` must not duplicate rows |
+| `` `.../http.test.ts` `` | Which HTTP failures retry and which return immediately |
 
 Run:
 
@@ -329,7 +332,7 @@ Study tip: open a fixture HTML and the matching test assertion side by side. Tha
 3. `` `guide/00_WORKFLOW_GUIDE.md` `` — what to run day to day  
 4. `` `guide/01_PRD.md` `` — why the product exists / ethics  
 5. `` `data-pipeline/scripts/discover-paalam.ts` `` — skim: sitemap + REST → URL list  
-6. `` `data-pipeline/scripts/ingest-paalam.ts` `` — skim: queue → fetch → parse → append → delete  
+6. `` `data-pipeline/scripts/ingest-paalam.ts` `` — skim: queue → fetch → parse → append
 7. `` `data-pipeline/scripts/lib/parse-paalam-profile.ts` `` — the heart; read slowly  
 8. `` `data-pipeline/scripts/__tests__/parse-paalam-profile.test.ts` `` + fixtures  
 9. `` `guide/02_DATA_PIPELINE_PLAN.md` `` — longer-term plan (normalize/dedupe/export later)  
@@ -386,6 +389,7 @@ That’s the whole persistence model for victims right now.
 ## 11. Ethics to keep in your head while studying
 
 - No photos in v1  
+- No exact private addresses
 - No inventing missing fields  
 - Every public claim needs a source link when possible  
 - Uncertainty should be visible (`needsReview`)  

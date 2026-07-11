@@ -6,18 +6,17 @@ Run commands from the repo root:
 
 ```text
 pnpm discover:paalam                  # find profile URLs
-pnpm ingest:paalam -- --limit=20      # fetch, parse, append, delete HTML
+pnpm ingest:paalam -- --limit=20      # fetch in memory, parse, append JSONL
 pnpm summary:paalam                   # dataset stats
 pnpm test                             # parser unit tests
 pnpm check                            # tsc --noEmit
-pnpm compare:parser                   # optional: parser output vs old AI extracts, if present
 ```
 
 ## Architecture
 
 ```text
 discover-paalam.ts   sitemap.xml + WP REST API -> data/paalam/state.json (discoveredUrls)
-ingest-paalam.ts     fetch HTML -> parse-paalam-profile.ts -> victims.jsonl, delete HTML
+ingest-paalam.ts     fetch HTML in memory -> parse-paalam-profile.ts -> victims.jsonl
 summary-paalam.ts    reads state.json + victims.jsonl -> stats
 ```
 
@@ -28,11 +27,11 @@ Supporting libs live in `scripts/lib/`. See `scripts/README.md` for the full fil
 ```text
 data/paalam/state.json      discovered URLs, completed IDs, failed fetches
 data/paalam/victims.jsonl   one parsed victim record per line (committed)
-data/cache/paalam/          temporary HTML during ingest — gitignored, deleted after each run
+data/cache/paalam/          optional `--keep-cache` debugging output — gitignored
 ```
 
-No raw HTML or raw text snapshots are committed. The parser reads each page once and keeps only the structured result.
+No raw HTML, raw text snapshots, or free-form narrative are committed. The parser reads each page once and keeps only the structured result. HTML reaches disk only when a developer explicitly uses `--keep-cache` for local debugging.
 
 ## Adding a new source later
 
-Each source needs its own discover/ingest pair plus a parser in `lib/` and a record type. Keep the same shape: discover finds URLs, ingest fetches+parses+deletes, everything lands in one JSONL per source.
+Each source needs its own discover/ingest pair plus a parser in `lib/` and a record type. Keep the same shape: discover finds URLs, ingest fetches in memory and persists only parsed records, and everything lands in one JSONL per source.

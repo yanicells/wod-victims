@@ -180,11 +180,9 @@ Use a two-input discovery script:
 Then:
 
 - canonicalize URLs
-- merge by canonical URL and/or REST `id`
-- record sitemap presence
-- record REST presence
-- add new profile URLs to `data/ops/scrape_targets.csv`
-- write a `scrape_runs.jsonl` row with `mode=discover`
+- merge and deduplicate by canonical URL
+- add new profile URLs to `data/paalam/state.json`
+- report sitemap, REST, and merged counts separately
 - do not fetch profile HTML during discovery
 
 ## Recommended sample scrape strategy
@@ -192,14 +190,15 @@ Then:
 After discovery only:
 
 1. Choose 20 queued profile targets.
-2. Fetch profile HTML slowly.
-3. Save append-only raw HTML snapshots.
-4. Convert visible content to plain text.
-5. Save raw text snapshots.
-6. Compute content hash.
-7. Extract outgoing source links.
-8. Update `scrape_targets.csv`.
-9. Generate a scrape report.
+2. Fetch each profile HTML slowly and keep it in memory.
+3. Parse the labeled `plm-details` fields with Cheerio.
+4. Compute the content hash.
+5. Extract outgoing source links.
+6. Append the structured record to `data/paalam/victims.jsonl`.
+7. Mark the target completed in `data/paalam/state.json`.
+8. Inspect `pnpm summary:paalam` and all review-flagged records.
+
+Do not save raw HTML, plain-text snapshots, photos, or free-form narrative. `--keep-cache` is available only for short-lived local debugging and its output is gitignored.
 
 Suggested request behavior:
 
@@ -218,56 +217,16 @@ Suggested request behavior:
 - Profile pages contain photos; ignore image URLs except as metadata if needed.
 - Location text may include city only or source narrative may mention barangay; do not over-map.
 
-## Discovery run result
+## Current implementation status
 
-Discovery script:
-
-```text
-data-pipeline/scripts/discover-paalam.ts
-```
-
-Command run:
+The active commands are:
 
 ```text
-pnpm discover:paalam -- --delay-ms=500
+pnpm discover:paalam
+pnpm ingest:paalam -- --limit=20 --delay-ms=3000
+pnpm summary:paalam
 ```
 
-Result:
+A July 2026 validation still found 3,000 sitemap profile URLs and 3,349 merged sitemap/REST profiles. An 11-profile live parser sample completed without network failures. It confirmed that structured fields and external sources parse correctly, and exposed an unidentified-name review bug that now has a regression test.
 
-```text
-run_id: paalam_discover_20260602172527
-sitemap victim URLs: 3000
-REST total reported: 3349
-REST pages fetched: 34
-merged candidates: 3349
-new targets added: 3349
-```
-
-All discovered targets were added to `data/ops/scrape_targets.csv` as queued `profile_page` targets with `extraction_status=not_started`.
-
-No victim profile pages were fetched during discovery.
-
-## Next implementation task
-
-Run quality review on the 20-page sample scrape before scaling.
-
-Sample scrape result:
-
-```text
-run_id: paalam_sample_20260602173855
-profile pages fetched: 20
-success: 20
-failed: 0
-report: data/raw/paalam/manifests/paalam_sample_20260602173855.json
-```
-
-Quality note:
-
-- Arthur Abdul had a visible `Source(s)` section but the link was malformed/non-external (`href="Arthur Abdul "`), so the scraper recorded zero outgoing source links for that profile.
-
-Next review should check:
-
-- whether the 20 raw text files are readable enough for AI extraction
-- whether source link extraction should flag malformed source entries separately
-- whether navigation/footer text should be reduced before extraction
-- whether the sample can move to AI extraction
+The tracked dataset is intentionally reset to empty after validation. Run discovery and ingest from the clean starter state when the real dataset build is ready.

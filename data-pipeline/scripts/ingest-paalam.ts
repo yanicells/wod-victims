@@ -1,5 +1,5 @@
 /**
- * Ingest Paalam victim profiles: fetch → parse → append clean JSONL → delete HTML.
+ * Ingest Paalam victim profiles: fetch in memory → parse → append clean JSONL.
  *
  * Usage:
  *   pnpm ingest:paalam -- --limit=10

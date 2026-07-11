@@ -14,8 +14,8 @@ pnpm test                             # parser unit tests
 ```
 
 1. **Discover** — `discover-paalam.ts` reads Paalam's sitemap and WordPress REST API for victim profile URLs. Fetches no profile pages.
-2. **Ingest** — `ingest-paalam.ts` fetches each queued profile page, parses the labeled `plm-details` fields with Cheerio (`lib/parse-paalam-profile.ts`), appends one clean JSON record per victim to `data/paalam/victims.jsonl`, then deletes the fetched HTML. Nothing raw is kept.
-3. **Review flags** — records with missing name/date/location/source, malformed source links, or a sensitive-occupation subject are flagged `needsReview` with reasons, not silently dropped or invented.
+2. **Ingest** — `ingest-paalam.ts` fetches each queued profile page into memory, parses the labeled `plm-details` fields with Cheerio (`lib/parse-paalam-profile.ts`), and appends one clean JSON record per victim to `data/paalam/victims.jsonl`. Raw HTML and free-form narrative are not durable data.
+3. **Review flags** — records with anonymous/unidentified names, missing name/date/location/source, malformed source links, or a sensitive-occupation subject are flagged `needsReview` with reasons, not silently dropped or invented.
 4. **Later** — normalization, dedupe, confidence scoring, map/timeline, and public export (not built yet).
 
 See `data-pipeline/README.md` for commands and `guide/02_DATA_PIPELINE_PLAN.md` for the full pipeline design.
@@ -25,7 +25,7 @@ See `data-pipeline/README.md` for commands and `guide/02_DATA_PIPELINE_PLAN.md` 
 - No photos, no exact home addresses, no invented facts.
 - Every public record needs a source link.
 - Anonymous victims, missing sources, and public figures are flagged for review, not hidden.
-- The parser only reads Paalam's labeled detail fields. It never infers facts from narrative text.
+- The parser only saves facts from Paalam's labeled detail fields. It may inspect narrative text for a warning, but never saves it or infers a missing fact from it.
 
 ## Repo layout
 
@@ -33,7 +33,7 @@ See `data-pipeline/README.md` for commands and `guide/02_DATA_PIPELINE_PLAN.md` 
 guide/             Planning docs: PRD, pipeline plan, schema, workflow guide
 data-pipeline/     TypeScript scripts: discover, ingest/parse, summary, tests
 data/paalam/       Committed output: victims.jsonl + state.json
-data/cache/        Temporary HTML fetch cache (gitignored, deleted after each ingest)
+data/cache/        Optional `--keep-cache` HTML for local debugging (gitignored)
 apps/web/          Next.js app scaffold (map/timeline later)
 docs/              Future public methodology page
 ```

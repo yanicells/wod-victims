@@ -12,17 +12,16 @@ discover-paalam.ts
   -> data/paalam/state.json (discoveredUrls)
 
 ingest-paalam.ts, per URL
-  -> fetch HTML
+  -> fetch HTML in memory
   -> parse-paalam-profile.ts (Cheerio, labeled fields only)
   -> data/paalam/victims.jsonl (append)
-  -> delete fetched HTML
 
 summary-paalam.ts -> stats + needsReview breakdown
 
 (later) normalize -> dedupe -> confidence/export -> map + timeline app
 ```
 
-No raw HTML or raw text is committed. `data/cache/paalam/` holds HTML only for the duration of one `ingest-paalam.ts` run and is gitignored.
+No raw HTML, raw text, or free-form narrative is committed. `data/cache/paalam/` is gitignored and receives HTML only when a developer explicitly passes `--keep-cache` for local debugging.
 
 ## 3. Folder structure
 
@@ -32,7 +31,7 @@ No raw HTML or raw text is committed. `data/cache/paalam/` holds HTML only for t
     state.json       discovered/completed/failed URLs
     victims.jsonl     one PaalamVictimRecord per line (committed)
   /cache
-    /paalam           temporary HTML during ingest (gitignored, deleted after run)
+    /paalam           optional `--keep-cache` debugging output (gitignored)
 
 /data-pipeline
   package.json
@@ -40,7 +39,6 @@ No raw HTML or raw text is committed. `data/cache/paalam/` holds HTML only for t
     discover-paalam.ts
     ingest-paalam.ts
     summary-paalam.ts
-    compare-parser-vs-ai.ts
     lib/
     __tests__/
 
@@ -49,8 +47,6 @@ No raw HTML or raw text is committed. `data/cache/paalam/` holds HTML only for t
 
 /docs        (future methodology page)
 ```
-
-`data/ops`, `data/raw`, `data/intermediate`, `data/processed`, `data/qa` are leftovers from the old scrape-then-AI-extract pipeline. They are not part of the current flow and are not touched by `discover-paalam.ts` / `ingest-paalam.ts` / `summary-paalam.ts`.
 
 ## 4. State tracking (`data/paalam/state.json`)
 
@@ -66,24 +62,24 @@ failed: [{ id, url, error, failedAt, attempts }]
 
 - `discover-paalam.ts` only appends to `discoveredUrls`. It never fetches a profile page.
 - `ingest-paalam.ts` computes the pending queue as `discoveredUrls` minus (`completedIds` union IDs already present in `victims.jsonl`), takes the next `--limit`, and processes them one at a time with a delay between requests.
-- A target ID is a deterministic hash of the canonical URL (`lib/ids.ts`), so rerunning discovery or ingest never creates duplicates.
+- A target ID is a deterministic hash of the canonical URL (`lib/ids.ts`). Canonicalization accepts only Paalam victim profiles and collapses HTTP, `www`, query, hash, and trailing-slash variants into one HTTPS identity.
 - On success: append the record to `victims.jsonl`, add the ID to `completedIds`, clear it from `failed`.
-- On failure: bump `attempts`, record the error in `failed`. Failed URLs stay in the queue for a future `ingest-paalam.ts` run (they are not automatically retried within the same run beyond `--retries`).
+- On failure: transient network errors and HTTP 408/425/429/5xx statuses retry with increasing backoff up to `--retries`; then `attempts` is bumped and the error is recorded in `failed`. Failed URLs stay in the queue for a future run.
 - After `--max-consecutive-failures` (default 5) failures in a row, the run stops — this is almost always Paalam throttling, not real per-page errors.
 
 ## 5. Parsing rules (`lib/parse-paalam-profile.ts`)
 
-The parser reads two things on each profile page, both structural, never narrative:
+The parser saves facts from two structural parts of each profile page:
 
 1. `ul.plm-details` (non-source) list items — `label: value` pairs (Sex, Age, Marital Status, Occupation, Date of Incident, Time of Incident, Location of Incident) plus an unlabeled incident-type line.
 2. `ul.plm-details.source` — the outgoing source link(s).
 
 Rules:
 
-- A field with no labeled value stays `null`. The parser does not read the narrative paragraphs to fill in a missing age, date, or location.
+- A field with no labeled value stays `null`. The parser may inspect a short narrative excerpt only to emit a warning such as “age appears in prose,” but it never fills a field from that text and never saves the excerpt.
 - Dates are parsed into `exact_date` / `month` / `year` / `unknown` precision — never invented from a vaguer mention.
 - Location text is split on commas into `cityMunicipality` / `province`, with a couple of known-typo and Metro-Manila-alias fixes. No geocoding.
-- Source links pointing back to `paalam.org` itself are dropped as non-external; malformed `href`s are recorded as a warning and a review reason, not silently ignored.
+- Source links pointing back to `paalam.org` itself are ignored as non-evidence. Absolute and protocol-relative external HTTP(S) links are retained; genuinely malformed or unsupported `href`s produce a warning and review reason.
 
 See `guide/03_DATA_SCHEMA.md` for the full record shape and `data-pipeline/scripts/__tests__/parse-paalam-profile.test.ts` for the fixture-backed test cases (full profile, missing age, anonymous victim, public figure, location typo, age-in-separate-field).
 

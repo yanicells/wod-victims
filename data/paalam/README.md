@@ -5,7 +5,7 @@ Clean parsed victim records live here.
 - `victims.jsonl` — one JSON object per victim (committed output; may start empty)
 - `state.json` — discovery + progress tracker
 
-HTML is fetched into `data/cache/paalam/` temporarily during ingest and deleted afterward. That cache is gitignored.
+HTML stays in memory during normal ingest. Passing `--keep-cache` writes it to the gitignored `data/cache/paalam/` folder for local debugging only.
 
 ## Empty on purpose
 

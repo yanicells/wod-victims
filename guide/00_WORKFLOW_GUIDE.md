@@ -12,9 +12,9 @@ pnpm test
 ```
 
 - `discover:paalam` finds new profile URLs from Paalam's sitemap + WordPress REST API and adds them to `data/paalam/state.json`. Safe to rerun; it dedupes.
-- `ingest:paalam -- --limit=N` fetches the next N not-yet-completed URLs, parses each with Cheerio, appends clean records to `data/paalam/victims.jsonl`, and deletes the fetched HTML. Rerun with a higher limit or no limit flag (default 10) to keep going — it skips already-completed URLs automatically, including when you pass `--url=...`.
+- `ingest:paalam -- --limit=N` fetches the next N not-yet-completed URLs into memory, parses each with Cheerio, and appends clean records to `data/paalam/victims.jsonl`. Rerun with a higher limit or no limit flag (default 10) to keep going — it skips already-completed URLs automatically, including when you pass `--url=...`.
 - `summary:paalam` prints counts: unique victim IDs, row count, how many have a name/date/location/sources/age, and a breakdown of `needsReview` reasons. Exits non-zero if duplicate IDs appear in the JSONL.
-- `test` runs the parser and ingest-selection unit tests. Run this after touching the parser or ingest queue logic.
+- `test` runs parser, URL identity, ingest-selection, and HTTP retry tests. Run this after touching the pipeline.
 
 Useful flags on `ingest:paalam`:
 
@@ -22,7 +22,7 @@ Useful flags on `ingest:paalam`:
 --limit=20            how many profiles to fetch this run (default 10)
 --delay-ms=2500        pause between requests (default 2500)
 --dry-run              parse and print, write nothing
---keep-cache           keep the fetched HTML instead of deleting it (debugging)
+--keep-cache           write fetched HTML to the gitignored cache (debugging only)
 --url=<full url>       ingest one specific URL (still skips if already completed)
 ```
 
@@ -44,7 +44,7 @@ Do not expect the old 72 AI-extracted rows to still exist on disk. Re-ingest reg
 
 - `pnpm summary:paalam` — did the victim count go up by roughly the batch size?
 - Skim the `needs_review` reason counts. If one reason spikes (e.g. `missing_location`), check whether the site changed and the parser needs a fix, not just review.
-- If profiles start failing repeatedly, Paalam is throttling — the script backs off automatically and stops after too many consecutive failures. Rerun `ingest:paalam` later; it resumes from `state.json`, it doesn't restart.
+- If profiles start failing repeatedly, Paalam may be throttling — transient network/HTTP failures retry with increasing backoff, and the batch stops after too many consecutive profile failures. Rerun `ingest:paalam` later; it resumes from `state.json`, it doesn't restart.
 
 ## 3. Review flags
 
@@ -60,7 +60,7 @@ malformed_source_link
 sensitive_public_figure
 ```
 
-These records still land in `victims.jsonl` — they are not dropped. Treat `needsReview` rows as "don't publish without a second look," not as broken data.
+“Anonymous,” “Unidentified,” “Unnamed,” and “Unknown” titles all use `anonymous_or_unnamed`. These records still land in `victims.jsonl` — they are not dropped. Treat `needsReview` rows as "don't publish without a second look," not as broken data.
 
 ## 4. What's not built yet
 

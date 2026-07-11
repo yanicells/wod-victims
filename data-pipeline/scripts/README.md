@@ -3,7 +3,7 @@
 ## Active pipeline
 
 - `discover-paalam.ts` — fetches `sitemap.xml` and the WordPress REST `victim` list, merges/canonicalizes profile URLs, writes new ones into `data/paalam/state.json`. Does not fetch profile pages.
-- `ingest-paalam.ts` — takes queued URLs from `state.json`, fetches each profile page, parses it with `lib/parse-paalam-profile.ts`, builds a record with `lib/paalam-record.ts`, appends it to `data/paalam/victims.jsonl`, and deletes the fetched HTML (unless `--keep-cache`). Tracks failures and stops after too many consecutive failures (throttle protection).
+- `ingest-paalam.ts` — takes queued URLs from `state.json`, fetches each profile page into memory, parses it with `lib/parse-paalam-profile.ts`, builds a record with `lib/paalam-record.ts`, and appends it to `data/paalam/victims.jsonl`. It writes HTML only with explicit `--keep-cache` debugging. Tracks failures and stops after too many consecutive failures (throttle protection).
 - `summary-paalam.ts` — reads `state.json` + `victims.jsonl` and prints counts: total, with name/date/location/sources/age, needs-review breakdown by reason.
 
 Commands (from repo root):
@@ -18,9 +18,9 @@ pnpm check
 
 ## Library (`lib/`)
 
-- `http.ts` — fetch with timeout, retry-with-backoff, delay helper.
-- `canonicalize.ts` — normalize Paalam profile URLs (trailing slash, strip query/hash) so discovery and ingest share one ID space.
-- `parse-paalam-profile.ts` — the parser. Reads labeled `ul.plm-details` fields and the `plm-details.source` link list. Never invents facts from narrative text; flags `needsReview` with a reason instead.
+- `http.ts` — fetch with timeout, DNS fallback, and bounded backoff for network errors and transient HTTP statuses.
+- `canonicalize.ts` — accept only Paalam victim-profile URLs and normalize HTTP/`www`/query/hash/trailing-slash variants into one HTTPS ID space.
+- `parse-paalam-profile.ts` — the parser. Reads labeled `ul.plm-details` fields and the `plm-details.source` link list. Narrative text is ephemeral and may produce a warning, but is never saved or used to invent a fact.
 - `paalam-record.ts` — shapes a parse result plus fetch metadata into the committed `PaalamVictimRecord`.
 - `state.ts` — reads/writes `data/paalam/state.json`, resolves paths, loads existing victim IDs for resume.
 - `ids.ts` — deterministic IDs from the canonical URL.
@@ -31,8 +31,8 @@ pnpm check
 ## Tests
 
 ```text
-data-pipeline/scripts/__tests__/parse-paalam-profile.test.ts
+data-pipeline/scripts/__tests__/*.test.ts
 data-pipeline/scripts/__tests__/fixtures/*.html
 ```
 
-Fixture HTML covers: a full profile, missing age, anonymous victim, a public-figure (mayor) subject, a location-text typo, and age + occupation as separate fields. Run with `pnpm test`.
+Tests cover parser fixtures and edge cases, URL identity, ingest queue idempotency, CLI safety limits, and transient HTTP retry behavior. Run with `pnpm test`.

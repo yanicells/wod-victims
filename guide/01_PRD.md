@@ -141,7 +141,7 @@ The pipeline should track:
 - failed URLs, with error and attempt count
 - per-record review status and reasons
 
-This makes the project scalable across Paalam, linked sources, and future datasets without wasting time redoing work or losing provenance. It does not require keeping raw page captures around — a temporary fetch cache, deleted after each run, is enough, because the parser output plus the source URL is the durable evidence.
+This makes the project scalable across Paalam, linked sources, and future datasets without wasting time redoing work or losing provenance. It does not require keeping raw page captures around: HTML stays in memory by default because the parser output plus the source URL is the durable evidence.
 
 ## 7. User experience
 
@@ -258,7 +258,7 @@ Police stations: 3
 The first serious MVP should include:
 
 - Paalam discovery (sitemap + WordPress REST)
-- Paalam ingest/parser (fetch, parse labeled fields, delete temporary HTML)
+- Paalam ingest/parser (fetch in memory, parse labeled fields, persist structured JSONL)
 - review-flag queue for uncertain records
 - location normalization
 - map + timeline
