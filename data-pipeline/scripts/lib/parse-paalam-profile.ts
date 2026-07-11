@@ -170,7 +170,16 @@ export function parseIncidentDate(raw: string | null | undefined): {
     const month = MONTHS[full[1]!.toLowerCase()];
     const day = Number(full[2]);
     const year = Number(full[3]);
-    if (month && day >= 1 && day <= 31 && year >= 1900 && year <= 2100) {
+    const candidate = month
+      ? new Date(Date.UTC(year, month - 1, day))
+      : null;
+    const isValidCalendarDate =
+      candidate !== null &&
+      candidate.getUTCFullYear() === year &&
+      candidate.getUTCMonth() === month! - 1 &&
+      candidate.getUTCDate() === day;
+
+    if (month && year >= 1900 && year <= 2100 && isValidCalendarDate) {
       return {
         iso: `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`,
         precision: "exact_date"
@@ -275,21 +284,26 @@ export function parseLocation(raw: string | null | undefined): ParsedLocation {
   };
 }
 
-function isUsableSourceUrl(href: string): boolean {
+type SourceUrlResult =
+  | { kind: "external"; url: string }
+  | { kind: "internal" }
+  | { kind: "malformed" };
+
+function classifySourceUrl(href: string): SourceUrlResult {
   try {
-    const url = new URL(href);
+    const url = new URL(href, "https://paalam.org");
     if (url.protocol !== "http:" && url.protocol !== "https:") {
-      return false;
+      return { kind: "malformed" };
     }
 
     const host = url.hostname.toLowerCase();
     if (host === "paalam.org" || host.endsWith(".paalam.org")) {
-      return false;
+      return { kind: "internal" };
     }
 
-    return true;
+    return { kind: "external", url: url.toString() };
   } catch {
-    return false;
+    return { kind: "malformed" };
   }
 }
 
@@ -347,14 +361,18 @@ function extractSourceUrls($: cheerio.CheerioAPI): {
       return;
     }
 
-    if (!isUsableSourceUrl(href)) {
+    const classified = classifySourceUrl(href);
+    if (classified.kind === "internal") {
+      return;
+    }
+    if (classified.kind === "malformed") {
       malformed.push(href);
       return;
     }
 
-    if (!seen.has(href)) {
-      seen.add(href);
-      urls.push(href);
+    if (!seen.has(classified.url)) {
+      seen.add(classified.url);
+      urls.push(classified.url);
     }
   });
 
@@ -394,7 +412,7 @@ function looksAnonymous(name: string | null): boolean {
     return true;
   }
 
-  return /^anonymous\b/i.test(name);
+  return /^(?:anonymous|unidentified|unnamed|unknown)\b/i.test(name);
 }
 
 function looksCombinedName(name: string | null): boolean {

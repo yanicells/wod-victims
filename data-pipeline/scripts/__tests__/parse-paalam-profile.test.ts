@@ -53,6 +53,10 @@ describe("parseIncidentDate", () => {
       iso: null,
       precision: "unknown"
     });
+    assert.deepEqual(parseIncidentDate("February 31, 2021"), {
+      iso: null,
+      precision: "unknown"
+    });
   });
 });
 
@@ -140,6 +144,31 @@ describe("parsePaalamProfile fixtures", () => {
     assert.equal(parsed.name, "Anonymous");
     assert.ok(parsed.needsReview);
     assert.ok(parsed.reviewReasons.includes("anonymous_or_unnamed"));
+
+    const unidentified = parsePaalamProfile(
+      readFixture("anonymous.html").replaceAll("Anonymous", "Unidentified Male")
+    );
+    assert.equal(unidentified.name, "Unidentified Male");
+    assert.ok(unidentified.reviewReasons.includes("anonymous_or_unnamed"));
+  });
+
+  it("accepts protocol-relative sources and ignores Paalam self-links", () => {
+    const parsed = parsePaalamProfile(`
+      <h1 class="post-title">Source Test</h1>
+      <ul class="plm-details">
+        <li>Sex: Male</li>
+        <li>Killed in police operation</li>
+        <li>Date of Incident: June 1, 2020</li>
+        <li>Location of Incident: Manila</li>
+      </ul>
+      <ul class="plm-details source">
+        <li><a href="/homepage/victims/source-test/">Paalam</a></li>
+        <li><a href="//news.example/story">News</a></li>
+      </ul>
+    `);
+
+    assert.deepEqual(parsed.sourceUrls, ["https://news.example/story"]);
+    assert.ok(!parsed.reviewReasons.includes("malformed_source_link"));
   });
 
   it("normalizes location spacing typos", () => {
