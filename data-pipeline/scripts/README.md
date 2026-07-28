@@ -37,6 +37,21 @@ pnpm check
 ```text
 data-pipeline/scripts/__tests__/*.test.ts
 data-pipeline/scripts/__tests__/fixtures/*.html
+data-pipeline/scripts/__tests__/fixtures/manifest.json
 ```
 
-Tests cover parser fixtures and edge cases, URL identity, ingest queue idempotency, CLI safety limits, and transient HTTP retry behavior. Run with `pnpm test`.
+Node's built-in test runner, no framework. Run with `pnpm test`.
+
+| Suite | Covers |
+| --- | --- |
+| `parse-paalam-profile.test.ts` | `parsePaalamProfile` against saved fixtures, plus `parseIncidentDate` and `parseLocation` directly |
+| `canonicalize.test.ts` | URL identity: variants collapse, non-profile URLs are rejected |
+| `ingest-pending.test.ts` | queue selection — completed IDs skipped, duplicates collapsed, flag parsing/limits |
+| `http.test.ts` | `fetchText` retry policy: transient statuses and thrown errors retried, permanent ones returned |
+
+Two rules keep these tests honest:
+
+- **Test the production helpers, not copies of them.** The suites import from `lib/` directly. A mirrored reimplementation in a test file would keep passing after the real parser broke.
+- **Fixtures are trimmed HTML, not page archives.** Each fixture is a small hand-reduced page (~1.5–2.5 KB) covering one shape: a full profile, a missing age, an anonymous victim, a public figure, a location typo with stray spaces, and age carried in a separate field. `fixtures/manifest.json` records each fixture's file, size, and expected target ID, so an accidental change to URL hashing shows up as a test diff.
+
+Add a fixture whenever Paalam's markup surprises the parser — that page shape is then locked in as a regression test.
