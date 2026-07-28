@@ -63,6 +63,18 @@ failed: [{ id, url, error, failedAt, attempts }]
 - `discover-paalam.ts` only appends to `discoveredUrls`. It never fetches a profile page.
 - `ingest-paalam.ts` computes the pending queue as `discoveredUrls` minus (`completedIds` union IDs already present in `victims.jsonl`), takes the next `--limit`, and processes them one at a time with a delay between requests.
 - A target ID is a deterministic hash of the canonical URL (`lib/ids.ts`). Canonicalization accepts only Paalam victim profiles and collapses HTTP, `www`, query, hash, and trailing-slash variants into one HTTPS identity.
+
+### Identity and idempotency
+
+The whole pipeline leans on one rule: **one profile page, one canonical URL, one ID, forever.**
+
+- `lib/canonicalize.ts` rejects anything that isn't a Paalam victim profile — wrong protocol, wrong host, embedded credentials, or a path outside `/homepage/victims/<slug>`. Bad input fails loudly rather than becoming a junk target.
+- `lib/ids.ts` hashes that canonical URL into `paalam_profile_<12-hex>`. It is a pure function of the URL, so rerunning discovery never mints a second ID for a page already ingested.
+- The pending queue subtracts *both* `completedIds` and the IDs already present in `victims.jsonl`. If state and the JSONL ever disagree, the JSONL wins and the row is not fetched again.
+- Duplicate URLs inside a single run collapse before fetching, and `--url=` is filtered by the same skip logic — so a manual re-run cannot append a second copy of a record.
+- `pnpm summary:paalam` exits non-zero if `victims.jsonl` ever contains a duplicate ID. That is the backstop: if this invariant breaks, a normal run fails visibly.
+
+Interrupting an ingest run is therefore safe. Records are appended one at a time and state is saved as it goes, so the next run resumes from where the last one stopped instead of restarting.
 - On success: append the record to `victims.jsonl`, add the ID to `completedIds`, clear it from `failed`.
 - On failure: transient network errors and HTTP 408/425/429/5xx statuses retry with increasing backoff up to `--retries`; then `attempts` is bumped and the error is recorded in `failed`. Failed URLs stay in the queue for a future run.
 - After `--max-consecutive-failures` (default 5) failures in a row, the run stops — this is almost always Paalam throttling, not real per-page errors.

@@ -5,6 +5,10 @@ Clean parsed victim records live here.
 - `victims.jsonl` — one JSON object per victim (committed output; may start empty)
 - `state.json` — discovery + progress tracker
 
+Each row's `id` is a deterministic hash of the canonical profile URL, so re-running discovery or
+ingest cannot produce a second row for the same page. `pnpm summary:paalam` exits non-zero if a
+duplicate ID ever appears here.
+
 HTML stays in memory during normal ingest. Passing `--keep-cache` writes it to the gitignored `data/cache/paalam/` folder for local debugging only.
 
 ## Empty on purpose
