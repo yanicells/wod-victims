@@ -22,6 +22,17 @@ summary-paalam.ts    reads state.json + victims.jsonl -> stats
 
 Supporting libs live in `scripts/lib/`. See `scripts/README.md` for the full file list.
 
+## Common flags
+
+```text
+ingest:paalam    --limit --delay-ms --timeout-ms --retries
+                 --max-consecutive-failures --dry-run --keep-cache --url
+discover:paalam  --delay-ms --timeout-ms --rest-page-size --max-rest-pages --dry-run
+```
+
+Defaults and semantics are listed in `guide/00_WORKFLOW_GUIDE.md`. Both scripts reject a
+malformed numeric flag rather than falling back to the default.
+
 ## Data files
 
 ```text

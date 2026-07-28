@@ -16,15 +16,30 @@ pnpm test
 - `summary:paalam` prints counts: unique victim IDs, row count, how many have a name/date/location/sources/age, and a breakdown of `needsReview` reasons. Exits non-zero if duplicate IDs appear in the JSONL.
 - `test` runs parser, URL identity, ingest-selection, and HTTP retry tests. Run this after touching the pipeline.
 
-Useful flags on `ingest:paalam`:
+Flags on `ingest:paalam`:
 
 ```text
---limit=20            how many profiles to fetch this run (default 10)
---delay-ms=2500        pause between requests (default 2500)
---dry-run              parse and print, write nothing
---keep-cache           write fetched HTML to the gitignored cache (debugging only)
---url=<full url>       ingest one specific URL (still skips if already completed)
+--limit=20                     how many profiles to fetch this run (default 10)
+--delay-ms=2500                pause between requests (default 2500)
+--timeout-ms=30000             per-request timeout (default 30000)
+--retries=1                    extra attempts after a transient failure (default 1, 0 disables)
+--max-consecutive-failures=5   stop the run after this many failures in a row (default 5)
+--dry-run                      parse and print, write nothing
+--keep-cache                   write fetched HTML to the gitignored cache (debugging only)
+--url=<full url>               ingest one specific URL (repeatable; still skips if already completed)
 ```
+
+Flags on `discover:paalam`:
+
+```text
+--delay-ms=500          pause between sitemap/REST requests (default 500)
+--timeout-ms=30000      per-request timeout (default 30000)
+--rest-page-size=100    WP REST page size (default and maximum 100)
+--max-rest-pages=2      stop after N REST pages (default: walk all pages)
+--dry-run               print what would be discovered, write no state
+```
+
+Every numeric flag is validated: a non-numeric or non-positive value fails the run instead of silently falling back to the default. `--retries=0` is the one accepted zero.
 
 ## 1b. Clean-slate rebuild (intentional)
 
