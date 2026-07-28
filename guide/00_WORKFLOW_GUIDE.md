@@ -101,3 +101,4 @@ Paalam is the only active source. Add a new source only after Paalam has: workin
 4. `guide/02_DATA_PIPELINE_PLAN.md` — longer pipeline plan (normalize/dedupe/export later).
 5. `guide/03_DATA_SCHEMA.md` — the `PaalamVictimRecord` fields and public display rules.
 6. `guide/06_PAALAM_SITE_INSPECTION.md` — Paalam site structure (why sitemap + REST for discovery).
+7. `guide/08_PIPELINE_BUILD_NOTES.md` — how the pipeline was built, which decisions are deliberate, and the traps already hit. Read this before changing the pipeline.

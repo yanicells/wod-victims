@@ -42,6 +42,8 @@ Map, timeline, and methodology
 
 The current pipeline uses deterministic parsing rather than AI extraction. A field is recorded only when it appears in a labeled source field; missing details remain missing instead of being inferred.
 
+An earlier version of the pipeline did use AI extraction. It was removed, and its output discarded rather than migrated, because extracted values couldn't be traced back to anything the source page actually stated. [Pipeline build notes](guide/08_PIPELINE_BUILD_NOTES.md) records that rewrite and the decisions behind the current design.
+
 ## Responsible data principles
 
 - **Names first, without false precision.** Locations should reflect only the level of detail supported by a source.
@@ -87,7 +89,7 @@ pnpm ingest:paalam -- --limit=20   # Parse a limited batch of profiles
 pnpm summary:paalam                # Show dataset and queue statistics
 ```
 
-See the [data-pipeline guide](data-pipeline/README.md) for pipeline details and debugging options.
+See the [data-pipeline guide](data-pipeline/README.md) for pipeline details and debugging options, and the [pipeline build notes](guide/08_PIPELINE_BUILD_NOTES.md) before changing how ingest works.
 
 ## Repository structure
 
