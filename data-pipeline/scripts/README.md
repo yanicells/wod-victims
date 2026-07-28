@@ -18,8 +18,12 @@ pnpm check
 
 ## Library (`lib/`)
 
-- `http.ts` — fetch with timeout, DNS fallback, and bounded backoff for network errors and transient HTTP statuses.
-- `canonicalize.ts` — accept only Paalam victim-profile URLs and normalize HTTP/`www`/query/hash/trailing-slash variants into one HTTPS ID space.
+- `http.ts` — fetch with timeout, DNS fallback, and bounded backoff for network errors and transient HTTP statuses. Details:
+  - every request carries an `AbortController` timeout, so a stalled connection can't hang a batch;
+  - retries cover thrown errors (network drops, aborted timeouts) and the transient statuses `408`, `425`, `429`, `500`, `502`, `503`, `504`. Any other non-2xx is returned to the caller immediately and recorded as a failure — retrying a `404` only wastes Paalam's bandwidth;
+  - backoff grows per attempt (`backoffMs * attempt`, base 2s), so a throttled server gets progressively more room;
+  - if `getaddrinfo` fails with `ENOTFOUND` but `dns.resolve4` succeeds, it retries as a direct HTTPS request with the hostname passed as TLS SNI and a `Host` header. This is a workaround for sandboxed/agent DNS setups, not something the pipeline needs on a normal machine.
+- `canonicalize.ts` — accept only Paalam victim-profile URLs and normalize HTTP/`www`/query/hash/trailing-slash variants into one HTTPS ID space. It throws on a non-HTTP(S) protocol, a host other than `paalam.org`/`www.paalam.org`, embedded credentials, or any path outside `/homepage/victims/<slug>` — so a stray URL fails discovery loudly instead of entering the dataset as a bogus target.
 - `parse-paalam-profile.ts` — the parser. Reads labeled `ul.plm-details` fields and the `plm-details.source` link list. Narrative text is ephemeral and may produce a warning, but is never saved or used to invent a fact.
 - `paalam-record.ts` — shapes a parse result plus fetch metadata into the committed `PaalamVictimRecord`.
 - `state.ts` — reads/writes `data/paalam/state.json`, resolves paths, loads existing victim IDs for resume.

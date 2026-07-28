@@ -67,6 +67,15 @@ failed: [{ id, url, error, failedAt, attempts }]
 - On failure: transient network errors and HTTP 408/425/429/5xx statuses retry with increasing backoff up to `--retries`; then `attempts` is bumped and the error is recorded in `failed`. Failed URLs stay in the queue for a future run.
 - After `--max-consecutive-failures` (default 5) failures in a row, the run stops — this is almost always Paalam throttling, not real per-page errors.
 
+### Why retries are narrow
+
+Retrying everything would turn a permanent error into repeated load on someone else's server for no gain. So the split is deliberate:
+
+- **Retry:** thrown network errors, aborted timeouts, and the transient statuses `408`, `425`, `429`, `500`, `502`, `503`, `504`. Backoff grows per attempt (`2s * attempt`).
+- **Don't retry:** every other non-2xx response. A `404` or `410` means the profile is gone; it is recorded in `failed` once and left for a human to look at.
+
+Politeness settings compound: requests are sequential, `--delay-ms` (default 2500) separates them, retries back off, and the consecutive-failure cutoff stops a run that has started to look like throttling. A stalled connection can't hang a batch either — each request carries its own timeout.
+
 ## 5. Parsing rules (`lib/parse-paalam-profile.ts`)
 
 The parser saves facts from two structural parts of each profile page:
